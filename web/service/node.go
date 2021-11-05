@@ -1,0 +1,165 @@
+package service
+
+import (
+	"PlatONE-Graces/exterr"
+	"PlatONE-Graces/model"
+	"PlatONE-Graces/rpc"
+	"PlatONE-Graces/util"
+	"PlatONE-Graces/web/dao"
+	"fmt"
+	"reflect"
+
+	"go.mongodb.org/mongo-driver/mongo/options"
+
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
+)
+
+var DefaultNodeService INodeService
+
+func init() {
+	DefaultNodeService = newNodeService()
+}
+
+func newNodeService() INodeService {
+	return &nodeService{
+		dao: dao.DefaultNodeDao,
+	}
+}
+
+type nodeService struct {
+	dao dao.INodeDao
+}
+
+func (s *nodeService) NodeSyncServer(node *model.NodeSyncReq) (*model.SyncNodeResult, error) {
+	res := &model.SyncNodeResult{}
+	var err error
+	endpoint := fmt.Sprintf("http://%v:%v", node.Ip, node.Port)
+	blockNumber, err := rpc.GetBlockNumber(endpoint)
+	if err != nil {
+		return nil, exterr.NewError(exterr.ErrCodeFind, err.Error())
+	}
+	res.BlockNumber = uint32(blockNumber)
+
+	res.IsMining = model.GetRpcResult(endpoint, "eth_mining", []string{}).(bool)
+	gasprice := model.GetRpcResult(endpoint, "eth_gasPrice", []string{}).(string)
+	gasPrice, err := util.Hex2Number(gasprice)
+	if err != nil {
+		return nil, exterr.NewError(exterr.ErrCodeParameterInvalid, err.Error())
+	}
+	res.GasPrice = uint32(gasPrice)
+	pendingtx := model.GetRpcResult(endpoint, "eth_pendingTransactions", []string{})
+
+	pendingtxs, ok := pendingtx.([]string)
+	if ok {
+		res.PendingTx = pendingtxs
+	} else {
+		res.PendingTx = nil
+	}
+
+	res.PendingNumber = len(res.PendingTx)
+
+	return res, nil
+}
+
+func (s *nodeService) NodeByID(id string) (*model.NodeVO, error) {
+	nodeId, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return nil, exterr.ErrObjectIDInvalid
+	}
+	filter := bson.M{
+		"_id": nodeId,
+	}
+	node, err := s.dao.Node(filter)
+	if err != nil {
+		return nil, exterr.NewError(exterr.ErrCodeFind, err.Error())
+	}
+	vo, err := node.ToVO()
+	if err != nil {
+		return nil, exterr.NewError(exterr.ErrCodeFind, err.Error())
+	}
+	endpoint := fmt.Sprintf("http://%v:%v", node.ExternalIP, node.RPCPort)
+	blockNumber, err := rpc.GetBlockNumber(endpoint)
+	if err != nil {
+		return nil, exterr.NewError(exterr.ErrCodeFind, err.Error())
+	}
+	vo.Blocknumber = uint32(blockNumber)
+	vo.IsAlive = true
+	return vo, nil
+}
+
+func (s *nodeService) Nodes(condition model.NodeQueryCondition) ([]*model.NodeVO, error) {
+	filter, err := s.buildFilterByCondition(condition)
+	if err != nil {
+		return nil, err
+	}
+	findOps := util.BuildOptionsByQuery(condition.PageIndex, condition.PageSize)
+	if !reflect.ValueOf(condition.Sort).IsZero() {
+		sort := bson.D{}
+		for k, v := range condition.Sort {
+			sort = append(sort, bson.E{k, v})
+		}
+		findOps.Sort = sort
+	} else {
+		sort := bson.D{{"name", 1}}
+		findOps.Sort = sort
+	}
+	var vos []*model.NodeVO
+	nodes, err := s.dao.Nodes(filter, findOps)
+	if err != nil {
+		return nil, exterr.NewError(exterr.ErrCodeFind, err.Error())
+	}
+	for _, node := range nodes {
+		vo, err := node.ToVO()
+		if err != nil {
+			return nil, exterr.NewError(exterr.ErrCodeFind, err.Error())
+		}
+		endpoint := fmt.Sprintf("http://%v:%v", node.ExternalIP, node.RPCPort)
+		blockNumber, err := rpc.GetBlockNumber(endpoint)
+		if err != nil {
+			return nil, exterr.NewError(exterr.ErrCodeFind, err.Error())
+		}
+		vo.Blocknumber = uint32(blockNumber)
+		vo.IsAlive = true
+		vos = append(vos, vo)
+	}
+	return vos, nil
+}
+
+func (s *nodeService) Count(condition model.NodeQueryCondition) (int64, error) {
+	filter, err := s.buildFilterByCondition(condition)
+	if err != nil {
+		return 0, err
+	}
+	findOps := options.Count()
+	return s.dao.Count(filter, findOps)
+}
+
+// 构建查询条件过滤器
+func (s *nodeService) buildFilterByCondition(condition model.NodeQueryCondition) (interface{}, error) {
+	filter := bson.M{}
+	if !reflect.ValueOf(condition.ID).IsZero() {
+		id, err := primitive.ObjectIDFromHex(condition.ID)
+		if err != nil {
+			return nil, exterr.ErrObjectIDInvalid
+		}
+		filter["_id"] = id
+	}
+	if !reflect.ValueOf(condition.ChainID).IsZero() {
+		chainID, err := primitive.ObjectIDFromHex(condition.ChainID)
+		if err != nil {
+			return nil, exterr.ErrObjectIDInvalid
+		}
+		filter["chain_id"] = chainID
+	}
+	if !reflect.ValueOf(condition.Name).IsZero() {
+		filter["name"] = condition.Name
+	}
+	if !reflect.ValueOf(condition.InternalIP).IsZero() {
+		filter["internal_ip"] = condition.InternalIP
+	}
+	if !reflect.ValueOf(condition.ExternalIP).IsZero() {
+		filter["external_ip"] = condition.ExternalIP
+	}
+	return filter, nil
+}
