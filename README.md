@@ -1,93 +1,147 @@
-### README
+# README
 
-#### clone 项目
+## 环境准备
 
-`
-git clone https://git-c.i.wxblockchain.com/PlatONE/src/node/platone-manager/platone-api-server.git
-`
-#### 安装mongodb
+### 硬件环境准备
 
-1. 安装前我们需要安装各个 Linux 平台依赖包
+- 主  机：Intel Xeon E5-2650或以上。
 
-Ubuntu 18.04 LTS ("Bionic")/Debian 10 "Buster"：
+- 内  存：16G或以上。
 
-`
-sudo apt-get install libcurl4 openssl
-`
+- 硬  盘：32GB或以上。
 
+- 图形卡：VGA/DVI。
 
-Ubuntu 16.04 LTS ("Xenial")/Debian 9 "Stretch"：
+### 软件环境准备
 
-`
-sudo apt-get install libcurl3 openssl
-`
+- OS	Linux 64bit
+- Golang 1.14.4 或以上
+- PlatONE v1.0.0.0.0 或以上
+- MongoDB 4.2.8 或以上
+- npm 6.14.13 或以上
+- nodjs v14.17.1 或以上
+- Graces v1.0.0
 
-2. 下载源码
+## 安装步骤
 
-MongoDB 源码下载地址：https://www.mongodb.com/download-center#community
+1. 下载、安装和配置 Golang
 
-`
-wget https://fastdl.mongodb.org/linux/mongodb-linux-x86_64-ubuntu1604-4.2.8.tgz    # 下载
-`
+2. 下载、安装和启动 MongoDB
 
-`
-tar -zxvf mongodb-linux-x86_64-ubuntu1604-4.2.8.tgz                                    # 解压
-`
+3. 下载和编译 PlatONE
 
-`
-mv mongodb-src-r4.2.8  /usr/local/mongodb4                          # 将解压包拷贝到指定目录
-`
+4. 下载 Graces V1.0.0
 
-3. 环境配置
+   下载后端源码：
 
-MongoDB 的可执行文件位于 bin 目录下，所以可以将其添加到 PATH 路径中：
+   ```sh
+   https://git-c.i.wxblockchain.com/PlatONE/src/node/Graces/Server/-/archive/integration.1.0.0.0.0/Server-integration.1.0.0.0.0.zip
+   ```
 
-`
-export PATH=<mongodb-install-directory>/bin:$PATH
-`
+   重命名：
 
- <mongodb-install-directory> 为你 MongoDB 的安装路径。如本文的 /usr/local/mongodb4 
- 
- `
- export PATH=/usr/local/mongodb4/bin:$PATH
- `
-#### 启动api server
-##### 1. 配置文件
-根目录下config.toml文件包含了服务器配置，其描述如下：
-```
-[http]
-ip = "0.0.0.0"   //api 服务器的ip
-port = "9999"    //api 服务器的端口号
-mode = "debug"  //模式
-endpoint = "http://127.0.0.1:6791" //远程节点ip和端口号
-restServer = "http://10.250.122.10:8000" //rest 服务器ip及端口号
-capath = "/Users/night/dev/go/src/platone-api-server/model/monitor/keys/ca.cert" //ca文件路径，需手动指定本地ca路径
+   ```sh
+   mv Server-integration.1.0.0.0.0.zip ./Server.zip
+   ```
 
+   下载前端源码：
 
-[db]
-ip = "127.0.0.1" //mongo db的ip
-port = "27017"  //mongo db的端口号
-username = "root" //mongo db的用户名
-password = "root" //mongo db的密码
-dbname = "api-server" //mongo db name
-```
-##### 2. 启动流程
+   ```sh
+   https://git-c.i.wxblockchain.com/PlatONE/src/node/Graces/Web/-/archive/integration.1.0.0.0.0/Web-integration.1.0.0.0.0.zip
+   ```
 
-启动monitor server
-```
-cd platone-moniter/server
-go run main.go
-```
+   重命名：
 
-启动mongodb
-```
-sudo mongod
-sudo mongo
-```
+   ```sh
+   mv Web-integration.1.0.0.0.0.zip ./Web.zip
+   ```
 
-创建账户：username：root password：root
+   下载完成后对项目文件进行解压。
 
-构建数据库：构建data-manager
+   ```sh
+   unzip Server.zip
+   unzip Web.zip
+   ```
 
-启动cmd/main.go
+   
 
+5. 配置 Graces 前端
+
+   进到 Web 目录下，修改 `.env.development` 文件中 base api 下的 `localhost:9999` 为自己机器的 IP 端口号或域名端口号，如果不修改则默认使用 `localhost:9999` 。
+
+   ```
+   # base api
+   VUE_APP_BASE_API = 'http://localhost:9999/api'
+   VUE_APP_BASE_WS = 'ws://localhost:9999/api'
+   ```
+
+   
+
+6. 配置 Graces 后端
+
+   1. 进到 Server 目录下。
+
+   2. 在 `go.mod` 文件中配置好对 PlatONE 的依赖，修改为自己下载后的 PlatONE 路径
+
+      ```mod
+      replace (
+      	github.com/PlatONEnetwork/PlatONE-Go => /你的路径/PlatONE-Go
+      )
+      ```
+
+   3. 在 `config.toml` 文件中配置 Graces 运行的 IP 地址和端口号。需要注意的是，cors 的值必须是 Graces 前端的运行地址，本示例前端运行在 http://localhost:8080 中。
+
+      ```toml
+      [http]
+      ip = "127.0.0.1"
+      port = "9999"
+      # mode 必须是 "release"、"debug"、"test" 中的一个
+      mode = "debug"
+      # cors 跨域资源共享白名单
+      cors = "http://localhost:8080"
+      ```
+
+   4. 在 `config.toml` 文件中配置 Graces 所需的 MongoDB 信息，如有需要则修改为自己的 MongoDB 配置。
+
+      ```toml
+      [db]
+      ip = "127.0.0.1"
+      port = "27017"
+      username = "root"
+      password = "root"
+      dbname = "graces"
+      timeout = 10
+      ```
+
+7. 启动 Graces
+
+   1. 启动 Graces 后端
+
+      进到 Server 目录下，执行以下命令
+
+      ```sh
+      go build -o graces
+      nohup ./graces > ./graces.log 2>&1 &
+      ```
+
+      
+
+   2. 启动 Graces 前端
+
+      进到 Web 目录下，执行以下命令
+
+      ```sh
+      rpm run dev
+      ```
+
+      
+
+8. 访问 Graces
+
+   开打浏览器，输入 `http://localhost:8080` 便可以进到 Graces 主页面。
+
+   ![](F:/opt/note/img/首页1.png)
+
+   
+
+   
