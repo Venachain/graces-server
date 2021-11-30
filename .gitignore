@@ -1,7 +1,6 @@
 .idea/*
 log/*.log
 go.sum
-go.mod
 deploy/release/deployment_conf/logs/*
 deploy/release/deployment_conf/platone/*
 deploy/release/deployment_conf/bak/*
