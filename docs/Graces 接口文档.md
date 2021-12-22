@@ -1412,13 +1412,13 @@ curl -X POST "http://127.0.0.1:9999/api/contracts" -H "accept: application/json"
         ],
         "creator": "0x3FcaA0A86DFbbe105c7ed73Ca505c7a59c579667",
         "tx_hash": "0x6f9dab48d4cae7a0a6e9e6480dfc460155e8cd040741a9d86512a4b51ebc07c8",
-        "content": 合约内容
+        "content": "合约内容"
 }
 ```
 
 ## 八、WebSocket 管理
 
-### websocket 客户端向 websocket 服务端发送消息 /api/ws/clientsend
+### [非功能性接口] websocket 客户端向 websocket 服务端发送消息 /api/ws/clientsend
 
 方法：POST
 
@@ -1439,7 +1439,7 @@ curl -X POST "http://127.0.0.1:9999/api/contracts" -H "accept: application/json"
 | 200  | OK          | [model.Result](#modelresult) |
 | 400  | Bad Request | [model.Result](#modelresult) |
 
-### 拨号连接 /api/ws/dial
+### [非功能性接口] 拨号连接 /api/ws/dial
 
 方法: POST
 
@@ -1511,7 +1511,7 @@ curl -X POST "http://127.0.0.1:9999/api/contracts" -H "accept: application/json"
 | 200  | OK          | [model.Result](#modelresult) & object |
 | 400  | Bad Request | [model.Result](#modelresult)          |
 
-### 向单个 WebSocket 客户端发送信息 /api/ws/send
+### [非功能性接口] 向单个 WebSocket 客户端发送信息 /api/ws/send
 
 方法：POST
 
@@ -1532,7 +1532,7 @@ curl -X POST "http://127.0.0.1:9999/api/contracts" -H "accept: application/json"
 | 200  | OK          | [model.Result](#modelresult) |
 | 400  | Bad Request | [model.Result](#modelresult) |
 
-### 向所有 WebSocket 客户端广播信息 /api/ws/sendall
+### [非功能性接口] 向所有 WebSocket 客户端广播信息 /api/ws/sendall
 
 方法: POST
 
@@ -1553,7 +1553,7 @@ curl -X POST "http://127.0.0.1:9999/api/contracts" -H "accept: application/json"
 | 200  | OK          | [model.Result](#modelresult) |
 | 400  | Bad Request | [model.Result](#modelresult) |
 
-### 向一个组中的所有 WebSocket 客户端广播信息 /api/ws/sendgroup
+### [非功能性接口] 向一个组中的所有 WebSocket 客户端广播信息 /api/ws/sendgroup
 
 方法：POST
 
