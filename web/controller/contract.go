@@ -46,7 +46,7 @@ func (c *ContractController) FireWallOpen(ctx *gin.Context) {
 	data, err := c.service.OpenFireWall(fireWallParam)
 	if err != nil {
 		logrus.Errorln("open firewall error")
-
+		response.ErrorHandler(ctx, err)
 		return
 	}
 	result.Data = data
