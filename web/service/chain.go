@@ -201,7 +201,6 @@ func (s *chainService) GetSysConfigString(id string, funcName string) (string, e
 		logrus.Errorln("GetSysConfig result get nothing")
 		return "", errors.New("GetSysConfig result get nothing")
 	}
-	result = fmt.Sprintf("%v", res[0])
 	return result, nil
 }
 

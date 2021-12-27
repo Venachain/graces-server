@@ -343,8 +343,8 @@ func getfunctype(chainid string, to string, funcName string) []string {
 		funcAbi = cmd_common.AbiParse("", to)
 	} else {
 		funcAbi = getFuncAbi(chainid, to)
-		tmp := getFuncAbi(chainid, to)
-		funcAbi = tmp
+		//tmp := getFuncAbi(chainid, to)
+		//funcAbi = tmp
 		if funcAbi == nil {
 			return nil
 		}

@@ -268,9 +268,9 @@ func (c *ChainController) GetSystemConfig(ctx *gin.Context) {
 		BlockGasLimit:             data_blockGasLimit,
 		TxGasLimit:                data_TxGasLimit,
 		IsUseGas:                  data_GasContractName,
-		IsApproveDeployedContract: data_IsProduceEmptyBlock,
+		IsApproveDeployedContract: data_IsApproveDeployedContract,
 		IsCheckDeployPermission:   data_CheckContractDeployPermission,
-		IsProduceEmptyBlock:       data_IsApproveDeployedContract,
+		IsProduceEmptyBlock:       data_IsProduceEmptyBlock,
 		GasContractName:           data_IsTxUseGas,
 	}
 	if err != nil {
@@ -298,6 +298,7 @@ func (c *ChainController) SetSystemConfig(ctx *gin.Context) {
 	result := model.Result{}
 	var err error
 	var systemConfig model.SystemConfigVO
+	var data model.SystemConfigVO
 	if err = ctx.ShouldBind(&systemConfig); nil != err {
 		response.ErrorHandler(ctx, exterr.ErrParameterInvalid)
 		return
@@ -307,52 +308,84 @@ func (c *ChainController) SetSystemConfig(ctx *gin.Context) {
 		funcParams := &struct {
 			BlockGasLimit string
 		}{BlockGasLimit: systemConfig.BlockGasLimit}
-		_, err = c.service.SetSysConfigString(systemConfig.ChainID, "setBlockGasLimit", funcParams)
+		data_blockGasLimit, err := c.service.SetSysConfigString(systemConfig.ChainID, "setBlockGasLimit", funcParams)
+		if err != nil {
+			response.ErrorHandler(ctx, exterr.ErrorSetSysconfig)
+			return
+		}
+		data.BlockGasLimit = data_blockGasLimit
 	}
 	if systemConfig.TxGasLimit != "" {
 		funcParams := &struct {
 			TxGasLimit string
 		}{TxGasLimit: systemConfig.TxGasLimit}
-		_, err = c.service.SetSysConfigString(systemConfig.ChainID, "setTxGasLimit", funcParams)
+		data_TxGasLimit, err := c.service.SetSysConfigString(systemConfig.ChainID, "setTxGasLimit", funcParams)
 		if err == nil {
 			model.TxGasLimitConst = systemConfig.TxGasLimit
 		}
+		if err != nil {
+			response.ErrorHandler(ctx, exterr.ErrorSetSysconfig)
+			return
+		}
+		data.TxGasLimit = data_TxGasLimit
 	}
 	if systemConfig.IsUseGas != "" {
 		funcParams := &struct {
 			IsTxUseGas string
 		}{IsTxUseGas: systemConfig.IsUseGas}
-		_, err = c.service.SetSysConfigString(systemConfig.ChainID, "setIsTxUseGas", funcParams)
+		data_IsTxUseGas, err := c.service.SetSysConfigString(systemConfig.ChainID, "setIsTxUseGas", funcParams)
+		if err != nil {
+			response.ErrorHandler(ctx, exterr.ErrorSetSysconfig)
+			return
+		}
+		data.IsUseGas = data_IsTxUseGas
 	}
 	if systemConfig.IsApproveDeployedContract != "" {
 		funcParams := &struct {
 			IsApproveDeployedContract string
 		}{IsApproveDeployedContract: systemConfig.IsApproveDeployedContract}
-		_, err = c.service.SetSysConfigString(systemConfig.ChainID, "setIsApproveDeployedContract", funcParams)
+
+		data_IsApproveDeployedContract, err := c.service.SetSysConfigString(systemConfig.ChainID, "setIsApproveDeployedContract", funcParams)
+		if err != nil {
+			response.ErrorHandler(ctx, exterr.ErrorSetSysconfig)
+			return
+		}
+		data.IsApproveDeployedContract = data_IsApproveDeployedContract
 	}
 	if systemConfig.IsCheckDeployPermission != "" {
 		funcParams := &struct {
 			CheckContractDeployPermission string
 		}{CheckContractDeployPermission: systemConfig.IsCheckDeployPermission}
-		_, err = c.service.SetSysConfigString(systemConfig.ChainID, "setCheckContractDeployPermission", funcParams)
+		data_CheckContractDeployPermission, err := c.service.SetSysConfigString(systemConfig.ChainID, "setCheckContractDeployPermission", funcParams)
+		if err != nil {
+			response.ErrorHandler(ctx, exterr.ErrorSetSysconfig)
+			return
+		}
+		data.IsCheckDeployPermission = data_CheckContractDeployPermission
 	}
 	if systemConfig.IsProduceEmptyBlock != "" {
 		funcParams := &struct {
 			IsProduceEmptyBlock string
 		}{IsProduceEmptyBlock: systemConfig.IsProduceEmptyBlock}
-		_, err = c.service.SetSysConfigString(systemConfig.ChainID, "setIsProduceEmptyBlock", funcParams)
+		data_IsProduceEmptyBlock, err := c.service.SetSysConfigString(systemConfig.ChainID, "setIsProduceEmptyBlock", funcParams)
+		if err != nil {
+			response.ErrorHandler(ctx, exterr.ErrorSetSysconfig)
+			return
+		}
+		data.IsProduceEmptyBlock = data_IsProduceEmptyBlock
 	}
 	if systemConfig.GasContractName != "" {
 		funcParams := &struct {
 			GasContractName string
 		}{GasContractName: systemConfig.GasContractName}
-		_, err = c.service.SetSysConfigString(systemConfig.ChainID, "setGasContractName", funcParams)
+		data_GasContractName, err := c.service.SetSysConfigString(systemConfig.ChainID, "setGasContractName", funcParams)
+		if err != nil {
+			response.ErrorHandler(ctx, exterr.ErrorSetSysconfig)
+			return
+		}
+		data.GasContractName = data_GasContractName
 	}
-	if err != nil {
-		response.ErrorHandler(ctx, exterr.ErrorSetSysconfig)
-		return
-	}
-
+	result.Data = data
 	response.Success(ctx, result)
 	return
 }
