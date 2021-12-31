@@ -239,7 +239,7 @@ func (s *chainService) buildFilterByCondition(condition model.ChainQueryConditio
 		}
 		filter["_id"] = id
 	}
-	if !reflect.ValueOf(condition.IP).IsZero() {
+	if !reflect.ValueOf(condition.Name).IsZero() {
 		filter["name"] = condition.Name
 	}
 	if !reflect.ValueOf(condition.IP).IsZero() {

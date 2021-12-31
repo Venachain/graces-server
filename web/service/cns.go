@@ -7,6 +7,7 @@ import (
 	"PlatONE-Graces/syncer"
 	"PlatONE-Graces/util"
 	"PlatONE-Graces/web/dao"
+	"fmt"
 	"reflect"
 	"strings"
 
@@ -58,8 +59,8 @@ func (s *cnsService) CNS(chainID string, name, address, version string) (*model.
 	}
 	filter := bson.M{
 		"chain_id": cid,
-		"name":     name,
-		"address":  address,
+		"name":     bson.M{"$regex": fmt.Sprintf("^(?i)%s$", name)},
+		"address":  bson.M{"$regex": fmt.Sprintf("^(?i)%s$", address)},
 		"version":  version,
 	}
 	cns, err := s.dao.CNS(filter)
@@ -293,10 +294,10 @@ func (s *cnsService) buildFilterByCondition(condition model.CNSQueryCondition) (
 		filter["chain_id"] = chainID
 	}
 	if !reflect.ValueOf(condition.Name).IsZero() {
-		filter["name"] = condition.Name
+		filter["name"] = bson.M{"$regex": fmt.Sprintf("^(?i)%s$", condition.Name)}
 	}
 	if !reflect.ValueOf(condition.Address).IsZero() {
-		filter["address"] = condition.Address
+		filter["address"] = bson.M{"$regex": fmt.Sprintf("^(?i)%s$", condition.Address)}
 	}
 	if !reflect.ValueOf(condition.Version).IsZero() {
 		filter["version"] = condition.Version

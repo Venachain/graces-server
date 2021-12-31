@@ -87,7 +87,7 @@ func (s *txService) TXByHash(chainID string, hash string) (*model.TXVO, error) {
 	}
 	filter := bson.M{
 		"chain_id": cid,
-		"hash":     hash,
+		"hash":     bson.M{"$regex": fmt.Sprintf("^(?i)%s$", hash)},
 	}
 	tx, err := s.dao.TX(filter)
 	if err != nil {
@@ -444,7 +444,7 @@ func (s *txService) buildFilterByCondition(condition model.TXQueryCondition) (in
 		filter["block_id"] = blockID
 	}
 	if !reflect.ValueOf(condition.Hash).IsZero() {
-		filter["hash"] = condition.Hash
+		filter["hash"] = bson.M{"$regex": fmt.Sprintf("^(?i)%s$", condition.Hash)}
 	}
 	if !reflect.ValueOf(condition.Height).IsZero() {
 		filter["height"] = condition.Height
@@ -458,7 +458,7 @@ func (s *txService) buildFilterByCondition(condition model.TXQueryCondition) (in
 			filter["receipt.contract_address"] = bson.M{"$ne": ""}
 			filter["to"] = bson.M{"$ne": ""}
 		} else {
-			filter["receipt.contract_address"] = condition.ContractAddress
+			filter["receipt.contract_address"] = bson.M{"$regex": fmt.Sprintf("^(?i)%s$", condition.ContractAddress)}
 		}
 	}
 	if !reflect.ValueOf(condition.TimeStart).IsZero() || !reflect.ValueOf(condition.TimeEnd).IsZero() {

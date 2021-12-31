@@ -7,6 +7,7 @@ import (
 	"PlatONE-Graces/util"
 	"PlatONE-Graces/web/dao"
 	"context"
+	"fmt"
 	"reflect"
 	"time"
 
@@ -57,7 +58,7 @@ func (s *blockService) BlockByHash(chainID string, hash string) (*model.BlockVO,
 	}
 	filter := bson.M{
 		"chain_id": cid,
-		"hash":     hash,
+		"hash":     bson.M{"$regex": fmt.Sprintf("^(?i)%s$", hash)},
 	}
 	block, err := s.dao.Block(filter)
 	if err != nil {
@@ -232,11 +233,10 @@ func getLatestBlock(chainID string, s *blockService) uint64 {
 	//	return 0
 	//}
 	//return res
-	block,err := dao.DefaultBlockDao.LatestBlock(objectId)
-	if err != nil{
+	block, err := dao.DefaultBlockDao.LatestBlock(objectId)
+	if err != nil {
 		return 0
 	}
 	return block.Height
-
 
 }

@@ -156,7 +156,7 @@ func (s *contractService) Contracts(condition model.ContractQueryCondition) ([]*
 	for _, contract := range contracts {
 		c := model.CNSQueryCondition{
 			ChainID: contract.ChainID.Hex(),
-			Address: strings.ToLower(contract.Address),
+			Address: contract.Address,
 		}
 		vo, err := contract.ToVO()
 		if err != nil {
@@ -201,7 +201,7 @@ func (s *contractService) ContractByAddress(chainID string, address string) (*mo
 	}
 	filter := bson.M{}
 	filter["chain_id"] = objectId
-	filter["address"] = address
+	filter["address"] = bson.M{"$regex": fmt.Sprintf("^(?i)%s$", address)}
 
 	contract, err := s.dao.Contract(filter)
 	if err != nil {
@@ -308,10 +308,10 @@ func (s *contractService) buildFilterByCondition(condition model.ContractQueryCo
 		filter["chain_id"] = chainID
 	}
 	if !reflect.ValueOf(condition.TxHash).IsZero() {
-		filter["tx_hash"] = condition.TxHash
+		filter["tx_hash"] = bson.M{"$regex": fmt.Sprintf("^(?i)%s$", condition.TxHash)}
 	}
 	if !reflect.ValueOf(condition.Address).IsZero() {
-		filter["address"] = condition.Address
+		filter["address"] = bson.M{"$regex": fmt.Sprintf("^(?i)%s$", condition.Address)}
 	}
 	if !reflect.ValueOf(condition.Creator).IsZero() {
 		filter["creator"] = condition.Creator
