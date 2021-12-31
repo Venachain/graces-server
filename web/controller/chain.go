@@ -267,11 +267,11 @@ func (c *ChainController) GetSystemConfig(ctx *gin.Context) {
 		ChainID:                   id,
 		BlockGasLimit:             data_blockGasLimit,
 		TxGasLimit:                data_TxGasLimit,
-		IsUseGas:                  data_GasContractName,
+		IsUseGas:                  data_IsTxUseGas,
 		IsApproveDeployedContract: data_IsApproveDeployedContract,
 		IsCheckDeployPermission:   data_CheckContractDeployPermission,
 		IsProduceEmptyBlock:       data_IsProduceEmptyBlock,
-		GasContractName:           data_IsTxUseGas,
+		GasContractName:           data_GasContractName,
 	}
 	if err != nil {
 		response.ErrorHandler(ctx, exterr.ErrorGetSysconfig)
