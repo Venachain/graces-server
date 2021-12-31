@@ -8,6 +8,7 @@ import (
 	"PlatONE-Graces/web/util/response"
 	"PlatONE-Graces/ws"
 	"encoding/json"
+	"fmt"
 
 	"github.com/PlatONEnetwork/PlatONE-Go/cmd/platonecli/client/packet"
 	"github.com/gin-gonic/gin"
@@ -172,6 +173,12 @@ func (c *ChainController) IncrSyncStart(ctx *gin.Context) {
 		response.ErrorHandler(ctx, exterr.ErrParameterInvalid)
 		return
 	}
+	if chain, err := c.service.ChainByID(chainID); chain == nil || err != nil {
+		msg := fmt.Sprintf("chain[%s] is not existed", chainID)
+		result.Msg = msg
+		response.Fail(ctx, result)
+		return
+	}
 	syncer.DefaultChainDataSyncManager.IncrSyncStart(chainID, true)
 	result.Data = chainID
 	response.Success(ctx, result)
@@ -194,6 +201,12 @@ func (c *ChainController) FullSyncStart(ctx *gin.Context) {
 	chainID := ctx.Param("chainid")
 	if len(chainID) == 0 {
 		response.ErrorHandler(ctx, exterr.ErrParameterInvalid)
+		return
+	}
+	if chain, err := c.service.ChainByID(chainID); chain == nil || err != nil {
+		msg := fmt.Sprintf("chain[%s] is not existed", chainID)
+		result.Msg = msg
+		response.Fail(ctx, result)
 		return
 	}
 	syncer.DefaultChainDataSyncManager.FullSyncStart(chainID, true)
