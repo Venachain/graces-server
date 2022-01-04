@@ -1829,10 +1829,10 @@ curl -X POST "http://127.0.0.1:9999/api/contracts" -H "accept: application/json"
 #### model.LockAccountDTO
 
 | Name     | Type   | Description | Required |
-| -------- | ------ | ----------- | -------- |
-| account  | string | 账户        | No       |
-| chain_id | string | 链ID        | No       |
-| node_id  | string | 节点ID      | No       |
+| -------- | ------ | ----------- |----------|
+| account  | string | 账户        | Yes      |
+| chain_id | string | 链ID        | Yes      |
+| node_id  | string | 节点ID      | Yes      |
 
 #### model.NodeDataSyncInfoVO
 
@@ -1998,12 +1998,12 @@ curl -X POST "http://127.0.0.1:9999/api/contracts" -H "accept: application/json"
 #### model.UnlockAccountDTO
 
 | Name     | Type    | Description                                              | Required |
-| -------- | ------- | -------------------------------------------------------- | -------- |
-| account  | string  | 账户                                                     | No       |
-| chain_id | string  | 链ID                                                     | No       |
+| -------- | ------- | -------------------------------------------------------- |----------|
+| account  | string  | 账户                                                     | Yes      |
+| chain_id | string  | 链ID                                                     | Yes      |
 | duration | integer | 解锁持续时间，单位：秒。如果为 0，则该值被默认设置为 300 | No       |
-| node_id  | string  | 节点ID                                                   | No       |
-| password | string  | 账户密码                                                 | No       |
+| node_id  | string  | 节点ID                                                   | Yes      |
+| password | string  | 账户密码                                                 | Yes      |
 
 #### model.WSBroadCastMessageDTO
 
