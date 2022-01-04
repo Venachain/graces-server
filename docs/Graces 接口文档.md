@@ -1579,9 +1579,9 @@ curl -X POST "http://127.0.0.1:9999/api/contracts" -H "accept: application/json"
 #### model.AccountDTO
 
 | Name     | Type   | Description | Required |
-| -------- | ------ | ----------- | -------- |
-| chain_id | string | 链ID        | No       |
-| node_id  | string | 节点ID      | No       |
+| -------- | ------ | ----------- |----------|
+| chain_id | string | 链ID        | Yes      |
+| node_id  | string | 节点ID      | Yes      |
 
 #### model.AccountVO
 
