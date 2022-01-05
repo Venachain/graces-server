@@ -1822,9 +1822,9 @@ curl -X POST "http://127.0.0.1:9999/api/contracts" -H "accept: application/json"
 #### model.FireWall
 
 | Name            | Type   | Description | Required |
-| --------------- | ------ | ----------- | -------- |
-| chainid         | string | 所属链ID    | No       |
-| contractAddress | string | 合约地址    | No       |
+| --------------- | ------ | ----------- |----------|
+| chainid         | string | 所属链ID    | Yes      |
+| contractAddress | string | 合约地址    | Yes      |
 
 #### model.LockAccountDTO
 
@@ -1861,9 +1861,9 @@ curl -X POST "http://127.0.0.1:9999/api/contracts" -H "accept: application/json"
 #### model.NodeSyncReq
 
 | Name | Type    | Description  | Required |
-| ---- | ------- | ------------ | -------- |
-| ip   | string  | 节点 IP 地址 | No       |
-| port | integer | 节点端口号   | No       |
+| ---- | ------- | ------------ |----------|
+| ip   | string  | 节点 IP 地址 | Yes      |
+| port | integer | 节点端口号   | Yes      |
 
 #### model.NodeVO
 

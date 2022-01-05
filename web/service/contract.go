@@ -129,7 +129,6 @@ func (s *contractService) FireWallStatus(request model.FireWall) (string, error)
 	}
 	result = fmt.Sprintf("%v", res[0])
 	return result, nil
-	return "", nil
 }
 
 func (s *contractService) Contracts(condition model.ContractQueryCondition) ([]*model.ContractVO, error) {
@@ -158,6 +157,10 @@ func (s *contractService) Contracts(condition model.ContractQueryCondition) ([]*
 			ChainID: contract.ChainID.Hex(),
 			Address: contract.Address,
 		}
+		// 按 CNS 名称过滤
+		if condition.CNSName != "" {
+			c.Name = condition.CNSName
+		}
 		vo, err := contract.ToVO()
 		if err != nil {
 			return nil, err
@@ -165,8 +168,8 @@ func (s *contractService) Contracts(condition model.ContractQueryCondition) ([]*
 		cnss, err := DefaultCNSService.CNSs(c)
 		if err == nil && len(cnss) > 0 {
 			vo.CNS = cnss
+			vos = append(vos, vo)
 		}
-		vos = append(vos, vo)
 	}
 	return vos, nil
 }
