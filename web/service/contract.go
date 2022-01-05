@@ -193,8 +193,8 @@ func (s *contractService) Count(condition model.ContractQueryCondition) (int64, 
 		if condition.CNSName != "" {
 			c.Name = condition.CNSName
 		}
-		_, err := DefaultCNSService.CNSs(c)
-		if err == nil {
+		cnss, err := DefaultCNSService.CNSs(c)
+		if err == nil && len(cnss) > 0 {
 			cnt++
 		}
 	}
