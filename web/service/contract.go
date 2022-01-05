@@ -189,6 +189,10 @@ func (s *contractService) Count(condition model.ContractQueryCondition) (int64, 
 			ChainID: contract.ChainID.Hex(),
 			Address: strings.ToLower(contract.Address),
 		}
+		// 按 CNS 名称过滤
+		if condition.CNSName != "" {
+			c.Name = condition.CNSName
+		}
 		_, err := DefaultCNSService.CNSs(c)
 		if err == nil {
 			cnt++
