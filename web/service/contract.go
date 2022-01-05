@@ -153,6 +153,11 @@ func (s *contractService) Contracts(condition model.ContractQueryCondition) ([]*
 	}
 	vos := make([]*model.ContractVO, 0)
 	for _, contract := range contracts {
+		vo, err := contract.ToVO()
+		if err != nil {
+			return nil, err
+		}
+
 		c := model.CNSQueryCondition{
 			ChainID: contract.ChainID.Hex(),
 			Address: contract.Address,
@@ -160,16 +165,18 @@ func (s *contractService) Contracts(condition model.ContractQueryCondition) ([]*
 		// 按 CNS 名称过滤
 		if condition.CNSName != "" {
 			c.Name = condition.CNSName
-		}
-		vo, err := contract.ToVO()
-		if err != nil {
-			return nil, err
+			cnss, err := DefaultCNSService.CNSs(c)
+			if err == nil && len(cnss) > 0 {
+				vo.CNS = cnss
+				vos = append(vos, vo)
+			}
+			continue
 		}
 		cnss, err := DefaultCNSService.CNSs(c)
 		if err == nil && len(cnss) > 0 {
 			vo.CNS = cnss
-			vos = append(vos, vo)
 		}
+		vos = append(vos, vo)
 	}
 	return vos, nil
 }
@@ -185,18 +192,20 @@ func (s *contractService) Count(condition model.ContractQueryCondition) (int64, 
 	}
 	var cnt int64
 	for _, contract := range contracts {
-		c := model.CNSQueryCondition{
-			ChainID: contract.ChainID.Hex(),
-			Address: strings.ToLower(contract.Address),
-		}
 		// 按 CNS 名称过滤
 		if condition.CNSName != "" {
-			c.Name = condition.CNSName
+			c := model.CNSQueryCondition{
+				ChainID: contract.ChainID.Hex(),
+				Address: strings.ToLower(contract.Address),
+				Name:    condition.CNSName,
+			}
+			cnss, err := DefaultCNSService.CNSs(c)
+			if err == nil && len(cnss) > 0 {
+				cnt++
+			}
+			continue
 		}
-		cnss, err := DefaultCNSService.CNSs(c)
-		if err == nil && len(cnss) > 0 {
-			cnt++
-		}
+		cnt++
 	}
 	return cnt, nil
 }
