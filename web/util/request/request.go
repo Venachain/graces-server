@@ -1,11 +1,12 @@
 package request
 
 import (
-	"PlatONE-Graces/exterr"
-	"PlatONE-Graces/secret"
 	"net"
 	"net/http"
 	"strings"
+
+	"graces/exterr"
+	"graces/secret"
 
 	"github.com/gin-gonic/gin"
 )

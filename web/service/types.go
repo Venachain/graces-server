@@ -1,6 +1,6 @@
 package service
 
-import "PlatONE-Graces/model"
+import "graces/model"
 
 type IWebsocketService interface {
 	// Manager 获取 Websocket Manager 信息
@@ -87,7 +87,7 @@ type IContractService interface {
 	// ParseContractCallResult 解析合约调用返回值
 	ParseContractCallResult(chainID string, callResults []interface{}) ([]*model.ContractCallResult, error)
 	// ShowContract 展示合约内容
-	ShowContract(input string) ([]map[string]interface{}, []byte,error)
+	ShowContract(input string) ([]map[string]interface{}, []byte, error)
 }
 
 type ICNSService interface {

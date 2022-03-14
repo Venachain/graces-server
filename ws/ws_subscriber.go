@@ -1,21 +1,20 @@
 package ws
 
 import (
-	"PlatONE-Graces/config"
-	"PlatONE-Graces/model"
-	"PlatONE-Graces/util"
-	"PlatONE-Graces/web/dao"
 	"encoding/json"
 	"errors"
 	"fmt"
 	"reflect"
 	"time"
 
-	"go.mongodb.org/mongo-driver/bson/primitive"
+	"graces/config"
+	"graces/model"
+	"graces/util"
+	"graces/web/dao"
 
 	"github.com/sirupsen/logrus"
-
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 

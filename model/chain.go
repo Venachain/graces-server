@@ -1,14 +1,13 @@
 package model
 
 import (
-	"PlatONE-Graces/exterr"
-	"PlatONE-Graces/util"
 	"fmt"
+	"graces/exterr"
+	"graces/util"
 	"time"
 
-	"go.mongodb.org/mongo-driver/bson/primitive"
-
 	"github.com/sirupsen/logrus"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 type Chain struct {

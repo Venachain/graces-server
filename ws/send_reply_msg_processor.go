@@ -1,12 +1,13 @@
 package ws
 
 import (
-	"PlatONE-Graces/util"
-	"PlatONE-Graces/web/dao"
 	"errors"
 	"fmt"
 	"reflect"
 	"strings"
+
+	"graces/util"
+	"graces/web/dao"
 
 	"github.com/sirupsen/logrus"
 )

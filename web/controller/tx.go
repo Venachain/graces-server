@@ -1,11 +1,12 @@
 package controller
 
 import (
-	"PlatONE-Graces/exterr"
-	"PlatONE-Graces/model"
-	"PlatONE-Graces/web/service"
-	"PlatONE-Graces/web/util/response"
 	"reflect"
+
+	"graces/exterr"
+	"graces/model"
+	"graces/web/service"
+	"graces/web/util/response"
 
 	"github.com/gin-gonic/gin"
 )

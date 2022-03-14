@@ -9,7 +9,7 @@
 
 ## 需求概要
 
-Graces 作为面向开发者的 PlatONE 区块链浏览器，需要支持以下主要功能：
+Graces 作为面向开发者的 Venachain 区块链浏览器，需要支持以下主要功能：
 
 - 链数据浏览功能
   - 区块数据浏览
@@ -22,14 +22,14 @@ Graces 作为面向开发者的 PlatONE 区块链浏览器，需要支持以下�
 
   - 链系统参数设置
   - 链节点操作
-  - 管理已在运行的 PlatONE 链
-  - 部署新的 PlatONE 链
+  - 管理已在运行的 Venachain 链
+  - 部署新的 Venachain 链
 
 - 其他功能
 
   - 多链管理
 
-    支持管理多条 PlatONE 链。
+    支持管理多条 Venachain 链。
 
 ## 区块数据浏览
 
@@ -134,14 +134,14 @@ Graces 作为面向开发者的 PlatONE 区块链浏览器，需要支持以下�
 - 关闭链已有的处于运行状态的节点
 - 重启链已有的处于运行状态的节点
 
-## 管理已在运行的 PlatONE 链
+## 管理已在运行的 Venachain 链
 
-可以把已经在运行的 PlatONE 链添加到 Graces 进行管理。
+可以把已经在运行的 Venachain 链添加到 Graces 进行管理。
 
-## 部署新的 PlatONE 链
+## 部署新的 Venachain 链
 
-可以直接在 Graces 上为指定服务器部署一条新的 PlatONE 链。
+可以直接在 Graces 上为指定服务器部署一条新的 Venachain 链。
 
 ## 多链管理
 
-支持管理多条 PlatONE 链，包括已在运行的链和从 Graces 部署的新链。
+支持管理多条 Venachain 链，包括已在运行的链和从 Graces 部署的新链。

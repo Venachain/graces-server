@@ -1,14 +1,14 @@
 package dao
 
 import (
-	"PlatONE-Graces/db"
-	"PlatONE-Graces/model"
 	"context"
 	"time"
 
-	"go.mongodb.org/mongo-driver/mongo/options"
+	"graces/db"
+	"graces/model"
 
 	"github.com/sirupsen/logrus"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 const (

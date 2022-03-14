@@ -5,8 +5,7 @@ import (
 	"testing"
 	"time"
 
-	precompile "github.com/PlatONEnetwork/PlatONE-Go/cmd/platonecli/client/precompiled"
-
+	precompile "github.com/Venachain/Venachain/cmd/vcl/client/precompiled"
 	"github.com/stretchr/testify/assert"
 )
 

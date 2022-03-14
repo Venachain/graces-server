@@ -1,15 +1,15 @@
 package main
 
 import (
-	"PlatONE-Graces/config"
-	"PlatONE-Graces/syncer"
-	"PlatONE-Graces/web/router"
-	"PlatONE-Graces/ws"
 	"log"
 
-	"github.com/sirupsen/logrus"
+	"graces/config"
+	"graces/syncer"
+	"graces/web/router"
+	"graces/ws"
 
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 func main() {

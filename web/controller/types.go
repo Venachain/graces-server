@@ -1,7 +1,7 @@
 package controller
 
 import (
-	"PlatONE-Graces/web/service"
+	"graces/web/service"
 )
 
 type WebsocketController struct {

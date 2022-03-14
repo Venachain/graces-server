@@ -1,8 +1,9 @@
 package middleware
 
 import (
-	"PlatONE-Graces/config"
 	"net/http"
+
+	"graces/config"
 
 	"github.com/gin-gonic/gin"
 )

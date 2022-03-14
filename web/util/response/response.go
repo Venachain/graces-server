@@ -1,14 +1,14 @@
 package response
 
 import (
-	"PlatONE-Graces/exterr"
-	"PlatONE-Graces/model"
 	"fmt"
 	"net/http"
 
-	"github.com/sirupsen/logrus"
+	"graces/exterr"
+	"graces/model"
 
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 const (

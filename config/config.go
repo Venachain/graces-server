@@ -1,9 +1,10 @@
 package config
 
 import (
-	"PlatONE-Graces/util/validate"
 	"fmt"
 	"time"
+
+	"graces/util/validate"
 
 	"github.com/BurntSushi/toml"
 )

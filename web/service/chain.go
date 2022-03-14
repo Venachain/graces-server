@@ -1,28 +1,25 @@
 package service
 
 import (
-	"PlatONE-Graces/config"
-	"PlatONE-Graces/exterr"
-	"PlatONE-Graces/model"
-	"PlatONE-Graces/rpc"
-	"PlatONE-Graces/util"
-	"PlatONE-Graces/web/dao"
-	"PlatONE-Graces/ws"
 	"errors"
 	"fmt"
 	"net/url"
 	"reflect"
 	"time"
 
+	"graces/config"
+	"graces/exterr"
+	"graces/model"
+	"graces/rpc"
+	"graces/util"
+	"graces/web/dao"
+	"graces/ws"
+
+	precompile "github.com/Venachain/Venachain/cmd/vcl/client/precompiled"
 	"github.com/sirupsen/logrus"
-
-	"go.mongodb.org/mongo-driver/mongo/options"
-
-	precompile "github.com/PlatONEnetwork/PlatONE-Go/cmd/platonecli/client/precompiled"
-
-	"go.mongodb.org/mongo-driver/bson/primitive"
-
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
 const (

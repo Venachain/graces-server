@@ -1,15 +1,15 @@
 package dao
 
 import (
-	"PlatONE-Graces/db"
-	"PlatONE-Graces/exterr"
-	"PlatONE-Graces/model"
 	"context"
 
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
+	"graces/db"
+	"graces/exterr"
+	"graces/model"
 
 	"github.com/sirupsen/logrus"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 const (

@@ -1,18 +1,18 @@
 package ws
 
 import (
-	"PlatONE-Graces/config"
 	"context"
 	"fmt"
 	"net/http"
 	"net/url"
 	"time"
 
-	"github.com/sirupsen/logrus"
+	"graces/config"
 
 	"github.com/gin-gonic/gin"
 	"github.com/gorilla/websocket"
 	uuid "github.com/satori/go.uuid"
+	"github.com/sirupsen/logrus"
 )
 
 var (

@@ -1,10 +1,9 @@
 package dao
 
 import (
-	"PlatONE-Graces/model"
+	"graces/model"
 
 	"go.mongodb.org/mongo-driver/bson/primitive"
-
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 

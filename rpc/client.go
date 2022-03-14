@@ -8,15 +8,13 @@ import (
 	"sync"
 	"time"
 
+	"github.com/Venachain/Venachain/cmd/vcl/client/packet"
+	"github.com/Venachain/Venachain/cmd/vcl/client/utils"
+	"github.com/Venachain/Venachain/common/hexutil"
+	"github.com/Venachain/Venachain/ethclient"
+	"github.com/Venachain/Venachain/rpc"
+
 	"github.com/sirupsen/logrus"
-
-	"github.com/PlatONEnetwork/PlatONE-Go/common/hexutil"
-
-	"github.com/PlatONEnetwork/PlatONE-Go/cmd/platonecli/client/packet"
-	"github.com/PlatONEnetwork/PlatONE-Go/cmd/platonecli/client/utils"
-	"github.com/PlatONEnetwork/PlatONE-Go/rpc"
-
-	"github.com/PlatONEnetwork/PlatONE-Go/ethclient"
 )
 
 var (

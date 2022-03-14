@@ -1,16 +1,17 @@
 package controller
 
 import (
-	"PlatONE-Graces/exterr"
-	"PlatONE-Graces/model"
-	"PlatONE-Graces/syncer"
-	"PlatONE-Graces/web/service"
-	"PlatONE-Graces/web/util/response"
-	"PlatONE-Graces/ws"
 	"encoding/json"
 	"fmt"
 
-	"github.com/PlatONEnetwork/PlatONE-Go/cmd/platonecli/client/packet"
+	"graces/exterr"
+	"graces/model"
+	"graces/syncer"
+	"graces/web/service"
+	"graces/web/util/response"
+	"graces/ws"
+
+	"github.com/Venachain/Venachain/cmd/vcl/client/packet"
 	"github.com/gin-gonic/gin"
 	"github.com/sirupsen/logrus"
 )

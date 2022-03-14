@@ -1,8 +1,8 @@
 package model
 
 import (
-	"PlatONE-Graces/exterr"
-	"PlatONE-Graces/util"
+	"graces/exterr"
+	"graces/util"
 
 	"github.com/sirupsen/logrus"
 )

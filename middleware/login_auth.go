@@ -1,11 +1,12 @@
 package middleware
 
 import (
-	"PlatONE-Graces/exterr"
-	"PlatONE-Graces/model"
-	"PlatONE-Graces/secret"
-	"PlatONE-Graces/web/util/response"
 	"net/http"
+
+	"graces/exterr"
+	"graces/model"
+	"graces/secret"
+	"graces/web/util/response"
 
 	"github.com/gin-gonic/gin"
 )

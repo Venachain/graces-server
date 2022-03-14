@@ -25,7 +25,7 @@
 示例
 
 ```shell
-curl -X POST "http://127.0.0.1:9999/api/chain" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"desc\": \"platone\", \"ip\": \"127.0.0.1\", \"name\": \"test\", \"p2p_port\": 6791, \"ws_port\": 26791}"
+curl -X POST "http://127.0.0.1:9999/api/chain" -H "accept: application/json" -H "Content-Type: application/json" -d "{ \"desc\": \"Venachain\", \"ip\": \"127.0.0.1\", \"name\": \"test\", \"p2p_port\": 6791, \"ws_port\": 26791}"
 ```
 
 响应
@@ -120,7 +120,7 @@ curl -X GET "http://127.0.0.1:9999/api/chain/id/6141a06437bf88afa7924f9c" -H "ac
     "ip": "127.0.0.1",
     "p2p_port": 6791,
     "ws_port": 26791,
-    "desc": "platone",
+    "desc": "Venachain",
     ...
 }
 ```
@@ -163,7 +163,7 @@ curl -X GET "http://127.0.0.1:9999/api/chain/name/test" -H "accept: application/
     "ip": "127.0.0.1",
     "p2p_port": 6791,
     "ws_port": 26791,
-    "desc": "platone",
+    "desc": "Venachain",
     ...
 }
 ```

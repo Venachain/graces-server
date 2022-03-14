@@ -1,8 +1,8 @@
 package rpc
 
 import (
-	"github.com/PlatONEnetwork/PlatONE-Go/ethclient"
-	"github.com/PlatONEnetwork/PlatONE-Go/rpc"
+	"github.com/Venachain/Venachain/ethclient"
+	"github.com/Venachain/Venachain/rpc"
 )
 
 // Client 链 RPC 连接客户端

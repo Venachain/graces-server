@@ -16,7 +16,7 @@
 
 - OS	Linux 64bit
 - Golang 1.14.4 或以上
-- PlatONE v1.0.0.0.0 或以上
+- Venachain v1.0.0.0.0 或以上
 - MongoDB 4.2.8 或以上
 - npm 6.14.13 或以上
 - nodjs v14.17.1 或以上
@@ -28,7 +28,7 @@
 
 2. 下载、安装和启动 MongoDB
 
-3. 下载和编译 PlatONE
+3. 下载和编译 Venachain
 
 4. 下载 Graces V1.0.0
 
@@ -81,11 +81,11 @@
 
    1. 进到 Server 目录下。
 
-   2. 在 `go.mod` 文件中配置好对 PlatONE 的依赖，修改为自己下载后的 PlatONE 路径
+   2. 在 `go.mod` 文件中配置好对 Venachain 的依赖，修改为自己下载后的 Venachain 路径
 
       ```mod
       replace (
-      	github.com/PlatONEnetwork/PlatONE-Go => /你的路径/PlatONE-Go
+      	github.com/Venachain/Venachain => /你的路径/Venachain
       )
       ```
 

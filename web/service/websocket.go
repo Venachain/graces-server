@@ -1,16 +1,15 @@
 package service
 
 import (
-	"PlatONE-Graces/exterr"
-	"PlatONE-Graces/model"
-	"PlatONE-Graces/util"
-	"PlatONE-Graces/web/dao"
-	"PlatONE-Graces/ws"
-
-	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/bson/primitive"
+	"graces/exterr"
+	"graces/model"
+	"graces/util"
+	"graces/web/dao"
+	"graces/ws"
 
 	"github.com/sirupsen/logrus"
+	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
 var (

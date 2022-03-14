@@ -1,9 +1,10 @@
 package dao
 
 import (
-	"PlatONE-Graces/db"
-	"PlatONE-Graces/model"
 	"context"
+
+	"graces/db"
+	"graces/model"
 
 	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/mongo/options"

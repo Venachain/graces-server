@@ -1,12 +1,11 @@
 package middleware
 
 import (
-	"PlatONE-Graces/exterr"
-	"PlatONE-Graces/web/util/response"
-
-	"github.com/sirupsen/logrus"
+	"graces/exterr"
+	"graces/web/util/response"
 
 	"github.com/gin-gonic/gin"
+	"github.com/sirupsen/logrus"
 )
 
 // PanicHandler gin 统一 panic 处理器

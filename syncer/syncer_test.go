@@ -1,7 +1,7 @@
 package syncer
 
 import (
-	"PlatONE-Graces/rpc"
+	"graces/rpc"
 	"log"
 	"testing"
 	"time"

@@ -172,7 +172,7 @@
 
 #### 2. 节点数据获取
 
-通过查阅 PlatONE 相关文档发现，想要获取到链的节点数据，需要去调用链的预编译合约  `NodeManagement` 的 `getAllNodes`  函数才能拿到，PlatONE 为我们提供了合约调用的 RPC 接口，我们现在只需要按照 RPC 接口的合约调用步骤进行处理即可。
+通过查阅 Venachain 相关文档发现，想要获取到链的节点数据，需要去调用链的预编译合约  `NodeManagement` 的 `getAllNodes`  函数才能拿到，Venachain 为我们提供了合约调用的 RPC 接口，我们现在只需要按照 RPC 接口的合约调用步骤进行处理即可。
 
 1. 使用链第一个节点的 IP 地址和 RPC 端口号构建一个 RPC Client。
 2. 封装合约调用所需的参数，指定调用 `NodeManagement` 合约的 `getAllNodes`  函数。
@@ -182,7 +182,7 @@
 
 #### 2. 区块数据获取
 
-通过查阅 PlatONE 相关文档发现，想要获取到链的区块数据，可以通过调用链提供的 `blockByNumber` 或 `blockByHash` RPC 接口来得到单个区块的数据。由于 Graces 需要拿到所有区块的数据，所以这里选择的是 `blockByNumber` 接口，因为 `blockByNumber` 可以通过传入 null 值来拿到链上的最新区块 LatestBlock，进而可以拿到最新区块的块高 LatestBlockHeight，然后我们只需要从 0 开始遍历块高到 LatestBlockHeight，在遍历的同时以当前遍历到的数值当做块的高度，一一请求 `blockByNumber`  接口就可以拿到链上所有的区块数据。
+通过查阅 Venachain 相关文档发现，想要获取到链的区块数据，可以通过调用链提供的 `blockByNumber` 或 `blockByHash` RPC 接口来得到单个区块的数据。由于 Graces 需要拿到所有区块的数据，所以这里选择的是 `blockByNumber` 接口，因为 `blockByNumber` 可以通过传入 null 值来拿到链上的最新区块 LatestBlock，进而可以拿到最新区块的块高 LatestBlockHeight，然后我们只需要从 0 开始遍历块高到 LatestBlockHeight，在遍历的同时以当前遍历到的数值当做块的高度，一一请求 `blockByNumber`  接口就可以拿到链上所有的区块数据。
 
 1. 使用链第一个节点的 IP 地址和 RPC 端口号构建一个 RPC Client。
 2. 通过 Client 调用 `blockByNumber` 接口传入 null 值拿到链上的最新区块 LatestBlock 和 它的高度 LatestBlockHeight。
@@ -192,7 +192,7 @@
 
 #### 3. 交易数据获取
 
-通过查阅 PlatONE 相关文档发现，交易数据可以从链的 RPC 接口  `blockByNumber`  返回的区块数据中拿到，这里拿到的是该区块所打包的所有交易数据，想要拿到链上的所有交易数据，一样需要对每一个区块做遍历处理，所以对于交易数据的获取流程，我们把它放入区块数据获取的流程中一起处理。
+通过查阅 Venachain 相关文档发现，交易数据可以从链的 RPC 接口  `blockByNumber`  返回的区块数据中拿到，这里拿到的是该区块所打包的所有交易数据，想要拿到链上的所有交易数据，一样需要对每一个区块做遍历处理，所以对于交易数据的获取流程，我们把它放入区块数据获取的流程中一起处理。
 
 1. 使用链第一个节点的 IP 地址和 RPC 端口号构建一个 RPC Client。
 2. 通过 Client 调用 `blockByNumber` 接口传入 null 值拿到链上的最新区块 LatestBlock 和 它的高度 LatestBlockHeight。
@@ -202,7 +202,7 @@
 
 #### 4. CNS 数据获取
 
-通过查阅 PlatONE 相关文档发现，想要获取到链的 CNS 数据，需要去调用链的预编译合约  `CnsManagement` 的 `getRegisteredContracts`  函数才能拿到，PlatONE 为我们提供了合约调用的 RPC 接口，我们现在只需要按照 RPC 接口的合约调用步骤进行处理即可。
+通过查阅 Venachain 相关文档发现，想要获取到链的 CNS 数据，需要去调用链的预编译合约  `CnsManagement` 的 `getRegisteredContracts`  函数才能拿到，Venachain 为我们提供了合约调用的 RPC 接口，我们现在只需要按照 RPC 接口的合约调用步骤进行处理即可。
 
 1. 使用链第一个节点的 IP 地址和 RPC 端口号构建一个 RPC Client。
 2. 封装合约调用所需的参数，指定调用 `CnsManagement` 合约的 `getRegisteredContracts`  函数。
@@ -212,11 +212,11 @@
 
 #### 5. 合约数据获取
 
-通过查阅 PlatONE 相关文档发现，想要通过 RPC 接口请求来拿到所有合约数据目前还做不到，目前只能获取到已经注册进 CNS 的合约，不注册进 CNS 的合约则无法拿到。但由于合约部署都是通过发交易来进行的，由此我们可以在收到交易数据时对它进行判断，如果是合约部署交易，则提取出它对应的合约信息保存到合约信息表中即可。
+通过查阅 Venachain 相关文档发现，想要通过 RPC 接口请求来拿到所有合约数据目前还做不到，目前只能获取到已经注册进 CNS 的合约，不注册进 CNS 的合约则无法拿到。但由于合约部署都是通过发交易来进行的，由此我们可以在收到交易数据时对它进行判断，如果是合约部署交易，则提取出它对应的合约信息保存到合约信息表中即可。
 
 #### 6. 链账户数据获取
 
-通过查阅 PlatONE 相关文档发现，链账户是分散存储在各个链节点之中的，PlatONE 为我们提供了`personal_listAccounts` RPC 接口用于获取当前连接所在的节点的账户列表，而想要拿到所有的链账户数据，则需要遍历链的所有节点一一处理。
+通过查阅 Venachain 相关文档发现，链账户是分散存储在各个链节点之中的，Venachain 为我们提供了`personal_listAccounts` RPC 接口用于获取当前连接所在的节点的账户列表，而想要拿到所有的链账户数据，则需要遍历链的所有节点一一处理。
 
 1. 读取链的所有节点数据。
 2. 遍历链的所有节点数据，为每一个节点创建一个 RPC Client 连接。
@@ -428,7 +428,7 @@ Graces支持在前端输入新链的配置信息，后端调用部署脚本，�
 
 - 获取系统参数
 
-  通过查阅 PlatONE 相关文档发现，想要获取到链的系统参数数据，需要去调用链的预编译合约  `ParameterManagement` 的对应函数才能拿到对应的参数信息，PlatONE 为我们提供了合约调用的 RPC 接口，我们现在只需要按照 RPC 接口的合约调用步骤进行处理即可。
+  通过查阅 Venachain 相关文档发现，想要获取到链的系统参数数据，需要去调用链的预编译合约  `ParameterManagement` 的对应函数才能拿到对应的参数信息，Venachain 为我们提供了合约调用的 RPC 接口，我们现在只需要按照 RPC 接口的合约调用步骤进行处理即可。
 
   1. 使用链第一个节点的 IP 地址和 RPC 端口号构建一个 RPC Client。
   2. 封装合约调用所需的参数，指定调用 `ParameterManagement` 合约的指定函数，如 `getTxGasLimit`。
@@ -438,7 +438,7 @@ Graces支持在前端输入新链的配置信息，后端调用部署脚本，�
 
 - 设置系统参数
 
-  通过查阅 PlatONE 相关文档发现，想要设置链的系统参数，需要去调用链的预编译合约  `ParameterManagement` 的对应函数才能进行对应参数的设置，PlatONE 为我们提供了合约调用的 RPC 接口，我们现在只需要按照 RPC 接口的合约调用步骤进行处理即可。
+  通过查阅 Venachain 相关文档发现，想要设置链的系统参数，需要去调用链的预编译合约  `ParameterManagement` 的对应函数才能进行对应参数的设置，Venachain 为我们提供了合约调用的 RPC 接口，我们现在只需要按照 RPC 接口的合约调用步骤进行处理即可。
 
   1. 使用链第一个节点的 IP 地址和 RPC 端口号构建一个 RPC Client。
   2. 封装合约调用所需的参数，指定调用 `ParameterManagement` 合约的指定函数，如 `setTxGasLimit`。
@@ -479,7 +479,7 @@ Graces支持在前端输入新链的配置信息，后端调用部署脚本，�
 
 - 注册 CNS
 
-  通过查阅 PlatONE 相关文档发现，想要把合约注册进 CNS，需要去调用链的预编译合约  `CnsManagement` 的 `cnsRegister` 函数，PlatONE 为我们提供了合约调用的 RPC 接口，我们现在只需要按照 RPC 接口的合约调用步骤进行处理即可。
+  通过查阅 Venachain 相关文档发现，想要把合约注册进 CNS，需要去调用链的预编译合约  `CnsManagement` 的 `cnsRegister` 函数，Venachain 为我们提供了合约调用的 RPC 接口，我们现在只需要按照 RPC 接口的合约调用步骤进行处理即可。
 
   1. 使用链第一个节点的 IP 地址和 RPC 端口号构建一个 RPC Client。
   2. 封装合约调用所需的参数，指定调用 `CnsManagement` 合约的 `cnsRegister`函数。
@@ -489,7 +489,7 @@ Graces支持在前端输入新链的配置信息，后端调用部署脚本，�
 
 - CNS 重定向
 
-  通过查阅 PlatONE 相关文档发现，想要对 CNS 的合约进行重定向，需要去调用链的预编译合约  `CnsManagement` 的 `cnsRedirect` 函数，PlatONE 为我们提供了合约调用的 RPC 接口，我们现在只需要按照 RPC 接口的合约调用步骤进行处理即可。
+  通过查阅 Venachain 相关文档发现，想要对 CNS 的合约进行重定向，需要去调用链的预编译合约  `CnsManagement` 的 `cnsRedirect` 函数，Venachain 为我们提供了合约调用的 RPC 接口，我们现在只需要按照 RPC 接口的合约调用步骤进行处理即可。
 
   1. 使用链第一个节点的 IP 地址和 RPC 端口号构建一个 RPC Client。
   2. 封装合约调用所需的参数，指定调用 `CnsManagement` 合约的 `cnsRedirect`函数。
@@ -501,7 +501,7 @@ Graces支持在前端输入新链的配置信息，后端调用部署脚本，�
 
 - 开启合约防火墙
 
-  通过查阅 PlatONE 相关文档发现，想要开启指定合约的防火墙，需要去调用链的预编译合约  `FirewallManagement` 的 `__sys_FwOpen` 函数，PlatONE 为我们提供了合约调用的 RPC 接口，我们现在只需要按照 RPC 接口的合约调用步骤进行处理即可。
+  通过查阅 Venachain 相关文档发现，想要开启指定合约的防火墙，需要去调用链的预编译合约  `FirewallManagement` 的 `__sys_FwOpen` 函数，Venachain 为我们提供了合约调用的 RPC 接口，我们现在只需要按照 RPC 接口的合约调用步骤进行处理即可。
 
   1. 使用链第一个节点的 IP 地址和 RPC 端口号构建一个 RPC Client。
   2. 封装合约调用所需的参数，指定调用 `CnsManagement` 合约的 `__sys_FwOpen`函数。
@@ -511,7 +511,7 @@ Graces支持在前端输入新链的配置信息，后端调用部署脚本，�
 
 - 关闭合约防火墙
 
-  通过查阅 PlatONE 相关文档发现，想要开启指定合约的防火墙，需要去调用链的预编译合约  `FirewallManagement` 的 `__sys_FwClose` 函数，PlatONE 为我们提供了合约调用的 RPC 接口，我们现在只需要按照 RPC 接口的合约调用步骤进行处理即可。
+  通过查阅 Venachain 相关文档发现，想要开启指定合约的防火墙，需要去调用链的预编译合约  `FirewallManagement` 的 `__sys_FwClose` 函数，Venachain 为我们提供了合约调用的 RPC 接口，我们现在只需要按照 RPC 接口的合约调用步骤进行处理即可。
 
   1. 使用链第一个节点的 IP 地址和 RPC 端口号构建一个 RPC Client。
   2. 封装合约调用所需的参数，指定调用 `CnsManagement` 合约的 `__sys_FwClose`函数。
@@ -521,7 +521,7 @@ Graces支持在前端输入新链的配置信息，后端调用部署脚本，�
 
 - 部署合约
 
-  通过查阅 PlatONE 相关文档发现，想要部署合约，需要提供合约文件，然后通过RPC接口，发送交易以及合约的结构体，然后把合约进行部署。
+  通过查阅 Venachain 相关文档发现，想要部署合约，需要提供合约文件，然后通过RPC接口，发送交易以及合约的结构体，然后把合约进行部署。
 
   1. 使用链第一个节点的 IP 地址和 RPC 端口号构建一个 RPC Client。
   2. 封装合约部署所需的参数。

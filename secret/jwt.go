@@ -1,8 +1,8 @@
 package secret
 
 import (
-	"PlatONE-Graces/config"
-	"PlatONE-Graces/exterr"
+	"graces/config"
+	"graces/exterr"
 	"strings"
 	"time"
 

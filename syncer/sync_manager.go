@@ -1,20 +1,20 @@
 package syncer
 
 import (
-	"PlatONE-Graces/config"
-	"PlatONE-Graces/exterr"
-	"PlatONE-Graces/model"
-	"PlatONE-Graces/rpc"
-	"PlatONE-Graces/web/dao"
 	"errors"
 	"fmt"
+	"graces/config"
+	"graces/exterr"
+	"graces/model"
+	"graces/rpc"
+	"graces/web/dao"
 	"sync"
 	"time"
 
+	"github.com/sirupsen/logrus"
+
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo/options"
-
-	"github.com/sirupsen/logrus"
 )
 
 const (

@@ -1,11 +1,6 @@
 package ws
 
 import (
-	"PlatONE-Graces/exterr"
-	"PlatONE-Graces/model"
-	"PlatONE-Graces/rpc"
-	"PlatONE-Graces/syncer"
-	"PlatONE-Graces/web/dao"
 	"bufio"
 	"errors"
 	"fmt"
@@ -21,13 +16,17 @@ import (
 	"strings"
 	"time"
 
-	"go.mongodb.org/mongo-driver/mongo/options"
-
-	"golang.org/x/net/context"
+	"graces/exterr"
+	"graces/model"
+	"graces/rpc"
+	"graces/syncer"
+	"graces/web/dao"
 
 	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo/options"
+	"golang.org/x/net/context"
 )
 
 const defaultKeyfile = "./keystore"

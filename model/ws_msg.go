@@ -1,9 +1,10 @@
 package model
 
 import (
-	"PlatONE-Graces/exterr"
-	"PlatONE-Graces/util"
 	"time"
+
+	"graces/exterr"
+	"graces/util"
 
 	"github.com/sirupsen/logrus"
 	"go.mongodb.org/mongo-driver/bson/primitive"

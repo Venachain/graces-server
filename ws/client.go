@@ -1,13 +1,13 @@
 package ws
 
 import (
-	"PlatONE-Graces/config"
 	"encoding/json"
 	"strings"
 
-	"github.com/sirupsen/logrus"
+	"graces/config"
 
 	"github.com/gorilla/websocket"
+	"github.com/sirupsen/logrus"
 )
 
 // 读信息，从 websocket 连接直接读取数据
