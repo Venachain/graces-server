@@ -70,11 +70,11 @@ function readFile() {
 
 ################################################# Update To Consensus Node #################################################
 function updateToConsensusNode() {
-    ${BIN_PATH}/platonecli node update "${NODE_ID}" --type "consensus" --keyfile "${CONF_PATH}"/keyfile.json --url "${FIRSTNODE_IP_ADDR}:${FIRSTNODE_RPC_PORT}" <"${CONF_PATH}"/keyfile.phrase >/dev/null 2>&1
+    ${BIN_PATH}/vcl node update "${NODE_ID}" --type "consensus" --keyfile "${CONF_PATH}"/keyfile.json --url "${FIRSTNODE_IP_ADDR}:${FIRSTNODE_RPC_PORT}" <"${CONF_PATH}"/keyfile.phrase >/dev/null 2>&1
     timer=0
     update_node_flag=""
     while [ ${timer} -lt 10 ]; do
-        update_node_flag=$(${BIN_PATH}/platonecli node query --type consensus --name ${NODE_ID} --keyfile ${CONF_PATH}/keyfile.json --url "${FIRSTNODE_IP_ADDR}:${FIRSTNODE_RPC_PORT}" <"${CONF_PATH}"/keyfile.phrase) >/dev/null 2>&1
+        update_node_flag=$(${BIN_PATH}/vcl node query --type consensus --name ${NODE_ID} --keyfile ${CONF_PATH}/keyfile.json --url "${FIRSTNODE_IP_ADDR}:${FIRSTNODE_RPC_PORT}" <"${CONF_PATH}"/keyfile.phrase) >/dev/null 2>&1
         if [[ $(echo ${update_node_flag} | grep "success") != "" ]]; then
             break
         fi

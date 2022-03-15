@@ -28,7 +28,7 @@ timeout = 10
 # JWT 过期时间，单位：秒
 expires = 86400
 # JWT 签发人
-issuer = "PlatONE"
+issuer = "Venachain"
 # JWT token 前缀
 prefix = "Bearer "
 # JWT 服务端秘钥【重要，不能泄露】
@@ -62,13 +62,13 @@ stats_type = "newStats"
 # 推送新的节点信息类型
 node_info_type = "newNodeInfo"
 
-# 链的默认配置信息，以 platone 为标准
+# 链的默认配置信息，以 Venachain 为标准
 # 主要用于从链上拉取数据进行同步
 [chain_config]
 
 # 链的节点配置信息
 [chain_config.node]
-# keyfile 默认存储的相对路径，以 platone 为标准
+# keyfile 默认存储的相对路径，以 Venachain 为标准
 keyfile_path = "./keystore"
 # 链账户的默认密码
 passphrase = "0"
