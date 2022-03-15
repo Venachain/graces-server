@@ -27,47 +27,49 @@
 1. 下载、安装和配置 Golang
 
 2. 下载、安装和启动 MongoDB
-
+   
 3. 下载和编译 Venachain
 
-4. 下载 Graces V1.0.0
+   安装教程：https://venachain-docs.readthedocs.io/zh/latest/documents/quick/deploy.html#quick-deploy
+
+5. 下载 Graces V1.0.0
 
    下载后端源码：
 
    ```sh
-   https://git-c.i.wxblockchain.com/PlatONE/src/node/Graces/Server/-/archive/integration.1.0.0.0.0/Server-integration.1.0.0.0.0.zip
+   https://git-c.i.wxblockchain.com/vena/src/graces/graces-server/-/archive/integration.1.0.0.0.0/graces-server-integration.1.0.0.0.0.zip
    ```
 
    重命名：
 
    ```sh
-   mv Server-integration.1.0.0.0.0.zip ./Server.zip
+   mv graces-server-integration.1.0.0.0.0.zip ./graces-server.zip
    ```
 
    下载前端源码：
 
    ```sh
-   https://git-c.i.wxblockchain.com/PlatONE/src/node/Graces/Web/-/archive/integration.1.0.0.0.0/Web-integration.1.0.0.0.0.zip
+   https://git-c.i.wxblockchain.com/vena/src/graces/graces-web/-/archive/integration.1.0.0.0.0/graces-web-integration.1.0.0.0.0.zip
    ```
 
    重命名：
 
    ```sh
-   mv Web-integration.1.0.0.0.0.zip ./Web.zip
+   mv graces-web-integration.1.0.0.0.0.zip ./graces-web.zip
    ```
 
    下载完成后对项目文件进行解压。
 
    ```sh
-   unzip Server.zip
-   unzip Web.zip
+   unzip graces-server.zip
+   unzip graces-web.zip
    ```
 
    
 
 5. 配置 Graces 前端
 
-   进到 Web 目录下，修改 `.env.development` 文件中 base api 下的 `localhost:9999` 为自己机器的 IP 端口号或域名端口号，如果不修改则默认使用 `localhost:9999` 。
+   进到 graces-web 目录下，修改 `.env.development` 文件中 base api 下的 `localhost:9999` 为自己机器的 IP 端口号或域名端口号，如果不修改则默认使用 `localhost:9999` 。
 
    ```
    # base api
@@ -79,13 +81,13 @@
 
 6. 配置 Graces 后端
 
-   1. 进到 Server 目录下。
+   1. 进到 graces-server 目录下。
 
-   2. 在 `go.mod` 文件中配置好对 Venachain 的依赖，修改为自己下载后的 Venachain 路径
+   2. 在 `go.mod` 文件中配置好对 Venachain 的依赖，修改为自己下载好且编译好后的 Venachain 路径
 
       ```mod
       replace (
-      	github.com/Venachain/Venachain => /你的路径/Venachain
+          github.com/Venachain/Venachain => /你的路径/Venachain
       )
       ```
 
@@ -117,21 +119,19 @@
 
    1. 启动 Graces 后端
 
-      进到 Server 目录下，执行以下命令
+      进到 graces-server 目录下，执行以下命令
 
       ```sh
       go build -o graces
       nohup ./graces > ./graces.log 2>&1 &
       ```
 
-      
-
    2. 启动 Graces 前端
 
-      进到 Web 目录下，执行以下命令
+      进到 graces-web 目录下，执行以下命令
 
       ```sh
-      rpm run dev
+      npm run dev
       ```
 
       
