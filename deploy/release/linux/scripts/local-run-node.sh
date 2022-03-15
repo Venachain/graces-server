@@ -124,13 +124,13 @@ function startCmd() {
     fi
 
     ## execute command
-    nohup ${BIN_PATH}/platone --identity platone ${flag_datadir} --nodiscover \
+    nohup ${BIN_PATH}/venachain --identity venachain ${flag_datadir} --nodiscover \
         --port ${P2P_PORT} ${flag_nodekey} ${flag_rpc} --rpccorsdomain "*" ${flag_ws} \
         --wsorigins "*" ${flag_logs} ${flag_ipc} \
         --bootnodes ${BOOTNODES} \
-        --moduleLogParams '{"platone_log": ["/"], "__dir__": ["'${LOG_DIR}'"], "__size__": ["'${LOG_SIZE}'"]}' ${flag_gcmode} ${EXTRA_OPTIONS} \
+        --moduleLogParams '{"venachain_log": ["/"], "__dir__": ["'${LOG_DIR}'"], "__size__": ["'${LOG_SIZE}'"]}' ${flag_gcmode} ${EXTRA_OPTIONS} \
         ${flag_pprof} \
-        1>/dev/null 2>${LOG_DIR}/platone_error.log &
+        1>/dev/null 2>${LOG_DIR}/venachain_error.log &
 
     timer=0
     start_succ_flag=""

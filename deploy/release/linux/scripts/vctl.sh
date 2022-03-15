@@ -12,12 +12,12 @@ DISENABLE=""
 NODE_ID=0
 cd ${CURRENT_PATH}
 
-VERSION=$(${BIN_PATH}/platone --version)
+VERSION=$(${BIN_PATH}/venachain --version)
 
 function usage() {
     cat <<EOF
 #h0    DESCRIPTION
-#h0        The deployment script for platone
+#h0        The deployment script for venachain
 #h0
 #h0    Usage:
 #h0        ${SCRIPT_NAME} <command> [command options] [arguments...]
@@ -56,7 +56,7 @@ function usage() {
 #c4            --logdir, -d                 log dir (default: ../data/node_dir/logs/)
 #c4                                         The path connector '/' needs to be escaped
 #c4                                         when set: eg ".\/logs"
-#c4            --extraoptions, -e           extra platone command options when platone starts
+#c4            --extraoptions, -e           extra venachain command options when venachain starts
 #c4                                         (default: --debug)
 #c4            --all, -a                    start all node
 #c4            --help, -h                   show help
@@ -148,10 +148,10 @@ function usage() {
 #c16           --start                  start the target node
 #c16           --clear                  clear the target node
 #c16           --help, -h               show help
-#c0        version                          show platone release version
+#c0        version                          show venachain release version
 #c0===============================================================
 #c0    INFORMATION
-#c0        version         PlatONE Version: ${VERSION}
+#c0        version         Venachain Version: ${VERSION}
 #c0        author
 #c0        copyright       Copyright
 #c0        license
@@ -222,7 +222,7 @@ function saveConf() {
 function checkNodeStatusFullName() {
     if [[ -d ${DATA_PATH}/${1} ]] && [[ $1 == node-* ]]; then
         nodeid=$(echo ${1#*-})
-        if [[ $(ps -ef | grep "platone --identity platone --datadir ${DATA_PATH}/node-${nodeid} " | grep -v grep | awk '{print $2}') != "" ]]; then
+        if [[ $(ps -ef | grep "venachain --identity venachain --datadir ${DATA_PATH}/node-${nodeid} " | grep -v grep | awk '{print $2}') != "" ]]; then
             ENABLE=$(echo "${ENABLE} ${nodeid}")
         else
             DISENABLE=$(echo ${DISENABLE} ${nodeid})
@@ -238,7 +238,7 @@ function checkAllNodeStatus() {
 }
 
 function nodeIsRunning() {
-    if [[ $(ps -ef | grep "platone --identity platone --datadir ${DATA_PATH}/node-${1} " | grep -v grep | awk '{print $2}') != "" ]]; then
+    if [[ $(ps -ef | grep "venachain --identity venachain --datadir ${DATA_PATH}/node-${1} " | grep -v grep | awk '{print $2}') != "" ]]; then
         return 1
     fi
     return 0
@@ -417,7 +417,7 @@ function init() {
     fi
     ## init
     ./local-keygen.sh -n ${nodeid} ${auto}
-    ${BIN_PATH}/platone --datadir ${DATA_PATH}/node-${nodeid} init ${CONF_PATH}/genesis.json
+    ${BIN_PATH}/venachain --datadir ${DATA_PATH}/node-${nodeid} init ${CONF_PATH}/genesis.json
 }
 
 function start() {
@@ -587,13 +587,13 @@ function stop() {
                 stop --nodeid $nodeid
             fi
         done
-        killall "platone"
+        killall "venachain"
     }
 
     case "$1" in
     --nodeid | -n)
         shiftOption2 $#
-        pid=$(ps -ef | grep "platone --identity platone --datadir ${DATA_PATH}/node-${2} " | grep -v grep | awk '{print $2}')
+        pid=$(ps -ef | grep "venachain --identity venachain --datadir ${DATA_PATH}/node-${2} " | grep -v grep | awk '{print $2}')
         if [[ $pid != "" ]]; then
             echo "[INFO] [$(echo $0 | sed -e 's/\(.*\)\/\(.*\).sh/\2/g')] : Stop node: ${2}"
             kill $pid
@@ -711,7 +711,7 @@ function console() {
         rpc_port=$(cat deploy_node-$2.conf | grep "rpc_port=" | sed -e 's/rpc_port=\(.*\)/\1/g')
         ip=$(cat deploy_node-$2.conf | grep "ip_addr=" | sed -e 's/ip_addr=\(.*\)/\1/g')
         cd ${BIN_PATH}
-        ./platone attach http://${ip}:${rpc_port}
+        ./venachain attach http://${ip}:${rpc_port}
         cd ${CURRENT_PATH}
         ;;
     --closenodeid | -c)
@@ -719,11 +719,11 @@ function console() {
         cd ${DATA_PATH}/node-${2}/
         rpc_port=$(cat deploy_node-$2.conf | grep "rpc_port=" | sed -e 's/rpc_port=\(.*\)/\1/g')
         ip=$(cat deploy_node-$2.conf | grep "ip_addr=" | sed -e 's/ip_addr=\(.*\)/\1/g')
-        pid=$(ps -ef | grep "platone attach http://${ip}:${rpc_port}" | grep -v grep | awk '{print $2}')
+        pid=$(ps -ef | grep "venachain attach http://${ip}:${rpc_port}" | grep -v grep | awk '{print $2}')
         cd ${CURRENT_PATH}
         ;;
     --closeall)
-        killall "platone attach"
+        killall "venachain attach"
         ;;
     *) showUsage 7 ;;
     esac
@@ -795,7 +795,7 @@ function getAllNodes() {
     fi
     firstnode_ip_addr=$(cat ${CONF_PATH}/firstnode.info | grep "ip_addr=" | sed -e 's/ip_addr=\(.*\)/\1/g')
     firstnode_rpc_port=$(cat ${CONF_PATH}/firstnode.info | grep "rpc_port=" | sed -e 's/rpc_port=\(.*\)/\1/g')
-    ${BIN_PATH}/platonecli node query --all --keyfile ${CONF_PATH}/keyfile.json --url ${firstnode_ip_addr}:${firstnode_rpc_port} <${CONF_PATH}/keyfile.phrase
+    ${BIN_PATH}/vcl node query --all --keyfile ${CONF_PATH}/keyfile.json --url ${firstnode_ip_addr}:${firstnode_rpc_port} <${CONF_PATH}/keyfile.phrase
 }
 
 ################################################# Account Operation #################################################

@@ -301,9 +301,9 @@ function generateConfFile() {
         if [[ "${os}" == "Darwin" ]]; then
             home="Users"
         fi
-        deploy_path="/${home}/${user_name}/PlatONE/${PROJECT_NAME}"
+        deploy_path="/${home}/${user_name}/Venachain/${PROJECT_NAME}"
         {
-            echo "## PlateONE Node Remote Deploy Configuration File ##"
+            echo "## Venachain Node Remote Deploy Configuration File ##"
             echo ""
             echo "## NODE"
             echo "deploy_path=${deploy_path}"

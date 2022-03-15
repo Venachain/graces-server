@@ -74,11 +74,11 @@ function readFile() {
 ################################################# Add Node #################################################
 function addNode() {
     inter_ip=127.0.0.1
-    ${BIN_PATH}/platonecli node add "${NODE_ID}" "${PUBKEY}" "${IP_ADDR}" "${inter_ip}" --p2pPort "${P2P_PORT}" --rpcPort "${RPC_PORT}" --keyfile "${CONF_PATH}"/keyfile.json --url "${FIRSTNODE_IP_ADDR}:${FIRSTNODE_RPC_PORT}" <"${CONF_PATH}"/keyfile.phrase >/dev/null 2>&1
+    ${BIN_PATH}/vcl node add "${NODE_ID}" "${PUBKEY}" "${IP_ADDR}" "${inter_ip}" --p2pPort "${P2P_PORT}" --rpcPort "${RPC_PORT}" --keyfile "${CONF_PATH}"/keyfile.json --url "${FIRSTNODE_IP_ADDR}:${FIRSTNODE_RPC_PORT}" <"${CONF_PATH}"/keyfile.phrase >/dev/null 2>&1
     timer=0
     add_node_flag=""
     while [ ${timer} -lt 10 ]; do
-        add_node_flag=$("${BIN_PATH}"/platonecli node query --name "${NODE_ID}" --keyfile "${CONF_PATH}"/keyfile.json --url "${FIRSTNODE_IP_ADDR}:${FIRSTNODE_RPC_PORT}" <"${CONF_PATH}"/keyfile.phrase) >/dev/null 2>&1
+        add_node_flag=$("${BIN_PATH}"/vcl node query --name "${NODE_ID}" --keyfile "${CONF_PATH}"/keyfile.json --url "${FIRSTNODE_IP_ADDR}:${FIRSTNODE_RPC_PORT}" <"${CONF_PATH}"/keyfile.phrase) >/dev/null 2>&1
         if [[ $(echo ${add_node_flag} | grep "success") != "" ]]; then
             break
         fi
