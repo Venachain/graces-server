@@ -28,10 +28,6 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-//// 	默认值设置在 core/vm/sc_param_manager.go:51
-//// 为了不改动PlatONE，故在此写死
-//var TxGasLimitConst = "1500000000"
-
 const (
 	DefaultContractInterpreter = "wasm"
 )

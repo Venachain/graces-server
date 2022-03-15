@@ -41,9 +41,9 @@ func InitRouter() *gin.Engine {
 
 // SwaggerRouter swagger 路由
 // 文档访问地址：http://127.0.0.1:9999/swagger/index.html
-// @title PlatONE-Graces swagger
+// @title Graces swagger
 // @version 0.0.1
-// @description PlatONE-Graces
+// @description Graces
 // @contact.name yangyi
 // @contact.email yangyi@wxblockchain.com
 // @license.name ""

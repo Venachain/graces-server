@@ -44,7 +44,7 @@ func TestManager_UnRegisterClient(t *testing.T) {
 func TestManager_Dial(t *testing.T) {
 	ip := "127.0.0.1"
 	port := 26791
-	group := "platone"
+	group := "Venachain"
 	path := ""
 	go DefaultWebsocketManager.Start()
 	client, err := DefaultWebsocketManager.Dial(ip, int64(port), path, group)

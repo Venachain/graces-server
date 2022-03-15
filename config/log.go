@@ -26,8 +26,6 @@ var AllLevels = []Level{
 
 var logrusPackage = "github.com/sirupsen/logrus"
 
-//var logPackage = "PlatONE-Graces/log"
-
 const (
 	// PanicLevel level, highest level of severity. Logs and then calls panic with the
 	// message passed to Debug, Info, ...

@@ -14,7 +14,7 @@ import (
 )
 
 // 	默认值设置在 core/vm/sc_param_manager.go:51
-// 为了不改动PlatONE，故在此写死
+// 为了不改动 Venachain，故在此写死
 var TxGasLimitConst = "1500000000"
 
 type TX struct {
