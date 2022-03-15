@@ -30,7 +30,7 @@
    
 3. 下载和编译 Venachain
 
-   安装教程：https://venachain-docs.readthedocs.io/zh/latest/documents/quick/deploy.html#quick-deploy
+   安装教程：https://venachain-docs.readthedocs.io/zh/latest/documents/develop/deploy.html
 
 5. 下载 Graces V1.0.0
 
