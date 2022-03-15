@@ -1,0 +1,3507 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "contact": {}
+    },
+    "paths": {
+        "/api/account/list": {
+            "post": {
+                "description": "展示指定链、指定节点的账户列表",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "链账户管理"
+                ],
+                "summary": "展示节点的账户列表",
+                "parameters": [
+                    {
+                        "description": "账户信息查询DTO",
+                        "name": "dto",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.AccountDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/model.AccountVO"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/account/lock": {
+            "post": {
+                "description": "锁定指定链的指定节点上的指定账户",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "链账户管理"
+                ],
+                "summary": "锁定账户",
+                "parameters": [
+                    {
+                        "description": "账户DTO",
+                        "name": "dto",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.LockAccountDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/account/unlock": {
+            "post": {
+                "description": "解锁指定链的指定节点上的指定账户",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "链账户管理"
+                ],
+                "summary": "解锁账户",
+                "parameters": [
+                    {
+                        "description": "解锁账户DTO",
+                        "name": "dto",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.UnlockAccountDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "boolean"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/block/hash": {
+            "post": {
+                "description": "通过 hash 查询区块信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "区块信息管理"
+                ],
+                "summary": "查询区块信息",
+                "parameters": [
+                    {
+                        "description": "区块信息查询条件",
+                        "name": "condition",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.BlockByHashDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/model.BlockVO"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/block/id/{id}": {
+            "get": {
+                "description": "通过 id 查询区块信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "区块信息管理"
+                ],
+                "summary": "查询区块信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/model.BlockVO"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/blocks": {
+            "post": {
+                "description": "按条件查询区块信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "区块信息管理"
+                ],
+                "summary": "查询区块信息",
+                "parameters": [
+                    {
+                        "description": "区块信息查询条件",
+                        "name": "condition",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.BlockQueryCondition"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/definitions/model.PageInfo"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "items": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "$ref": "#/definitions/model.BlockVO"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/chain": {
+            "post": {
+                "description": "添加链信息进 graces 平台",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "链信息管理"
+                ],
+                "summary": "添加链信息",
+                "parameters": [
+                    {
+                        "description": "链信息",
+                        "name": "chainDTO",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.ChainDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/chain/deploy/contract/:chainid": {
+            "get": {
+                "description": "部署智能合约",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "链信息管理"
+                ],
+                "summary": "为指定链部署智能合约",
+                "parameters": [
+                    {
+                        "type": "file",
+                        "description": "file",
+                        "name": "data",
+                        "in": "formData",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/chain/fullsync/start/{chainid}": {
+            "get": {
+                "description": "开始全量同步链数据",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "链信息管理"
+                ],
+                "summary": "链数据全量同步：开始",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "chainid",
+                        "name": "chainid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/chain/getsystemconfig/{id}": {
+            "get": {
+                "description": "获取系统参数",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "链信息管理"
+                ],
+                "summary": "获取当前账户的系统参数",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "chain ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/model.SystemConfigVO"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/chain/id/{id}": {
+            "get": {
+                "description": "通过 id 查询链信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "链信息管理"
+                ],
+                "summary": "查询链信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/model.ChainVO"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/chain/incrsync/start/{chainid}": {
+            "get": {
+                "description": "开始增量同步链数据",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "链信息管理"
+                ],
+                "summary": "链数据增量同步：开始",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "chainid",
+                        "name": "chainid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/chain/name/{name}": {
+            "get": {
+                "description": "通过 name 查询链信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "链信息管理"
+                ],
+                "summary": "查询链信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "name",
+                        "name": "name",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/model.ChainVO"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/chain/setsystemconfig": {
+            "post": {
+                "description": "设置系统参数",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "链信息管理"
+                ],
+                "summary": "设置当前账户的系统参数",
+                "parameters": [
+                    {
+                        "description": "系统参数设置信息",
+                        "name": "condition",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.SystemConfigVO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/chain/stats/tx/count/{chainid}": {
+            "get": {
+                "description": "链数据查询",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "交易信息管理"
+                ],
+                "summary": "获取某个时间段内的交易总数",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "chainid",
+                        "name": "chainid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/chain/stats/{chainid}": {
+            "get": {
+                "description": "链数据查询",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "链信息管理"
+                ],
+                "summary": "获取当前链上交易、区块、合约的总量",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "chainid",
+                        "name": "chainid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/chain/sync/info/{chainid}": {
+            "get": {
+                "description": "查询链数据同步信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "链信息管理"
+                ],
+                "summary": "链数据同步信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "chainid",
+                        "name": "chainid",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/model.ChainDataSyncInfoVO"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/chains": {
+            "post": {
+                "description": "按条件查询链信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "链信息管理"
+                ],
+                "summary": "查询链信息",
+                "parameters": [
+                    {
+                        "description": "链信息查询条件",
+                        "name": "condition",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.ChainQueryCondition"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/definitions/model.PageInfo"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "items": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "$ref": "#/definitions/model.ChainVO"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/cns/redirect": {
+            "post": {
+                "description": "重定向该CNS映射信息的版本，默认情况下使用最新版本",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CNS映射信息管理"
+                ],
+                "summary": "CNS映射信息版本重定向",
+                "parameters": [
+                    {
+                        "description": "CNS重定向信息DTO",
+                        "name": "dto",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CNSRedirectDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/model.ContractCallResult"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/cns/register": {
+            "post": {
+                "description": "把合约注册进合约命名系统（CNS）中",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CNS映射信息管理"
+                ],
+                "summary": "注册CNS映射信息",
+                "parameters": [
+                    {
+                        "description": "CNS映射信息注册DTO",
+                        "name": "dto",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CNSRegisterDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/model.ContractCallResult"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/cns/{id}": {
+            "get": {
+                "description": "通过 id 查询CNS映射信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CNS映射信息管理"
+                ],
+                "summary": "查询CNS映射信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/model.CNSVO"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/cnss": {
+            "post": {
+                "description": "按条件查询CNS映射信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "CNS映射信息管理"
+                ],
+                "summary": "查询CNS映射信息",
+                "parameters": [
+                    {
+                        "description": "CNS映射信息查询条件",
+                        "name": "condition",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.CNSQueryCondition"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/definitions/model.PageInfo"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "items": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "$ref": "#/definitions/model.CNSVO"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/contract/address": {
+            "post": {
+                "description": "通过 合约地址 查询合约信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "合约信息管理"
+                ],
+                "summary": "查询合约信息",
+                "parameters": [
+                    {
+                        "description": "合约信息查询条件",
+                        "name": "condition",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.ContractByAddressDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/model.TXVO"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/contract/closefirewall": {
+            "post": {
+                "description": "通过 合约地址 关闭合约防火墙",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "合约信息管理"
+                ],
+                "summary": "关闭合约防火墙",
+                "parameters": [
+                    {
+                        "description": "链id 和合约地址",
+                        "name": "condition",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.FireWall"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/contract/getfirewallstatus": {
+            "post": {
+                "description": "通过合约地址获取合约防火墙状态",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "合约信息管理"
+                ],
+                "summary": "获取防火墙状态",
+                "parameters": [
+                    {
+                        "description": "链id 和合约地址",
+                        "name": "condition",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.FireWall"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/contract/openfirewall": {
+            "post": {
+                "description": "通过 合约地址 开启合约防火墙",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "合约信息管理"
+                ],
+                "summary": "开启合约防火墙",
+                "parameters": [
+                    {
+                        "description": "链id 和合约地址",
+                        "name": "condition",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.FireWall"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/contracts": {
+            "post": {
+                "description": "按条件查询合约信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "合约信息管理"
+                ],
+                "summary": "查询合约信息",
+                "parameters": [
+                    {
+                        "description": "合约信息查询条件",
+                        "name": "condition",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.ContractQueryCondition"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/definitions/model.PageInfo"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "items": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "$ref": "#/definitions/model.ContractVO"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/node/id/{id}": {
+            "get": {
+                "description": "通过 id 查询节点信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "节点信息管理"
+                ],
+                "summary": "查询节点信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/model.NodeVO"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/nodes": {
+            "post": {
+                "description": "按条件查询节点信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "节点信息管理"
+                ],
+                "summary": "查询节点信息",
+                "parameters": [
+                    {
+                        "description": "节点信息查询条件",
+                        "name": "condition",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.NodeQueryCondition"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/definitions/model.PageInfo"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "items": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "$ref": "#/definitions/model.NodeVO"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/nodes/sync": {
+            "post": {
+                "description": "通过 节点的ip和port查询节点状态",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "节点信息管理"
+                ],
+                "summary": "节点监控模块",
+                "parameters": [
+                    {
+                        "description": "节点的ip和port",
+                        "name": "condition",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.NodeSyncReq"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.SyncNodeResult"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tx/hash": {
+            "post": {
+                "description": "通过 hash 查询交易信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "交易信息管理"
+                ],
+                "summary": "查询交易信息",
+                "parameters": [
+                    {
+                        "description": "交易信息查询条件",
+                        "name": "condition",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.TXByHashDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/model.TXVO"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/tx/id/{id}": {
+            "get": {
+                "description": "通过 id 查询交易信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "交易信息管理"
+                ],
+                "summary": "查询交易信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/model.TXVO"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/txs": {
+            "post": {
+                "description": "按条件查询交易信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "交易信息管理"
+                ],
+                "summary": "查询交易信息",
+                "parameters": [
+                    {
+                        "description": "交易信息查询条件",
+                        "name": "condition",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.TXQueryCondition"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/definitions/model.PageInfo"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "items": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "$ref": "#/definitions/model.TXVO"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/txs/contractcall": {
+            "post": {
+                "description": "按条件查询属于合约调用的交易信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "交易信息管理"
+                ],
+                "summary": "查询属于合约调用的交易信息",
+                "parameters": [
+                    {
+                        "description": "交易信息查询条件",
+                        "name": "condition",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.TXQueryCondition"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "allOf": [
+                                                {
+                                                    "$ref": "#/definitions/model.PageInfo"
+                                                },
+                                                {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "items": {
+                                                            "type": "array",
+                                                            "items": {
+                                                                "$ref": "#/definitions/model.TXVO"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/ws/clientsend": {
+            "post": {
+                "description": "让指定 id 和 group 的 WebSocket 客户端向它所连接的服务端发送信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WebSocket 管理"
+                ],
+                "summary": "websocket 客户端向 websocket 服务端发送消息",
+                "parameters": [
+                    {
+                        "description": "数据信息",
+                        "name": "wsMessageDto",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.WSMessageDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/ws/dial": {
+            "post": {
+                "description": "作为 websocket 客户端向其他 websocket 服务端拨号建立连接",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WebSocket 管理"
+                ],
+                "summary": "拨号连接",
+                "parameters": [
+                    {
+                        "description": "拨号信息",
+                        "name": "wsDialDTO",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.WSDialDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/model.WSGroupVO"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/ws/group/{group}": {
+            "get": {
+                "description": "通过 组名称 查询 WebSocket 中指定组的详细信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WebSocket 管理"
+                ],
+                "summary": "单个 WebSocket 组信息",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "group",
+                        "name": "group",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/model.WSGroupVO"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/ws/groups": {
+            "get": {
+                "description": "查询 WebSocket 中所有组的详细信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WebSocket 管理"
+                ],
+                "summary": "所有 WebSocket 组信息",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/definitions/model.WSGroupVO"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/ws/manager": {
+            "get": {
+                "description": "查询 WebSocket 管理器当前状态信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WebSocket 管理"
+                ],
+                "summary": "WebSocket 管理器信息",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/definitions/model.Result"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/definitions/model.WSManagerVO"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/ws/send": {
+            "post": {
+                "description": "向指定 id 和 group 的 WebSocket 客户端发送信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WebSocket 管理"
+                ],
+                "summary": "向单个 WebSocket 客户端发送信息",
+                "parameters": [
+                    {
+                        "description": "数据信息",
+                        "name": "wsMessageDto",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.WSMessageDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/ws/sendall": {
+            "post": {
+                "description": "向所有 WebSocket 客户端广播信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WebSocket 管理"
+                ],
+                "summary": "向所有 WebSocket 客户端广播信息",
+                "parameters": [
+                    {
+                        "description": "数据信息",
+                        "name": "wsBroadCastMessageDTO",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.WSBroadCastMessageDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        },
+        "/api/ws/sendgroup": {
+            "post": {
+                "description": "向指定 group 中的所有 WebSocket 客户端广播信息",
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "WebSocket 管理"
+                ],
+                "summary": "向一个组中的所有 WebSocket 客户端广播信息",
+                "parameters": [
+                    {
+                        "description": "数据信息",
+                        "name": "wsGroupMessageDTO",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/model.WSGroupMessageDTO"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/model.Result"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "model.AccountDTO": {
+            "type": "object",
+            "properties": {
+                "chain_id": {
+                    "description": "链ID",
+                    "type": "string"
+                },
+                "node_id": {
+                    "description": "节点ID",
+                    "type": "string"
+                }
+            }
+        },
+        "model.AccountVO": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "description": "账户地址",
+                    "type": "string"
+                },
+                "chain_id": {
+                    "description": "所属链ID",
+                    "type": "string"
+                },
+                "node_id": {
+                    "description": "所属节点ID",
+                    "type": "string"
+                }
+            }
+        },
+        "model.BLockHeadVO": {
+            "type": "object",
+            "properties": {
+                "extra_data": {
+                    "description": "区块的额外信息",
+                    "type": "string"
+                },
+                "gas_limit": {
+                    "description": "区块内部所有交易的 Gas 限制量",
+                    "type": "integer"
+                },
+                "gas_used": {
+                    "description": "区块内部所有交易的 Gas 使用总量",
+                    "type": "integer"
+                },
+                "hash": {
+                    "description": "区块哈希",
+                    "type": "string"
+                },
+                "height": {
+                    "description": "区块高度",
+                    "type": "integer"
+                },
+                "logs_bloom": {
+                    "description": "LogsBloom",
+                    "type": "string"
+                },
+                "miner": {
+                    "description": "挖出该区块的矿工地址",
+                    "type": "string"
+                },
+                "mix_hash": {
+                    "description": "混合哈希",
+                    "type": "string"
+                },
+                "nonce": {
+                    "description": "区块 POW 随机数",
+                    "type": "integer"
+                },
+                "parent_hash": {
+                    "description": "上一个区块的哈希",
+                    "type": "string"
+                },
+                "receipts_root": {
+                    "description": "merkle 收据树的根哈希",
+                    "type": "string"
+                },
+                "state_root": {
+                    "description": "merkle 状态树的根哈希",
+                    "type": "string"
+                },
+                "timestamp": {
+                    "description": "区块生成时间",
+                    "type": "string"
+                },
+                "transactions_root": {
+                    "description": "merkle 交易树的根哈希",
+                    "type": "string"
+                }
+            }
+        },
+        "model.BlockByHashDTO": {
+            "type": "object",
+            "required": [
+                "hash"
+            ],
+            "properties": {
+                "chain_id": {
+                    "description": "所属链ID",
+                    "type": "string"
+                },
+                "hash": {
+                    "description": "区块哈希",
+                    "type": "string"
+                }
+            }
+        },
+        "model.BlockDataSyncInfoVO": {
+            "type": "object",
+            "properties": {
+                "block_sync_time_avg": {
+                    "description": "同步每个区块的平均耗时（单位：ms）",
+                    "type": "integer"
+                },
+                "current_height": {
+                    "description": "当前已经同步到的块高",
+                    "type": "integer"
+                },
+                "err_msg": {
+                    "description": "错误信息",
+                    "type": "string"
+                },
+                "estimate_complete_time": {
+                    "description": "预计完成时间",
+                    "type": "string"
+                },
+                "latest_height": {
+                    "description": "链上最新区块的块高",
+                    "type": "integer"
+                },
+                "start_time": {
+                    "description": "开始时间",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "数据同步状态：同步中（syncing）、同步出错（error）、同步成功（success）",
+                    "type": "string"
+                }
+            }
+        },
+        "model.BlockQueryCondition": {
+            "type": "object",
+            "properties": {
+                "chain_id": {
+                    "description": "所属链ID",
+                    "type": "string"
+                },
+                "hash": {
+                    "description": "区块哈希",
+                    "type": "string"
+                },
+                "height": {
+                    "description": "区块高度",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "string"
+                },
+                "page_index": {
+                    "description": "当前页数",
+                    "type": "integer"
+                },
+                "page_size": {
+                    "description": "每页数据条数",
+                    "type": "integer"
+                },
+                "proposer": {
+                    "description": "挖出该区块的矿工地址",
+                    "type": "string"
+                },
+                "sort": {
+                    "description": "排序规则，k：字段名，v：排序规则，1位升序，-1位降序",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer"
+                    }
+                },
+                "time_end": {
+                    "description": "终止时间",
+                    "type": "integer"
+                },
+                "time_start": {
+                    "description": "起始时间",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.BlockVO": {
+            "type": "object",
+            "properties": {
+                "chain_id": {
+                    "description": "所属链ID",
+                    "type": "string"
+                },
+                "extra_data": {
+                    "description": "区块的额外信息",
+                    "type": "string"
+                },
+                "gas_limit": {
+                    "description": "区块内部所有交易的 Gas 限制量",
+                    "type": "integer"
+                },
+                "gas_used": {
+                    "description": "区块内部所有交易的 Gas 使用总量",
+                    "type": "integer"
+                },
+                "hash": {
+                    "description": "区块哈希",
+                    "type": "string"
+                },
+                "head": {
+                    "description": "区块头信息",
+                    "$ref": "#/definitions/model.BLockHeadVO"
+                },
+                "height": {
+                    "description": "区块高度",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "string"
+                },
+                "parent_hash": {
+                    "description": "上一个区块的哈希",
+                    "type": "string"
+                },
+                "proposer": {
+                    "description": "挖出该区块的矿工地址",
+                    "type": "string"
+                },
+                "size": {
+                    "description": "区块大小",
+                    "type": "string"
+                },
+                "timestamp": {
+                    "description": "区块生成时间",
+                    "type": "string"
+                },
+                "tx_amount": {
+                    "description": "区块内部交易数量",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.CNSDataSyncInfoVO": {
+            "type": "object",
+            "properties": {
+                "block_sync_time_avg": {
+                    "description": "同步每个 CNS合约映射信息 的平均耗时（单位：ms）",
+                    "type": "integer"
+                },
+                "err_msg": {
+                    "description": "错误信息",
+                    "type": "string"
+                },
+                "estimate_complete_time": {
+                    "description": "预计完成时间",
+                    "type": "string"
+                },
+                "index": {
+                    "description": "当前已经同步到的下标",
+                    "type": "integer"
+                },
+                "size": {
+                    "description": "总的 CNS合约映射信息 数量",
+                    "type": "integer"
+                },
+                "start_time": {
+                    "description": "开始时间",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "数据同步状态：同步中（syncing）、同步出错（error）、同步成功（success）",
+                    "type": "string"
+                }
+            }
+        },
+        "model.CNSQueryCondition": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "description": "合约地址",
+                    "type": "string"
+                },
+                "chain_id": {
+                    "description": "所属链ID",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "合约别名",
+                    "type": "string"
+                },
+                "page_index": {
+                    "description": "当前页数",
+                    "type": "integer"
+                },
+                "page_size": {
+                    "description": "每页数据条数",
+                    "type": "integer"
+                },
+                "sort": {
+                    "description": "排序规则，k：字段名，v：排序规则，1位升序，-1位降序",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer"
+                    }
+                },
+                "version": {
+                    "description": "合约版本号",
+                    "type": "string"
+                }
+            }
+        },
+        "model.CNSRedirectDTO": {
+            "type": "object",
+            "required": [
+                "chain_id",
+                "name",
+                "version"
+            ],
+            "properties": {
+                "chain_id": {
+                    "description": "链ID",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "合约别名",
+                    "type": "string"
+                },
+                "version": {
+                    "description": "合约版本号",
+                    "type": "string"
+                }
+            }
+        },
+        "model.CNSRegisterDTO": {
+            "type": "object",
+            "required": [
+                "address",
+                "chain_id",
+                "name",
+                "version"
+            ],
+            "properties": {
+                "address": {
+                    "description": "CNS合约地址",
+                    "type": "string"
+                },
+                "chain_id": {
+                    "description": "链ID",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "合约别名",
+                    "type": "string"
+                },
+                "version": {
+                    "description": "合约版本号",
+                    "type": "string"
+                }
+            }
+        },
+        "model.CNSVO": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "description": "合约地址",
+                    "type": "string"
+                },
+                "chain_id": {
+                    "description": "所属链ID",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "CNS ID",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "合约别名",
+                    "type": "string"
+                },
+                "version": {
+                    "description": "合约版本号",
+                    "type": "string"
+                }
+            }
+        },
+        "model.ChainDTO": {
+            "type": "object",
+            "required": [
+                "ip",
+                "name",
+                "p2p_port",
+                "rpc_port",
+                "ws_port"
+            ],
+            "properties": {
+                "chain_config": {
+                    "description": "链第一个节点的配置信息",
+                    "type": "object",
+                    "additionalProperties": true
+                },
+                "desc": {
+                    "description": "链的描述信息",
+                    "type": "string",
+                    "maxLength": 200
+                },
+                "ip": {
+                    "description": "链第一个节点的 IP 地址",
+                    "type": "string",
+                    "maxLength": 15,
+                    "minLength": 7
+                },
+                "name": {
+                    "description": "链名称",
+                    "type": "string",
+                    "maxLength": 20,
+                    "minLength": 1
+                },
+                "p2p_port": {
+                    "description": "链第一个节点的 P2P 端口号",
+                    "type": "integer",
+                    "maximum": 65535,
+                    "minimum": 0
+                },
+                "rpc_port": {
+                    "description": "链第一个节点的 rpc 端口号",
+                    "type": "integer",
+                    "maximum": 65535,
+                    "minimum": 0
+                },
+                "ws_port": {
+                    "description": "链第一个节点的 websocket 端口号",
+                    "type": "integer",
+                    "maximum": 65535,
+                    "minimum": 0
+                }
+            }
+        },
+        "model.ChainDataSyncInfoVO": {
+            "type": "object",
+            "properties": {
+                "block_data_sync_info": {
+                    "description": "区块同步信息",
+                    "$ref": "#/definitions/model.BlockDataSyncInfoVO"
+                },
+                "chain_id": {
+                    "description": "链ID",
+                    "type": "string"
+                },
+                "cns_data_sync_info_vo": {
+                    "description": "CNS同步信息",
+                    "$ref": "#/definitions/model.CNSDataSyncInfoVO"
+                },
+                "err_msg": {
+                    "description": "错误信息",
+                    "type": "string"
+                },
+                "estimate_complete_time": {
+                    "description": "预计完成时间",
+                    "type": "string"
+                },
+                "nodeDataSyncInfoVO": {
+                    "description": "节点同步信息",
+                    "$ref": "#/definitions/model.NodeDataSyncInfoVO"
+                },
+                "start_time": {
+                    "description": "开始时间",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "数据同步状态：同步中（syncing）、同步出错（error）、同步成功（success）",
+                    "type": "string"
+                }
+            }
+        },
+        "model.ChainQueryCondition": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "description": "主键ID",
+                    "type": "string"
+                },
+                "ip": {
+                    "description": "链第一个节点的 IP 地址",
+                    "type": "string",
+                    "maxLength": 15
+                },
+                "name": {
+                    "description": "链名称",
+                    "type": "string",
+                    "maxLength": 20
+                },
+                "p2p_port": {
+                    "description": "链第一个节点的 p2p 端口号",
+                    "type": "integer"
+                },
+                "page_index": {
+                    "description": "当前页数",
+                    "type": "integer"
+                },
+                "page_size": {
+                    "description": "每页数据条数",
+                    "type": "integer"
+                },
+                "rpc_port": {
+                    "description": "链第一个节点的 rpc 端口号",
+                    "type": "integer"
+                },
+                "sort": {
+                    "description": "排序规则，k：字段名，v：排序规则，1位升序，-1位降序",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer"
+                    }
+                },
+                "ws_port": {
+                    "description": "链第一个节点的 websocket 端口号",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.ChainVO": {
+            "type": "object",
+            "properties": {
+                "chain_config": {
+                    "description": "链第一个节点的配置信息",
+                    "type": "object",
+                    "additionalProperties": true
+                },
+                "create_time": {
+                    "description": "创建时间",
+                    "type": "string"
+                },
+                "delete_time": {
+                    "description": "删除时间",
+                    "type": "string"
+                },
+                "desc": {
+                    "description": "链的描述信息",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "string"
+                },
+                "ip": {
+                    "description": "链第一个节点的 IP 地址",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "链名称",
+                    "type": "string"
+                },
+                "p2p_port": {
+                    "description": "链第一个节点的 p2p 端口号",
+                    "type": "integer"
+                },
+                "rpc_port": {
+                    "description": "链第一个节点的 rpc 端口号",
+                    "type": "integer"
+                },
+                "update_time": {
+                    "description": "最后一次更新时间",
+                    "type": "string"
+                },
+                "username": {
+                    "description": "在服务端部署链时所需的服务端操作用户",
+                    "type": "string"
+                },
+                "ws_port": {
+                    "description": "链第一个节点的 websocket 端口号",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.ContractByAddressDTO": {
+            "type": "object",
+            "required": [
+                "contract_address"
+            ],
+            "properties": {
+                "chain_id": {
+                    "description": "所属链ID",
+                    "type": "string"
+                },
+                "contract_address": {
+                    "description": "合约地址",
+                    "type": "string"
+                }
+            }
+        },
+        "model.ContractCallResult": {
+            "type": "object",
+            "properties": {
+                "block_number": {
+                    "description": "合约调用产生的交易所在的区块高度",
+                    "type": "integer"
+                },
+                "chain_id": {
+                    "description": "所属链ID",
+                    "type": "string"
+                },
+                "err_msg": {
+                    "description": "合约调用产生的错误信息",
+                    "type": "string"
+                },
+                "from": {
+                    "description": "合约调用产生的交易的发起人",
+                    "type": "string"
+                },
+                "gas_used": {
+                    "description": "合约调用的 Gas 消耗",
+                    "type": "integer"
+                },
+                "logs": {
+                    "description": "合约调用日志",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "status": {
+                    "description": "合约调用状态",
+                    "type": "string"
+                },
+                "to": {
+                    "description": "合约调用产生的交易的交易目标",
+                    "type": "string"
+                },
+                "tx_hash": {
+                    "description": "合约调用产生的交易的交易哈希",
+                    "type": "string"
+                }
+            }
+        },
+        "model.ContractQueryCondition": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "description": "合约地址",
+                    "type": "string"
+                },
+                "chain_id": {
+                    "description": "所属链ID",
+                    "type": "string"
+                },
+                "creator": {
+                    "description": "合约创建人地址",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "部署合约的交易ID",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "CNS名称",
+                    "type": "string"
+                },
+                "page_index": {
+                    "description": "当前页数",
+                    "type": "integer"
+                },
+                "page_size": {
+                    "description": "每页数据条数",
+                    "type": "integer"
+                },
+                "sort": {
+                    "description": "排序规则，k：字段名，v：排序规则，1位升序，-1位降序",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer"
+                    }
+                },
+                "time_end": {
+                    "description": "终止时间",
+                    "type": "integer"
+                },
+                "time_start": {
+                    "description": "起始时间",
+                    "type": "integer"
+                },
+                "tx_hash": {
+                    "description": "部署合约时的交易哈希",
+                    "type": "string"
+                }
+            }
+        },
+        "model.ContractVO": {
+            "type": "object",
+            "properties": {
+                "address": {
+                    "description": "合约地址",
+                    "type": "string"
+                },
+                "chain_id": {
+                    "description": "所属链ID",
+                    "type": "string"
+                },
+                "cns": {
+                    "description": "CNS名称",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.CNSVO"
+                    }
+                },
+                "content": {
+                    "description": "合约内容"
+                },
+                "creator": {
+                    "description": "合约创建人地址",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "string"
+                },
+                "timestamp": {
+                    "description": "部署时间",
+                    "type": "string"
+                },
+                "tx_hash": {
+                    "description": "部署合约时的交易哈希",
+                    "type": "string"
+                }
+            }
+        },
+        "model.FireWall": {
+            "type": "object",
+            "properties": {
+                "chainid": {
+                    "description": "所属链ID",
+                    "type": "string"
+                },
+                "contractAddress": {
+                    "description": "合约地址",
+                    "type": "string"
+                }
+            }
+        },
+        "model.LockAccountDTO": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "description": "账户",
+                    "type": "string"
+                },
+                "chain_id": {
+                    "description": "链ID",
+                    "type": "string"
+                },
+                "node_id": {
+                    "description": "节点ID",
+                    "type": "string"
+                }
+            }
+        },
+        "model.NodeDataSyncInfoVO": {
+            "type": "object",
+            "properties": {
+                "err_msg": {
+                    "description": "错误信息",
+                    "type": "string"
+                },
+                "estimate_complete_time": {
+                    "description": "预计完成时间",
+                    "type": "string"
+                },
+                "index": {
+                    "description": "当前已经同步到的下标",
+                    "type": "integer"
+                },
+                "size": {
+                    "description": "总的 节点 数量",
+                    "type": "integer"
+                },
+                "start_time": {
+                    "description": "开始时间",
+                    "type": "string"
+                },
+                "status": {
+                    "description": "数据同步状态：同步中（syncing）、同步出错（error）、同步成功（success）",
+                    "type": "string"
+                },
+                "sync_time_avg": {
+                    "description": "同步每个节点的平均耗时（单位：ms）",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.NodeQueryCondition": {
+            "type": "object",
+            "properties": {
+                "chain_id": {
+                    "description": "所属链ID",
+                    "type": "string"
+                },
+                "external_ip": {
+                    "description": "公网 IP 地址",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "string"
+                },
+                "internal_ip": {
+                    "description": "内网 IP 地址",
+                    "type": "string"
+                },
+                "name": {
+                    "description": "节点名称",
+                    "type": "string"
+                },
+                "page_index": {
+                    "description": "当前页数",
+                    "type": "integer"
+                },
+                "page_size": {
+                    "description": "每页数据条数",
+                    "type": "integer"
+                },
+                "sort": {
+                    "description": "排序规则，k：字段名，v：排序规则，1位升序，-1位降序",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "model.NodeSyncReq": {
+            "type": "object",
+            "properties": {
+                "ip": {
+                    "description": "节点 IP 地址",
+                    "type": "string"
+                },
+                "port": {
+                    "description": "节点端口号",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.NodeVO": {
+            "type": "object",
+            "properties": {
+                "blocknumber": {
+                    "description": "节点当前最新区块的块高",
+                    "type": "integer"
+                },
+                "chain_id": {
+                    "description": "所属链 id",
+                    "type": "string"
+                },
+                "desc": {
+                    "description": "节点描述",
+                    "type": "string"
+                },
+                "external_ip": {
+                    "description": "节点公网 IP",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "节点 id",
+                    "type": "string"
+                },
+                "internal_ip": {
+                    "description": "节点内网 IP",
+                    "type": "string"
+                },
+                "is_alive": {
+                    "description": "节点是否在线",
+                    "type": "boolean"
+                },
+                "name": {
+                    "description": "节点名称",
+                    "type": "string"
+                },
+                "owner": {
+                    "description": "节点部署人",
+                    "type": "string"
+                },
+                "p2p_port": {
+                    "description": "节点 P2P 端口号",
+                    "type": "integer"
+                },
+                "public_key": {
+                    "description": "节点公钥",
+                    "type": "string"
+                },
+                "rpc_port": {
+                    "description": "节点 RPC 端口号",
+                    "type": "integer"
+                },
+                "status": {
+                    "description": "节点状态",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "节点类型",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.PageInfo": {
+            "type": "object",
+            "properties": {
+                "has_next_page": {
+                    "description": "是否存在下一页",
+                    "type": "boolean"
+                },
+                "has_pre_page": {
+                    "description": "是否存在上一页",
+                    "type": "boolean"
+                },
+                "items": {
+                    "description": "当前页的数据"
+                },
+                "page_index": {
+                    "description": "当前页数",
+                    "type": "integer"
+                },
+                "page_size": {
+                    "description": "每页数据条数",
+                    "type": "integer"
+                },
+                "page_total": {
+                    "description": "总页数",
+                    "type": "integer"
+                },
+                "total": {
+                    "description": "数据总量",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.ReceiptVO": {
+            "type": "object",
+            "properties": {
+                "contract_address": {
+                    "description": "合约地址",
+                    "type": "string"
+                },
+                "event": {
+                    "description": "事件信息",
+                    "type": "string"
+                },
+                "gas_used": {
+                    "description": "Gas 使用量",
+                    "type": "integer"
+                },
+                "status": {
+                    "description": "交易状态",
+                    "type": "integer"
+                },
+                "status_name": {
+                    "description": "交易状态名称",
+                    "type": "string"
+                }
+            }
+        },
+        "model.Result": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "description": "HTTP 响应状态码",
+                    "type": "integer"
+                },
+                "data": {
+                    "description": "响应数据"
+                },
+                "msg": {
+                    "description": "响应提示信息",
+                    "type": "string"
+                },
+                "request": {
+                    "description": "请求资源路径",
+                    "type": "string"
+                }
+            }
+        },
+        "model.SyncNodeResult": {
+            "type": "object",
+            "properties": {
+                "blocknumber": {
+                    "description": "节点当前最新区块的块高",
+                    "type": "integer"
+                },
+                "gasprice": {
+                    "description": "Gas 价格",
+                    "type": "integer"
+                },
+                "ismining": {
+                    "description": "是否处于挖矿状态",
+                    "type": "boolean"
+                },
+                "pendingnumber": {
+                    "description": "节点交易池 pending 交易的数量",
+                    "type": "integer"
+                },
+                "pendingtx": {
+                    "description": "节点交易池的 pending 交易的哈希列表",
+                    "type": "array",
+                    "items": {
+                        "type": "string"
+                    }
+                }
+            }
+        },
+        "model.SystemConfigVO": {
+            "type": "object",
+            "properties": {
+                "blockGasLimit": {
+                    "description": "设置区块 Gas 限制",
+                    "type": "string"
+                },
+                "chainID": {
+                    "description": "所属链ID",
+                    "type": "string"
+                },
+                "gasContractName": {
+                    "description": "设置交易所消耗的 Gas 由指定的合约名称来提供",
+                    "type": "string"
+                },
+                "isApproveDeployedContract": {
+                    "description": "设置是否允许部署合约",
+                    "type": "string"
+                },
+                "isCheckDeployPermission": {
+                    "description": "设置是否检查合约部署权限",
+                    "type": "string"
+                },
+                "isProduceEmptyBlock": {
+                    "description": "设置是否允许出空块",
+                    "type": "string"
+                },
+                "isUseGas": {
+                    "description": "设置是否使用指定合约提供的 Gas，需与 gasContractName 共同使用才能起作用",
+                    "type": "string"
+                },
+                "txGasLimit": {
+                    "description": "设置交易 Gas 限制",
+                    "type": "string"
+                }
+            }
+        },
+        "model.TXByHashDTO": {
+            "type": "object",
+            "required": [
+                "hash"
+            ],
+            "properties": {
+                "chain_id": {
+                    "description": "所属链ID",
+                    "type": "string"
+                },
+                "hash": {
+                    "description": "交易哈希",
+                    "type": "string"
+                }
+            }
+        },
+        "model.TXQueryCondition": {
+            "type": "object",
+            "properties": {
+                "block_id": {
+                    "description": "所属区块ID",
+                    "type": "string"
+                },
+                "chain_id": {
+                    "description": "所属链ID",
+                    "type": "string"
+                },
+                "contract_address": {
+                    "description": "合约地址",
+                    "type": "string"
+                },
+                "hash": {
+                    "description": "交易哈希",
+                    "type": "string"
+                },
+                "height": {
+                    "description": "所属区块高度",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "string"
+                },
+                "page_index": {
+                    "description": "当前页数",
+                    "type": "integer"
+                },
+                "page_size": {
+                    "description": "每页数据条数",
+                    "type": "integer"
+                },
+                "participant_hash": {
+                    "description": "交易参与人哈希",
+                    "type": "string"
+                },
+                "sort": {
+                    "description": "排序规则，k：字段名，v：排序规则，1位升序，-1位降序",
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "integer"
+                    }
+                },
+                "status": {
+                    "description": "交易状态",
+                    "type": "integer"
+                },
+                "time_end": {
+                    "description": "终止时间",
+                    "type": "integer"
+                },
+                "time_start": {
+                    "description": "起始时间",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.TXVO": {
+            "type": "object",
+            "properties": {
+                "action": {
+                    "description": "交易执行的操作： 合约部署、合约调用或者转账",
+                    "type": "string"
+                },
+                "block_id": {
+                    "description": "所属区块ID",
+                    "type": "string"
+                },
+                "chain_id": {
+                    "description": "所属链ID",
+                    "type": "string"
+                },
+                "detail": {
+                    "description": "交易的详细信息",
+                    "$ref": "#/definitions/model.TxDetail"
+                },
+                "from": {
+                    "description": "交易发起人地址",
+                    "type": "string"
+                },
+                "gas_limit": {
+                    "description": "Gas 限制",
+                    "type": "integer"
+                },
+                "gas_price": {
+                    "description": "Gas 价格",
+                    "type": "integer"
+                },
+                "hash": {
+                    "description": "交易哈希",
+                    "type": "string"
+                },
+                "height": {
+                    "description": "所属区块高度",
+                    "type": "integer"
+                },
+                "id": {
+                    "description": "主键ID",
+                    "type": "string"
+                },
+                "input": {
+                    "description": "input 数据",
+                    "type": "string"
+                },
+                "is_to_contract": {
+                    "description": "是否是合约调用",
+                    "type": "boolean"
+                },
+                "nonce": {
+                    "description": "随机数",
+                    "type": "string"
+                },
+                "receipt": {
+                    "description": "收据信息",
+                    "$ref": "#/definitions/model.ReceiptVO"
+                },
+                "timestamp": {
+                    "description": "交易发起时间",
+                    "type": "string"
+                },
+                "to": {
+                    "description": "交易目标地址",
+                    "type": "string"
+                },
+                "value": {
+                    "description": "交易数额",
+                    "type": "integer"
+                },
+                "wasm": {
+                    "description": "合约的wasm",
+                    "type": "array",
+                    "items": {
+                        "type": "integer"
+                    }
+                }
+            }
+        },
+        "model.TxDetail": {
+            "type": "object",
+            "properties": {
+                "contract": {
+                    "description": "显示合约相关的内容",
+                    "type": "string"
+                },
+                "extra": {
+                    "description": "显示其它的信息"
+                },
+                "method": {
+                    "description": "如果是合约调用，显示调用的合约方法",
+                    "type": "string"
+                },
+                "params": {
+                    "description": "如果是合约调用，显示调用的合约参数",
+                    "type": "array",
+                    "items": {}
+                },
+                "txtype": {
+                    "description": "交易类型",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.UnlockAccountDTO": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "description": "账户",
+                    "type": "string"
+                },
+                "chain_id": {
+                    "description": "链ID",
+                    "type": "string"
+                },
+                "duration": {
+                    "description": "解锁持续时间，单位：秒。如果为 0，则该值被默认设置为 300",
+                    "type": "integer"
+                },
+                "node_id": {
+                    "description": "节点ID",
+                    "type": "string"
+                },
+                "password": {
+                    "description": "账户密码",
+                    "type": "string"
+                }
+            }
+        },
+        "model.WSBroadCastMessageDTO": {
+            "type": "object",
+            "required": [
+                "message"
+            ],
+            "properties": {
+                "message": {
+                    "description": "要发送的消息内容",
+                    "type": "string"
+                }
+            }
+        },
+        "model.WSClientVO": {
+            "type": "object",
+            "properties": {
+                "group": {
+                    "description": "websocket 该客户端所在的组",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "websocket 客户端连接 id",
+                    "type": "string"
+                },
+                "is_alive": {
+                    "description": "连接是否存活",
+                    "type": "boolean"
+                },
+                "is_dial": {
+                    "description": "是否是 graces 的主动拨号的连接",
+                    "type": "boolean"
+                },
+                "local_addr": {
+                    "description": "websocket 连接本地地址",
+                    "type": "string"
+                },
+                "path": {
+                    "description": "websocket 请求服务端连接的路径",
+                    "type": "string"
+                },
+                "remote_addr": {
+                    "description": "websocket 连接远程地址",
+                    "type": "string"
+                },
+                "retry_cnt": {
+                    "description": "连接断线后已重试连接的次数",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.WSDialDTO": {
+            "type": "object",
+            "required": [
+                "group",
+                "ip",
+                "port"
+            ],
+            "properties": {
+                "group": {
+                    "description": "当前 websocket 连接被分配到的分组",
+                    "type": "string",
+                    "maxLength": 50,
+                    "minLength": 1
+                },
+                "ip": {
+                    "description": "websocket 服务端 IP 地址",
+                    "type": "string",
+                    "maxLength": 15,
+                    "minLength": 7
+                },
+                "path": {
+                    "description": "websocket 服务端请求路径",
+                    "type": "string"
+                },
+                "port": {
+                    "description": "websocket 服务端端口号",
+                    "type": "integer",
+                    "maximum": 65535,
+                    "minimum": 0
+                }
+            }
+        },
+        "model.WSGroupMessageDTO": {
+            "type": "object",
+            "required": [
+                "group",
+                "message"
+            ],
+            "properties": {
+                "group": {
+                    "description": "websocket 客户端连接所在的分组",
+                    "type": "string"
+                },
+                "message": {
+                    "description": "要发送的消息内容",
+                    "type": "string"
+                }
+            }
+        },
+        "model.WSGroupVO": {
+            "type": "object",
+            "properties": {
+                "clients": {
+                    "description": "该组所包含的客户端信息",
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/model.WSClientVO"
+                    }
+                },
+                "name": {
+                    "description": "websocket 组名称",
+                    "type": "string"
+                }
+            }
+        },
+        "model.WSManagerVO": {
+            "type": "object",
+            "properties": {
+                "chan_broad_cast_message_len": {
+                    "description": "websocket 向所有客户端广播消息时，消息缓冲队列的长度",
+                    "type": "integer"
+                },
+                "chan_group_message_len": {
+                    "description": "websocket 向组客户端广播消息时，消息缓冲队列的长度",
+                    "type": "integer"
+                },
+                "chan_message_len": {
+                    "description": "websocket 向单客户端发送消息时，消息缓冲队列的长度",
+                    "type": "integer"
+                },
+                "chan_register_len": {
+                    "description": "websocket 注册缓冲队列长度",
+                    "type": "integer"
+                },
+                "chan_unregister_len": {
+                    "description": "websocket 注销缓冲队列长度",
+                    "type": "integer"
+                },
+                "client_len": {
+                    "description": "当前 websocket 客户端分组数量",
+                    "type": "integer"
+                },
+                "group_len": {
+                    "description": "当前 websocket 客户端分组数量",
+                    "type": "integer"
+                }
+            }
+        },
+        "model.WSMessageDTO": {
+            "type": "object",
+            "required": [
+                "group",
+                "id",
+                "message"
+            ],
+            "properties": {
+                "group": {
+                    "description": "websocket 客户端连接所在的分组",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "websocket 客户端连接 ID",
+                    "type": "string"
+                },
+                "message": {
+                    "description": "要发送的消息内容",
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,6 @@
+.idea/*
+log/*.log
+go.sum
+deploy/release/deployment_conf/logs/*
+deploy/release/deployment_conf/venachain/*
+deploy/release/deployment_conf/bak/*

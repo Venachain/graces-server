@@ -1,0 +1,91 @@
+[http]
+ip = "127.0.0.1"
+port = "9999"
+# mode 必须是 "release"、"debug"、"test" 中的一个
+mode = "debug"
+# cors 跨域资源共享白名单
+cors = "http://localhost:8080"
+
+
+[log]
+# trace(6) < debug(5) < info(4) < warn(3) < error(2) < fatal(1) < panic(0)
+level = 5
+# std | file
+# output = "std"
+# filepath = "./data-manager.log"
+size = "30m"
+path = "./log/"
+
+[db]
+ip = "127.0.0.1"
+port = "27017"
+username = "root"
+password = "root"
+dbname = "graces"
+timeout = 10
+
+[jwt]
+# JWT 过期时间，单位：秒
+expires = 86400
+# JWT 签发人
+issuer = "Venachain"
+# JWT token 前缀
+prefix = "Bearer "
+# JWT 服务端秘钥【重要，不能泄露】
+seckey = "graces"
+
+[ws]
+# websocket 连接缓冲队列大小
+buff_size = 128
+# 连接超时时间，单位：秒
+timeout = 5
+# 断开重连间隔，单位：秒
+retry_interval = 5
+# 最大重连次数
+max_retry_cnt = 5
+
+# websocket 消息类型
+[ws.msg_types]
+[ws.msg_types.sub]
+# 订阅请求消息类型
+send_type = "subscription"
+# 订阅响应消息类型
+receive_type = "eth_subscription"
+# 推送消息类型
+[ws.msg_types.pub]
+# 推送新区块数据类型
+block_type = "newBlock"
+# 推送新交易数据类型
+tx_type = "newTX"
+# 推送新统计数据类型
+stats_type = "newStats"
+# 推送新的节点信息类型
+node_info_type = "newNodeInfo"
+
+# 链的默认配置信息，以 Venachain 为标准
+# 主要用于从链上拉取数据进行同步
+[chain_config]
+
+# 链的节点配置信息
+[chain_config.node]
+# keyfile 默认存储的相对路径，以 Venachain 为标准
+keyfile_path = "./keystore"
+# 链账户的默认密码
+passphrase = "0"
+
+# 链的 websocket 配置信息
+[chain_config.ws]
+# 链的 websocket 事件订阅配置信息
+[chain_config.ws.topics]
+# newHeads 事件订阅配置信息
+[chain_config.ws.topics.new_heads]
+name = "newHeads"
+# 此处 id 的内容要和 ws.msg_types.sub_send_type 保持一致
+params = "{\"jsonrpc\":\"2.0\",\"method\":\"eth_subscribe\", \"params\": [\"newHeads\"],\"id\":\"subscription\"}"
+
+# 数据同步器配置信息
+[syncer]
+# 延迟启动时间，单位：秒
+delay = 1
+# 循环增量同步频率：5分钟/次
+incr_interval = 300
