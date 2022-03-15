@@ -140,7 +140,7 @@
 
    开打浏览器，输入 `http://localhost:8080` 便可以进到 Graces 主页面。
 
-   ![](F:/opt/note/img/首页1.png)
+   ![](docs/imgs/index.png)
 
    
 
