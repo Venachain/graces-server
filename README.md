@@ -30,40 +30,54 @@
    
 3. 下载和编译 Venachain
 
-   安装教程：https://venachain-docs.readthedocs.io/zh/latest/documents/develop/deploy.html
+   - 下载 Venachain 源码
 
-5. 下载 Graces V1.0.0
+      下载地址：https://github.com/Venachain/Venachain-CDT/releases/tag/v1.0.0
+     ![](docs/imgs/Venachain_url.png)
+   
+      选择 zip 和 tar.gz 看情况选择一个进行下载，下载完成后需要进行解压缩，然后对 Venachian 进行编译。
 
-   下载后端源码：
+   - 编译 Venachain
+  
+      进入解压后的 Venachain-1.0.0 ，对其进行编译：
+      ```shell
+     cd Venachain-1.0.0
+  
+     make all   
+      ```
+   
+      耐心等待 Venachain 编译好即可，如需了解 Venachain 的详细安装教程，请看这里：
 
-   ```sh
-   https://git-c.i.wxblockchain.com/vena/src/graces/graces-server/-/archive/integration.1.0.0.0.0/graces-server-integration.1.0.0.0.0.zip
-   ```
+      https://venachain-docs.readthedocs.io/zh/latest/documents/develop/deploy.html
 
-   重命名：
+4. 下载 Graces V1.0.0 
 
-   ```sh
-   mv graces-server-integration.1.0.0.0.0.zip ./graces-server.zip
-   ```
+   - 下载 Graces 后端源码：
 
-   下载前端源码：
+      下载地址：https://git-c.i.wxblockchain.com/vena/src/graces/graces-server/-/archive/integration.1.0.0.0.0/graces-server-integration.1.0.0.0.0.zip
 
-   ```sh
-   https://git-c.i.wxblockchain.com/vena/src/graces/graces-web/-/archive/integration.1.0.0.0.0/graces-web-integration.1.0.0.0.0.zip
-   ```
+      重命名：
 
-   重命名：
+      ```sh
+      mv graces-server-integration.1.0.0.0.0.zip ./graces-server.zip
+      ```
 
-   ```sh
-   mv graces-web-integration.1.0.0.0.0.zip ./graces-web.zip
-   ```
+   - 下载 Graces 前端源码：
 
-   下载完成后对项目文件进行解压。
+      下载地址：https://git-c.i.wxblockchain.com/vena/src/graces/graces-web/-/archive/integration.1.0.0.0.0/graces-web-integration.1.0.0.0.0.zip
 
-   ```sh
-   unzip graces-server.zip
-   unzip graces-web.zip
-   ```
+      重命名：
+
+      ```sh
+      mv graces-web-integration.1.0.0.0.0.zip ./graces-web.zip
+      ```
+
+      下载完成后对项目文件进行解压。
+
+      ```sh
+      unzip graces-server.zip
+      unzip graces-web.zip
+      ```
 
    
 
@@ -87,7 +101,7 @@
 
       ```mod
       replace (
-          github.com/Venachain/Venachain => /你的路径/Venachain
+          github.com/Venachain/Venachain => /你的路径/Venachain-1.0.0
       )
       ```
 
@@ -109,8 +123,8 @@
       [db]
       ip = "127.0.0.1"
       port = "27017"
-      username = "root"
-      password = "root"
+      username = "username"
+      password = "password"
       dbname = "graces"
       timeout = 10
       ```
