@@ -125,10 +125,9 @@
       进到 graces-web 目录下，执行以下命令
 
       ```sh
+      npm install
       npm run dev
       ```
-
-      
 
 8. 访问 Graces
 
