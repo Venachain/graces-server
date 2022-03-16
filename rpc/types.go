@@ -1,13 +1,13 @@
 package rpc
 
 import (
-	"github.com/Venachain/Venachain/ethclient"
 	"github.com/Venachain/Venachain/rpc"
+	"github.com/Venachain/Venachain/venaclient"
 )
 
 // Client 链 RPC 连接客户端
 type Client struct {
-	ethClient   *ethclient.Client
+	venaClient  *venaclient.Client
 	rpcClient   *rpc.Client
 	passphrase  string
 	keyfilePath string

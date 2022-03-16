@@ -11,8 +11,8 @@ import (
 	"github.com/Venachain/Venachain/cmd/vcl/client/packet"
 	"github.com/Venachain/Venachain/cmd/vcl/client/utils"
 	"github.com/Venachain/Venachain/common/hexutil"
-	"github.com/Venachain/Venachain/ethclient"
 	"github.com/Venachain/Venachain/rpc"
+	"github.com/Venachain/Venachain/venaclient"
 
 	"github.com/sirupsen/logrus"
 )
@@ -36,7 +36,7 @@ func NewClient(ctx context.Context, url string, passphrase string, keyfilePath s
 	if cli, ok := cliContainer[url]; ok {
 		return cli, nil
 	}
-	ethCli, err := ethclient.DialContext(ctx, url)
+	venaCli, err := venaclient.DialContext(ctx, url)
 	if err != nil {
 		return nil, err
 	}
@@ -45,7 +45,7 @@ func NewClient(ctx context.Context, url string, passphrase string, keyfilePath s
 		return nil, err
 	}
 	client := &Client{
-		ethClient:   ethCli,
+		venaClient:  venaCli,
 		rpcClient:   rpcCli,
 		passphrase:  passphrase,
 		keyfilePath: keyfilePath,
@@ -54,8 +54,8 @@ func NewClient(ctx context.Context, url string, passphrase string, keyfilePath s
 	return client, nil
 }
 
-func (client *Client) EthClient() *ethclient.Client {
-	return client.ethClient
+func (client *Client) EthClient() *venaclient.Client {
+	return client.venaClient
 }
 
 func (client *Client) RpcClient() *rpc.Client {
