@@ -29,7 +29,7 @@ func init() {
 		Db:     clientConnect.Database(config.Config.DBConf.DBName),
 	}
 	if err = DefaultDB.Ping(); err != nil {
-		panic(err)
+		logrus.Fatalln("failed to connection DB：", err)
 	}
 	logrus.Info("db successfully connected and pinged.")
 }
