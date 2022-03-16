@@ -30,25 +30,7 @@
    
 3. 下载和编译 Venachain
 
-   - 下载 Venachain 源码
-
-      下载地址：https://github.com/Venachain/Venachain-CDT/releases/tag/v1.0.0
-     ![](docs/imgs/Venachain_url.png)
-   
-      选择 zip 和 tar.gz 看情况选择一个进行下载，下载完成后需要进行解压缩，然后对 Venachian 进行编译。
-
-   - 编译 Venachain
-  
-      进入解压后的 Venachain-1.0.0 ，对其进行编译：
-      ```shell
-     cd Venachain-1.0.0
-     
-     make all   
-      ```
-   
-      耐心等待 Venachain 编译好即可，如需了解 Venachain 的详细安装教程，请看这里：
-
-      https://venachain-docs.readthedocs.io/zh/latest/documents/develop/deploy.html
+   安装文档：https://venachain-docs.readthedocs.io/zh/latest/documents/quick/env.html
 
 4. 下载 Graces V1.0.0 
 
@@ -143,10 +125,9 @@
       进到 graces-web 目录下，执行以下命令
 
       ```sh
+      npm install
       npm run dev
       ```
-
-      
 
 8. 访问 Graces
 
