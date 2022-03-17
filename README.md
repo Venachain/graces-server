@@ -65,7 +65,7 @@
 
 5. 配置 Graces 前端
 
-   进到 graces-web 目录下，修改 `.env.development` 文件中 base api 下的 `localhost:9999` 为自己机器的 IP 端口号或域名端口号，如果不修改则默认使用 `localhost:9999` 。
+   进到 graces-web 目录下，修改 `.env.development` 文件中 base api 下的 `localhost:9999` 为 `graces-server` 所在机器的 IP 端口号或域名端口号，如果不修改则默认使用 `localhost:9999` 。
 
    ```
    # base api
@@ -85,7 +85,7 @@
       )
       ```
 
-   3. 在 `config.toml` 文件中配置 Graces 运行的 IP 地址和端口号。需要注意的是，cors 的值必须是 Graces 前端的运行地址，本示例前端运行在 http://localhost:8080 中。
+   3. 在 `config.toml` 文件中配置 graces-server 运行的 IP 地址和端口号。需要注意的是，cors 的值必须是 graces-web 的运行地址，本示例前端运行在 http://localhost:8080 中。
 
       ```toml
       [http]
@@ -97,7 +97,7 @@
       cors = "http://localhost:8080"
       ```
 
-   4. 在 `config.toml` 文件中配置 Graces 所需的 MongoDB 信息，如有需要则修改为自己的 MongoDB 配置。
+   4. 在 `config.toml` 文件中配置 graces-server 所需的 MongoDB 信息，如有需要则修改为自己的 MongoDB 配置。
 
       ```toml
       [db]
@@ -135,6 +135,42 @@
 
    ![](docs/imgs/index.png)
 
-   
 
+9. 关于跨域问题的处理
+
+    注意：如果 graces-server 和 graces-web 不是部署在同一机器上，则 graces-web 与 graces-server 的链接可能会出现跨域问题，这时候需要做两步操作:
+
+   1. 在 graces-web 里面找到 `vue.config.js` 配置文件，在里面修改 `devServer` 中 `sockHost` 的值为 `graces-web` 的ip地址和端口号，整体内容如下：
+
+       ```js
+        module.exports = {
+            publicPath: '/',
+            assetsDir: 'static',
+            productionSourceMap: false,
+            configureWebpack: {
+                devtool: 'source-map'
+            },
+            devServer:{
+                sockHost: 'graces-web 的ip地址:端口号',
+                disableHostCheck: true,
+            }
+        }
+       ```
+
+      `.env.development` 文件里面的`localhost:9999` 也要改为 `graces-server` 所在机器的 IP 端口号。
+        ```
+       # base api
+       VUE_APP_BASE_API = 'http://graces-server的ip:端口/api'
+       VUE_APP_BASE_WS = 'ws://graces-server的ip:端口/api'
+       ```
+   2. 在 `graces-server` 里面找到 `config.toml` 配置文件，修改 ip 的值为 `graces-server` 所在机器的公网 ip，修改 cors 的值为 `graces-web` 的访问地址，如下：
+      ```toml
+      [http]
+      ip = "graces-server 的公网ip"
+      port = "9999"
+      # mode 必须是 "release"、"debug"、"test" 中的一个
+      mode = "debug"
+      # cors 跨域资源共享白名单，这是 graces-web 的访问地址，如：http://localhost:8080
+      cors = "graces-web 的访问地址"
+      ```
    
