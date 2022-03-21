@@ -45,7 +45,7 @@ func (s *cnsService) CNSByID(id string) (*model.CNSVO, error) {
 	}
 	cns, err := s.dao.CNS(filter)
 	if err != nil {
-		return nil, err
+		return nil, exterr.NewError(exterr.ErrCodeFind, err.Error())
 	}
 	return cns.ToVO()
 }
@@ -63,7 +63,7 @@ func (s *cnsService) CNS(chainID string, name, address, version string) (*model.
 	}
 	cns, err := s.dao.CNS(filter)
 	if err != nil {
-		return nil, err
+		return nil, exterr.NewError(exterr.ErrCodeFind, err.Error())
 	}
 	return cns.ToVO()
 }
@@ -105,7 +105,11 @@ func (s *cnsService) Count(condition model.CNSQueryCondition) (int64, error) {
 		return 0, err
 	}
 	findOps := options.Count()
-	return s.dao.Count(filter, findOps)
+	var cnt int64
+	if cnt, err = s.dao.Count(filter, findOps); err != nil {
+		return 0, exterr.NewError(exterr.ErrCodeFind, err.Error())
+	}
+	return cnt, nil
 }
 
 func (s *cnsService) Register(dto model.CNSRegisterDTO) (*model.ContractCallResult, error) {
@@ -128,7 +132,7 @@ func (s *cnsService) Register(dto model.CNSRegisterDTO) (*model.ContractCallResu
 
 	client, err := rpc.GetRPCClientByChainID(dto.ChainID)
 	if err != nil {
-		return nil, err
+		return nil, exterr.NewError(exterr.ErrCodeUpdate, err.Error())
 	}
 
 	caller := rpc.NewMsgCaller(client)
@@ -136,7 +140,7 @@ func (s *cnsService) Register(dto model.CNSRegisterDTO) (*model.ContractCallResu
 	contractParams := s.buildCnsRegisterParam(dto)
 	res, err := caller.Call(txParams, contractParams)
 	if err != nil {
-		return nil, err
+		return nil, exterr.NewError(exterr.ErrCodeUpdate, err.Error())
 	}
 	logrus.Debugf("cnsRegister result：%+v", res)
 	results, err := DefaultContractService.ParseContractCallResult(dto.ChainID, res)
@@ -220,7 +224,7 @@ func (s *cnsService) Redirect(dto model.CNSRedirectDTO) (*model.ContractCallResu
 
 	client, err := rpc.GetRPCClientByChainID(dto.ChainID)
 	if err != nil {
-		return nil, err
+		return nil, exterr.NewError(exterr.ErrCodeUpdate, err.Error())
 	}
 
 	caller := rpc.NewMsgCaller(client)
@@ -228,7 +232,7 @@ func (s *cnsService) Redirect(dto model.CNSRedirectDTO) (*model.ContractCallResu
 	contractParams := s.buildCnsRedirectParam(dto)
 	res, err := caller.Call(txParams, contractParams)
 	if err != nil {
-		return nil, err
+		return nil, exterr.NewError(exterr.ErrCodeUpdate, err.Error())
 	}
 
 	logrus.Debugf("cnsRedirect result：%+v", res)

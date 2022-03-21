@@ -142,7 +142,11 @@ func (s *txService) Count(condition model.TXQueryCondition) (int64, error) {
 		return 0, exterr.NewError(exterr.ErrCodeFind, err.Error())
 	}
 	findOps := options.Count()
-	return s.dao.Count(filter, findOps)
+	var cnt int64
+	if cnt, err = s.dao.Count(filter, findOps); err != nil {
+		return 0, exterr.NewError(exterr.ErrCodeFind, err.Error())
+	}
+	return cnt, nil
 }
 
 func (s *txService) TXShow(txdata *model.TX) (*model.TXVO, error) {
