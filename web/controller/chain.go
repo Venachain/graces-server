@@ -268,6 +268,12 @@ func (c *ChainController) GetSystemConfig(ctx *gin.Context) {
 		response.ErrorHandler(ctx, exterr.ErrParameterInvalid)
 		return
 	}
+	if chain, err := c.service.ChainByID(id); chain == nil || err != nil {
+		msg := fmt.Sprintf("chain[%s] is not existed", id)
+		result.Msg = msg
+		response.Fail(ctx, result)
+		return
+	}
 	data_blockGasLimit, err := c.service.GetSysConfigString(id, "getBlockGasLimit")
 	data_TxGasLimit, err := c.service.GetSysConfigString(id, "getTxGasLimit")
 	model.TxGasLimitConst = data_TxGasLimit
@@ -421,6 +427,12 @@ func (c *ChainController) DeployContract(ctx *gin.Context) {
 	chainID := ctx.Param("chainid")
 	if len(chainID) == 0 {
 		response.ErrorHandler(ctx, exterr.ErrParameterInvalid)
+		return
+	}
+	if chain, err := c.service.ChainByID(chainID); chain == nil || err != nil {
+		msg := fmt.Sprintf("chain[%s] is not existed", chainID)
+		result.Msg = msg
+		response.Fail(ctx, result)
 		return
 	}
 
