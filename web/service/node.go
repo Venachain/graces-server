@@ -132,7 +132,11 @@ func (s *nodeService) Count(condition model.NodeQueryCondition) (int64, error) {
 		return 0, err
 	}
 	findOps := options.Count()
-	return s.dao.Count(filter, findOps)
+	var cnt int64
+	if cnt, err = s.dao.Count(filter, findOps); err != nil {
+		return 0, exterr.NewError(exterr.ErrCodeFind, err.Error())
+	}
+	return cnt, nil
 }
 
 // 构建查询条件过滤器

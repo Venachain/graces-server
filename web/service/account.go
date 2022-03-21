@@ -34,13 +34,13 @@ type accountService struct {
 func (s *accountService) LockAccount(dto model.LockAccountDTO) (bool, error) {
 	client, err := rpc.GetRPCClientByChainID(dto.ChainID)
 	if err != nil {
-		return false, err
+		return false, exterr.NewError(exterr.ErrCodeUpdate, err.Error())
 	}
 	ctx, _ := context.WithTimeout(context.Background(), time.Second*5)
 	var res bool
 	err = client.RpcClient().CallContext(ctx, &res, "personal_lockAccount", common.HexToAddress(dto.Account))
 	if err != nil {
-		return false, err
+		return false, exterr.NewError(exterr.ErrCodeUpdate, err.Error())
 	}
 	logrus.Debugf("account[%v] lock：%v", dto.Account, res)
 	return res, nil
@@ -49,13 +49,13 @@ func (s *accountService) LockAccount(dto model.LockAccountDTO) (bool, error) {
 func (s *accountService) UnlockAccount(dto model.UnlockAccountDTO) (bool, error) {
 	client, err := rpc.GetRPCClientByChainID(dto.ChainID)
 	if err != nil {
-		return false, err
+		return false, exterr.NewError(exterr.ErrCodeUpdate, err.Error())
 	}
 	ctx, _ := context.WithTimeout(context.Background(), time.Second*5)
 	var res bool
 	err = client.RpcClient().CallContext(ctx, &res, "personal_unlockAccount", common.HexToAddress(dto.Account), dto.Password, dto.Duration)
 	if err != nil {
-		return false, err
+		return false, exterr.NewError(exterr.ErrCodeUpdate, err.Error())
 	}
 	logrus.Debugf("account[%v] unlock：%v", dto.Account, res)
 	return res, nil
@@ -64,13 +64,13 @@ func (s *accountService) UnlockAccount(dto model.UnlockAccountDTO) (bool, error)
 func (s *accountService) FirstAccount(chainID string) (string, error) {
 	client, err := rpc.GetRPCClientByChainID(chainID)
 	if err != nil {
-		return "", err
+		return "", exterr.NewError(exterr.ErrCodeFind, err.Error())
 	}
 	ctx, _ := context.WithTimeout(context.Background(), time.Second*5)
 	var addresses []string
 	err = client.RpcClient().CallContext(ctx, &addresses, "personal_listAccounts")
 	if err != nil {
-		return "", err
+		return "", exterr.NewError(exterr.ErrCodeFind, err.Error())
 	}
 	return addresses[0], nil
 }
@@ -86,13 +86,13 @@ func (s *accountService) ListAccounts(dto model.AccountDTO) ([]*model.AccountVO,
 	if dto.NodeID != "" {
 		client, err := rpc.GetRPCClientByChainIDAndNodeID(dto.ChainID, dto.NodeID)
 		if err != nil {
-			return nil, err
+			return nil, exterr.NewError(exterr.ErrCodeFind, err.Error())
 		}
 		var addresses []string
 		ctx, _ := context.WithTimeout(context.Background(), time.Second*5)
 		err = client.RpcClient().CallContext(ctx, &addresses, "personal_listAccounts")
 		if err != nil {
-			return nil, err
+			return nil, exterr.NewError(exterr.ErrCodeFind, err.Error())
 		}
 		for _, address := range addresses {
 			account := &model.AccountVO{
@@ -118,14 +118,14 @@ func (s *accountService) ListAccounts(dto model.AccountDTO) ([]*model.AccountVO,
 	for _, node := range nodes {
 		client, err := rpc.GetRPCClientByChainIDAndNodeID(dto.ChainID, node.ID.Hex())
 		if err != nil {
-			return nil, err
+			return nil, exterr.NewError(exterr.ErrCodeFind, err.Error())
 		}
 
 		var addresses []string
 		ctx, _ := context.WithTimeout(context.Background(), time.Second*5)
 		err = client.RpcClient().CallContext(ctx, &addresses, "personal_listAccounts")
 		if err != nil {
-			return nil, err
+			return nil, exterr.NewError(exterr.ErrCodeFind, err.Error())
 		}
 		for _, address := range addresses {
 			account := &model.AccountVO{

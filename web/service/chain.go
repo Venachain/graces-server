@@ -176,7 +176,11 @@ func (s *chainService) Count(condition model.ChainQueryCondition) (int64, error)
 		return 0, err
 	}
 	findOps := options.Count()
-	return s.dao.Count(filter, findOps)
+	var cnt int64
+	if cnt, err = s.dao.Count(filter, findOps); err != nil {
+		return 0, exterr.NewError(exterr.ErrCodeFind, err.Error())
+	}
+	return cnt, nil
 }
 
 func (s *chainService) GetSysConfigString(id string, funcName string) (string, error) {
@@ -191,7 +195,7 @@ func (s *chainService) GetSysConfigString(id string, funcName string) (string, e
 	res, err := caller.Call(txParams, data)
 	if err != nil {
 		logrus.Errorln("call blockGasLimit contract error")
-		return "", err
+		return "", exterr.NewError(exterr.ErrCodeFind, err.Error())
 	}
 	result = fmt.Sprintf("%v", res[0])
 	if result == "" {
@@ -219,7 +223,7 @@ func (s *chainService) SetSysConfigString(id string, funcName string, funcParams
 	res, err := caller.Call(txParams, data)
 	if err != nil {
 		logrus.Errorln("call blockGasLimit contract error")
-		return "", err
+		return "", exterr.NewError(exterr.ErrCodeUpdate, err.Error())
 	}
 
 	result = fmt.Sprintf("%v", res[0])
@@ -263,7 +267,7 @@ func (s *chainService) ping(chain model.Chain) (bool, error) {
 	}
 	rpcPing, err := rpc.Ping(rpcUri.String())
 	if err != nil {
-		return false, err
+		return false, exterr.NewError(exterr.ErrCodeFind, err.Error())
 	}
 
 	p2pHost := fmt.Sprintf("%s:%v", chain.IP, chain.P2PPort)
@@ -273,7 +277,7 @@ func (s *chainService) ping(chain model.Chain) (bool, error) {
 	}
 	p2pPing, err := rpc.Ping(p2pUri.String())
 	if err != nil {
-		return false, err
+		return false, exterr.NewError(exterr.ErrCodeFind, err.Error())
 	}
 
 	wsHost := fmt.Sprintf("%s:%v", chain.IP, chain.WSPort)
@@ -283,7 +287,7 @@ func (s *chainService) ping(chain model.Chain) (bool, error) {
 	}
 	wsPing, err := rpc.Ping(wsUri.String())
 	if err != nil {
-		return false, err
+		return false, exterr.NewError(exterr.ErrCodeFind, err.Error())
 	}
 	return rpcPing && p2pPing && wsPing, nil
 }

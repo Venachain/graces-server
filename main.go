@@ -13,7 +13,7 @@ import (
 )
 
 func main() {
-	gin.SetMode(gin.DebugMode)
+	gin.SetMode(config.Config.HttpConf.Mode)
 	if err := config.MakeLogConfig(); err != nil {
 		log.Fatalf("%v", err)
 	}

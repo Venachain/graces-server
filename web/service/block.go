@@ -46,7 +46,7 @@ func (s *blockService) BlockByID(id string) (*model.BlockVO, error) {
 	}
 	block, err := s.dao.Block(filter)
 	if err != nil {
-		return nil, err
+		return nil, exterr.NewError(exterr.ErrCodeFind, err.Error())
 	}
 	return block.ToVO()
 }
@@ -62,7 +62,7 @@ func (s *blockService) BlockByHash(chainID string, hash string) (*model.BlockVO,
 	}
 	block, err := s.dao.Block(filter)
 	if err != nil {
-		return nil, err
+		return nil, exterr.NewError(exterr.ErrCodeFind, err.Error())
 	}
 	return block.ToVO()
 }
