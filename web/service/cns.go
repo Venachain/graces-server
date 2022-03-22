@@ -116,10 +116,7 @@ func (s *cnsService) Count(condition model.CNSQueryCondition) (int64, error) {
 }
 
 func (s *cnsService) Register(dto model.CNSRegisterDTO) (*model.ContractCallResult, error) {
-	exist, err := s.isNameExist(dto.ChainID, dto.Name)
-	if err != nil {
-		return nil, exterr.NewError(exterr.ErrCodeUpdate, err.Error())
-	}
+	exist, _ := s.isNameExist(dto.ChainID, dto.Name, dto.Version)
 	if exist {
 		return nil, exterr.NewError(exterr.ErrCodeUpdate, "the given cns name already exists")
 	}
@@ -172,7 +169,7 @@ func (s *cnsService) Register(dto model.CNSRegisterDTO) (*model.ContractCallResu
 	return result, nil
 }
 
-func (s *cnsService) isNameExist(chainID, name string) (bool, error) {
+func (s *cnsService) isNameExist(chainID, name, version string) (bool, error) {
 	cid, err := primitive.ObjectIDFromHex(chainID)
 	if err != nil {
 		return false, exterr.ErrObjectIDInvalid
@@ -180,8 +177,12 @@ func (s *cnsService) isNameExist(chainID, name string) (bool, error) {
 	filter := bson.M{
 		"chain_id": cid,
 		"name":     name,
+		"version":  version,
 	}
 	_, err = s.dao.CNS(filter)
+	if err != nil && strings.Contains(err.Error(), "mongo: no documents in result") {
+		return false, nil
+	}
 	return err == nil, err
 }
 

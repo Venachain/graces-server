@@ -29,7 +29,7 @@ type ChainDTO struct {
 	// 主键ID
 	ID string `json:"id" swaggerignore:"true"`
 	// 链名称
-	Name string `json:"name" binding:"required,min=1,max=20"`
+	Name string `json:"name" binding:"required,min=1,max=100"`
 	// 在服务端部署链时所需的服务端操作用户
 	Username string `json:"username" swaggerignore:"true"`
 	// 链第一个节点的 IP 地址
