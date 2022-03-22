@@ -74,7 +74,7 @@ func (s chainService) IsExist(chainDTO model.ChainDTO) bool {
 func (s *chainService) InsertChain(chainDTO model.ChainDTO) error {
 	// 1、验重
 	if s.IsExist(chainDTO) {
-		msg := fmt.Sprintf("chain[%s] is existed or it's port is conflicted in ip[%v]", chainDTO.Name, chainDTO.IP)
+		msg := fmt.Sprintf("chain[%s] already exists (duplicate name, IP and port number)", chainDTO.Name)
 		return exterr.NewError(exterr.ErrCodeParameterInvalid, msg)
 	}
 
