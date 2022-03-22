@@ -26,8 +26,7 @@ func Success(ctx *gin.Context, result model.Result) {
 	if result.Msg == "" {
 		result.Msg = DefaultSuccessMsg
 	}
-	result.Request = fmt.Sprintf("[%s] %s", ctx.Request.Method, ctx.Request.URL.String())
-	ctx.JSON(result.Code, result)
+	Response(ctx, DefaultSuccessCode, result)
 }
 
 // Fail 响应失败
@@ -38,14 +37,14 @@ func Fail(ctx *gin.Context, result model.Result) {
 	if result.Msg == "" {
 		result.Msg = DefaultFailMsg
 	}
-	result.Request = fmt.Sprintf("[%s] %s", ctx.Request.Method, ctx.Request.URL.String())
-	ctx.JSON(result.Code, result)
+	Response(ctx, DefaultSuccessCode, result)
 }
 
 // Response 自定义响应
-func Response(ctx *gin.Context, result model.Result) {
+func Response(ctx *gin.Context, httpCode int, result model.Result) {
 	result.Request = fmt.Sprintf("[%s] %s", ctx.Request.Method, ctx.Request.URL.String())
-	ctx.JSON(result.Code, result)
+	ctx.JSON(httpCode, result)
+	return
 }
 
 // ErrorHandler 统一错误处理器
@@ -80,48 +79,44 @@ func handlerErr(ctx *gin.Context, err exterr.ExtError) {
 // 处理未知错误
 func handlerUnknownErr(ctx *gin.Context, err error) {
 	logrus.Errorf("unknown error: %+v", err)
-	code := http.StatusInternalServerError
 	msg := fmt.Sprintf("unknown error: %v", exterr.ErrUnknown.Code)
 	if gin.Mode() == gin.DebugMode {
 		msg = err.Error()
 	}
 	result := model.Result{
-		Code: code,
+		Code: exterr.ErrUnknown.Code,
 		Msg:  msg,
 		Data: nil,
 	}
-	Fail(ctx, result)
-	return
+	Response(ctx, http.StatusInternalServerError, result)
 }
 
 // 处理系统相关错误
 func handlerSysErr(ctx *gin.Context, err exterr.ExtError) {
 	logrus.Errorf("system error: %+v", err)
-	code := http.StatusInternalServerError
 	msg := fmt.Sprintf("Error: %v", err.Code)
 	if gin.Mode() == gin.DebugMode {
 		msg = err.Error()
 	}
 	result := model.Result{
-		Code: code,
+		Code: err.Code,
 		Msg:  msg,
 		Data: nil,
 	}
-	Fail(ctx, result)
-	return
+	Response(ctx, http.StatusInternalServerError, result)
 }
 
 // 处理用户相关错误
 func handlerUserErr(ctx *gin.Context, err exterr.ExtError) {
 	logrus.Debugln(err)
-	code := http.StatusBadRequest
+	httpCode := http.StatusBadRequest
 	switch err.Code {
 	case exterr.ErrCodeUnauthorized:
-		code = http.StatusUnauthorized
+		httpCode = http.StatusUnauthorized
 	case exterr.ErrCodeBadRole | exterr.ErrCodeUserHasNoPermission:
-		code = http.StatusForbidden
+		httpCode = http.StatusForbidden
 	default:
-		code = http.StatusBadRequest
+		httpCode = http.StatusBadRequest
 	}
 
 	msg := fmt.Sprintf("Error: %v", err.Code)
@@ -129,27 +124,24 @@ func handlerUserErr(ctx *gin.Context, err exterr.ExtError) {
 		msg = err.Error()
 	}
 	result := model.Result{
-		Code: code,
+		Code: err.Code,
 		Msg:  msg,
 		Data: nil,
 	}
-	Fail(ctx, result)
-	return
+	Response(ctx, httpCode, result)
 }
 
 // 处理业务相关错误
 func handlerBusinessErr(ctx *gin.Context, err exterr.ExtError) {
 	logrus.Debugln(err)
-	code := http.StatusBadRequest
 	msg := fmt.Sprintf("Error: %v", err.Code)
 	if gin.Mode() == gin.DebugMode {
 		msg = err.Error()
 	}
 	result := model.Result{
-		Code: code,
+		Code: err.Code,
 		Msg:  msg,
 		Data: nil,
 	}
-	Fail(ctx, result)
-	return
+	Response(ctx, DefaultSuccessCode, result)
 }
