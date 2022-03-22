@@ -113,6 +113,13 @@ func (s *cnsService) Count(condition model.CNSQueryCondition) (int64, error) {
 }
 
 func (s *cnsService) Register(dto model.CNSRegisterDTO) (*model.ContractCallResult, error) {
+	exist, err := s.isNameExist(dto.ChainID, dto.Name)
+	if err != nil {
+		return nil, exterr.NewError(exterr.ErrCodeUpdate, err.Error())
+	}
+	if exist {
+		return nil, exterr.NewError(exterr.ErrCodeUpdate, "the given cns name already exists")
+	}
 	account, err := DefaultAccountService.FirstAccount(dto.ChainID)
 	if err != nil {
 		return nil, err
@@ -162,6 +169,19 @@ func (s *cnsService) Register(dto model.CNSRegisterDTO) (*model.ContractCallResu
 	return result, nil
 }
 
+func (s *cnsService) isNameExist(chainID, name string) (bool, error) {
+	cid, err := primitive.ObjectIDFromHex(chainID)
+	if err != nil {
+		return false, exterr.ErrObjectIDInvalid
+	}
+	filter := bson.M{
+		"chain_id": cid,
+		"name":     name,
+	}
+	_, err = s.dao.CNS(filter)
+	return err == nil, err
+}
+
 func (s *cnsService) fireCNSSync(chainID string) {
 	syncInfo := syncer.DefaultChainDataSyncManager.BuildChainSyncInfo(chainID)
 	if syncInfo.CNSDataSyncInfo != nil && syncInfo.CNSDataSyncInfo.Status == syncer.StatusSyncing {
@@ -205,6 +225,20 @@ func (s *cnsService) buildCnsRegisterParam(dto model.CNSRegisterDTO) *rpc.Contra
 }
 
 func (s *cnsService) Redirect(dto model.CNSRedirectDTO) (*model.ContractCallResult, error) {
+	cid, err := primitive.ObjectIDFromHex(dto.ChainID)
+	if err != nil {
+		return nil, exterr.ErrObjectIDInvalid
+	}
+	filter := bson.M{
+		"chain_id": cid,
+		"name":     dto.Name,
+		"version":  dto.Version,
+	}
+	_, err = s.dao.CNS(filter)
+	if err != nil {
+		return nil, exterr.NewError(exterr.ErrCodeUpdate, "the given cns not find")
+	}
+
 	account, err := DefaultAccountService.FirstAccount(dto.ChainID)
 	if err != nil {
 		return nil, err
