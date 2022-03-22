@@ -77,6 +77,9 @@ func (s *cnsService) CNSs(condition model.CNSQueryCondition) ([]*model.CNSVO, er
 	if !reflect.ValueOf(condition.Sort).IsZero() {
 		sort := bson.D{}
 		for k, v := range condition.Sort {
+			if k == "id" {
+				k = "_id"
+			}
 			sort = append(sort, bson.E{k, v})
 		}
 		findOps.Sort = sort
