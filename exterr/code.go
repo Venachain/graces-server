@@ -22,19 +22,20 @@ const (
 	ErrCodeTokenNotValidYet    = 10110
 
 	// 10200 ~ 10299 业务相关的错误
-	ErrCodeParameterInvalid = 10200
-	ErrCodeInsert           = 10201
-	ErrCodeUpdate           = 10202
-	ErrCodeDelete           = 10203
-	ErrCodeFind             = 10204
-	ErrCodeObjectIDInvalid  = 10205
-	ErrGetStats 			= 10206
-	ErrorSysconfigGetting   = 10207
-	ErrorSysconfigSetting   = 10208
+	ErrCodeParameterInvalid   = 10200
+	ErrCodeInsert             = 10201
+	ErrCodeUpdate             = 10202
+	ErrCodeDelete             = 10203
+	ErrCodeFind               = 10204
+	ErrCodeObjectIDInvalid    = 10205
+	ErrGetStats               = 10206
+	ErrorSysconfigGetting     = 10207
+	ErrorSysconfigSetting     = 10208
 	ErrorWithContractFirewall = 10209
-	ErrorContractWithCNS = 10210
-	ErrorContractParams = 10211
-
+	ErrorContractWithCNS      = 10210
+	ErrorContractParams       = 10211
+	ErrCodeChainDataSync      = 10212
+	ErrCodeContractDeploy     = 10213
 
 	// 10300 ~ 10399 websocket 相关的错误
 	ErrCodeWebsocketGroupInvalid     = 10300
@@ -45,7 +46,4 @@ const (
 	ErrCodeWebsocketClientSend       = 10305
 	ErrCodeWebsocketSubscription     = 10306
 	ErrCodeWebsocketSubMsgProcess    = 10307
-
-	// 10400 ~ 10499 链数据同步相关错误
-	ErrCodeChainDataSync = 10400
 )

@@ -175,8 +175,9 @@ func (c *ChainController) IncrSyncStart(ctx *gin.Context) {
 		return
 	}
 	if chain, err := c.service.ChainByID(chainID); chain == nil || err != nil {
-		msg := fmt.Sprintf("chain[%s] is not existed", chainID)
+		msg := fmt.Sprintf("chain[%s] does not exist", chainID)
 		result.Msg = msg
+		result.Code = exterr.ErrChainDataSync.Code
 		response.Fail(ctx, result)
 		return
 	}
@@ -205,8 +206,9 @@ func (c *ChainController) FullSyncStart(ctx *gin.Context) {
 		return
 	}
 	if chain, err := c.service.ChainByID(chainID); chain == nil || err != nil {
-		msg := fmt.Sprintf("chain[%s] is not existed", chainID)
+		msg := fmt.Sprintf("chain[%s] does not exist", chainID)
 		result.Msg = msg
+		result.Code = exterr.ErrChainDataSync.Code
 		response.Fail(ctx, result)
 		return
 	}
@@ -271,6 +273,7 @@ func (c *ChainController) GetSystemConfig(ctx *gin.Context) {
 	if chain, err := c.service.ChainByID(id); chain == nil || err != nil {
 		msg := fmt.Sprintf("chain[%s] is not existed", id)
 		result.Msg = msg
+		result.Code = exterr.ErrorGetSysconfig.Code
 		response.Fail(ctx, result)
 		return
 	}
@@ -432,6 +435,7 @@ func (c *ChainController) DeployContract(ctx *gin.Context) {
 	if chain, err := c.service.ChainByID(chainID); chain == nil || err != nil {
 		msg := fmt.Sprintf("chain[%s] is not existed", chainID)
 		result.Msg = msg
+		result.Code = exterr.ErrContractDeploy.Code
 		response.Fail(ctx, result)
 		return
 	}
