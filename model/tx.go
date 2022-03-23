@@ -70,7 +70,7 @@ type TXByHashDTO struct {
 	// 所属链ID
 	ChainID string `json:"chain_id" binding:"min=0,max=50"`
 	// 交易哈希
-	Hash string `json:"hash" binding:"required, min=1,max=70"`
+	Hash string `json:"hash" binding:"required,min=1,max=70"`
 }
 
 type Txdata struct {
