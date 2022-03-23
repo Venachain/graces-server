@@ -7,9 +7,9 @@ import (
 
 type PageDTO struct {
 	// 当前页数
-	PageIndex int64 `json:"page_index"`
+	PageIndex int64 `json:"page_index" binding:"min=0"`
 	// 每页数据条数
-	PageSize int64 `json:"page_size"`
+	PageSize int64 `json:"page_size" binding:"min=0"`
 }
 
 type SortDTO struct {

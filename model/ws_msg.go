@@ -25,9 +25,9 @@ type WSMsg struct {
 // WSMessageDTO websocket 单个客户端发送数据信息
 type WSMessageDTO struct {
 	// websocket 客户端连接 ID
-	ID string `json:"id" binding:"required"`
+	ID string `json:"id" binding:"required,min=1,max=50"`
 	// websocket 客户端连接所在的分组
-	Group string `json:"group" binding:"required"`
+	Group string `json:"group" binding:"required,min=1,max=50"`
 	// 要发送的消息内容
 	Message string `json:"message" binding:"required"`
 }
@@ -35,7 +35,7 @@ type WSMessageDTO struct {
 // WSGroupMessageDTO websocket 组客户端广播数据信息
 type WSGroupMessageDTO struct {
 	// websocket 客户端连接所在的分组
-	Group string `json:"group" binding:"required"`
+	Group string `json:"group" binding:"required,min=1,max=50"`
 	// 要发送的消息内容
 	Message string `json:"message" binding:"required"`
 }
@@ -52,22 +52,22 @@ type WSDialDTO struct {
 	// websocket 服务端端口号
 	Port int64 `json:"port" binding:"required,min=0,max=65535"`
 	// websocket 服务端请求路径
-	Path string `json:"path"`
+	Path string `json:"path" binding:"min=0,max=50"`
 	// 当前 websocket 连接被分配到的分组
 	Group string `json:"group" binding:"required,min=1,max=50"`
 }
 
 type WSMsgDTO struct {
 	// 主键ID
-	ID string `json:"id"`
+	ID string `json:"id" binding:"min=0,max=50"`
 	// 所属链ID
-	ChainID string `json:"chain_id"`
+	ChainID string `json:"chain_id" binding:"min=0,max=50"`
 	// 消息类型
-	Type string `json:"type"`
+	Type string `json:"type" binding:"min=0,max=50"`
 	// 消息内容
 	Message string `json:"message"`
 	// 消息哈希值
-	Hash string `json:"hash"`
+	Hash string `json:"hash" binding:"min=0,max=70"`
 	// 额外的消息属性
 	Extra map[string]interface{} `json:"extra" bson:"extra"`
 }
@@ -75,9 +75,9 @@ type WSMsgDTO struct {
 // WSSubMsgDTO 与前端 ws 连接交互所需的消息 dto
 type WSSubMsgDTO struct {
 	// 消息id
-	ID string `json:"id"`
+	ID string `json:"id" binding:"min=0,max=50"`
 	// 消息类型
-	Type string `json:"type"`
+	Type string `json:"type" binding:"min=0,max=50"`
 	// 消息内容
 	Content interface{} `json:"content"`
 }

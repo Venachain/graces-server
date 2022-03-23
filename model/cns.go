@@ -20,32 +20,32 @@ type CNSQueryCondition struct {
 	PageDTO
 	SortDTO
 	// 主键ID
-	ID string `json:"id"`
+	ID string `json:"id" binding:"min=0,max=50"`
 	// 所属链ID
-	ChainID string `json:"chain_id"`
+	ChainID string `json:"chain_id" binding:"min=0,max=50"`
 	// 合约别名
-	Name string `json:"name"`
+	Name string `json:"name" binding:"min=0,max=100"`
 	// 合约版本号
-	Version string `json:"version"`
+	Version string `json:"version" binding:"min=0,max=50"`
 	// 合约地址
-	Address string `json:"address"`
+	Address string `json:"address" binding:"min=0,max=70"`
 }
 
 // CNSRedirectDTO CNS重定向DTO
 type CNSRedirectDTO struct {
 	// 链ID
-	ChainID string `json:"chain_id" binding:"required"`
+	ChainID string `json:"chain_id" binding:"required,min=1,max=50"`
 	// 合约别名
-	Name string `json:"name" binding:"required"`
+	Name string `json:"name" binding:"required,min=1,max=100"`
 	// 合约版本号
-	Version string `json:"version" binding:"required"`
+	Version string `json:"version" binding:"required,min=1,max=50"`
 }
 
 // CNSRegisterDTO CNS注册DTO
 type CNSRegisterDTO struct {
 	CNSRedirectDTO
 	// CNS合约地址
-	Address string `json:"address" binding:"required"`
+	Address string `json:"address" binding:"required,min=1,max=70"`
 }
 
 type CNSVO struct {
