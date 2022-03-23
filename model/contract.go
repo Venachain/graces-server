@@ -49,17 +49,17 @@ type ContractQueryCondition struct {
 	PageDTO
 	SortDTO
 	// 部署合约的交易ID
-	ID string `json:"id"`
+	ID string `json:"id" binding:"min=0,max=50"`
 	// 所属链ID
-	ChainID string `json:"chain_id"`
+	ChainID string `json:"chain_id" binding:"min=0,max=50"`
 	// 合约地址
-	Address string `json:"address"`
+	Address string `json:"address" binding:"min=0,max=70"`
 	// CNS名称
-	CNSName string `json:"name"`
+	CNSName string `json:"name" binding:"min=0,max=100"`
 	// 合约创建人地址
-	Creator string `json:"creator"`
+	Creator string `json:"creator" binding:"min=0,max=70"`
 	// 部署合约时的交易哈希
-	TxHash string `json:"tx_hash"`
+	TxHash string `json:"tx_hash" binding:"min=0,max=70"`
 	// 起始时间
 	TimeStart int64 `json:"time_start"`
 	// 终止时间
@@ -69,9 +69,9 @@ type ContractQueryCondition struct {
 // ContractByAddressDTO 通过合约地址查询合约数据
 type ContractByAddressDTO struct {
 	// 所属链ID
-	ChainID string `json:"chain_id"`
+	ChainID string `json:"chain_id" binding:"min=0,max=50"`
 	// 合约地址
-	ContractAddress string `json:"contract_address" binding:"required"`
+	ContractAddress string `json:"contract_address" binding:"required,min=1,max=70"`
 }
 
 // ContractCallResult 合约调用返回结果

@@ -52,15 +52,15 @@ type ChainQueryCondition struct {
 	// 主键ID
 	ID string `json:"id"`
 	// 链名称
-	Name string `json:"name" binding:"max=20"`
+	Name string `json:"name" binding:"min=0,max=100"`
 	// 链第一个节点的 IP 地址
-	IP string `json:"ip" binding:"max=15"`
+	IP string `json:"ip" binding:"min=0,max=15"`
 	// 链第一个节点的 rpc 端口号
-	RPCPort uint64 `json:"rpc_port"`
+	RPCPort uint64 `json:"rpc_port" binding:"min=0,max=65535"`
 	// 链第一个节点的 p2p 端口号
-	P2PPort int64 `json:"p2p_port"`
+	P2PPort int64 `json:"p2p_port" binding:"min=0,max=65535"`
 	// 链第一个节点的 websocket 端口号
-	WSPort uint64 `json:"ws_port"`
+	WSPort uint64 `json:"ws_port" binding:"min=0,max=65535"`
 }
 
 type ChainVO struct {

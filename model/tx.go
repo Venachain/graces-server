@@ -45,32 +45,32 @@ type TXQueryCondition struct {
 	PageDTO
 	SortDTO
 	// 主键ID
-	ID string `json:"id"`
+	ID string `json:"id" binding:"min=0,max=50"`
 	// 所属链ID
-	ChainID string `json:"chain_id"`
+	ChainID string `json:"chain_id" binding:"min=0,max=50"`
 	// 所属区块ID
-	BlockID string `json:"block_id"`
+	BlockID string `json:"block_id" binding:"min=0,max=50"`
 	// 交易哈希
-	Hash string `json:"hash"`
+	Hash string `json:"hash" binding:"min=0,max=70"`
 	// 所属区块高度
-	Height uint64 `json:"height"`
+	Height uint64 `json:"height" binding:"min=0"`
 	// 起始时间
 	TimeStart int64 `json:"time_start"`
 	// 终止时间
 	TimeEnd int64 `json:"time_end"`
 	// 交易参与人哈希
-	ParticipantHash string `json:"participant_hash"`
+	ParticipantHash string `json:"participant_hash" binding:"min=0,max=70"`
 	// 交易状态
-	Status uint64 `json:"status"`
+	Status uint64 `json:"status" binding:"min=0,max=1"`
 	// 合约地址
-	ContractAddress string `json:"contract_address"`
+	ContractAddress string `json:"contract_address" binding:"min=0,max=70"`
 }
 
 type TXByHashDTO struct {
 	// 所属链ID
-	ChainID string `json:"chain_id"`
+	ChainID string `json:"chain_id" binding:"min=0,max=50"`
 	// 交易哈希
-	Hash string `json:"hash" binding:"required"`
+	Hash string `json:"hash" binding:"required, min=1,max=70"`
 }
 
 type Txdata struct {
