@@ -287,8 +287,7 @@ func getRPCClientByChain(ctx context.Context, chain model.Chain) (*Client, error
 
 // GetBlockNumber 获取指定节点的最新区块的高度
 func GetBlockNumber(endpoint string) (uint64, error) {
-	var err error
-	height := model.GetRpcResult(endpoint, "eth_blockNumber", []string{})
+	height, err := model.GetRpcResult(endpoint, "eth_blockNumber", []string{})
 	if height == nil {
 		return 0, err
 	}

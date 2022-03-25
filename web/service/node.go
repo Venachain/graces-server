@@ -35,20 +35,38 @@ func (s *nodeService) NodeSyncServer(node *model.NodeSyncReq) (*model.SyncNodeRe
 	res := &model.SyncNodeResult{}
 	var err error
 	endpoint := fmt.Sprintf("http://%v:%v", node.Ip, node.Port)
+	ping, err := rpc.Ping(endpoint)
+	if err != nil {
+		return nil, exterr.NewError(exterr.ErrCodeFind, fmt.Sprintf("failed to connect: %s", err.Error()))
+	}
+	if !ping {
+		return nil, exterr.NewError(exterr.ErrCodeFind, "failed to connect: connect timeout")
+	}
 	blockNumber, err := rpc.GetBlockNumber(endpoint)
 	if err != nil {
 		return nil, exterr.NewError(exterr.ErrCodeFind, err.Error())
 	}
 	res.BlockNumber = uint32(blockNumber)
 
-	res.IsMining = model.GetRpcResult(endpoint, "eth_mining", []string{}).(bool)
-	gasprice := model.GetRpcResult(endpoint, "eth_gasPrice", []string{}).(string)
+	isMining, err := model.GetRpcResult(endpoint, "eth_mining", []string{})
+	if err != nil {
+		return nil, exterr.NewError(exterr.ErrCodeFind, err.Error())
+	}
+	res.IsMining = isMining.(bool)
+	price, err := model.GetRpcResult(endpoint, "eth_gasPrice", []string{})
+	if err != nil {
+		return nil, exterr.NewError(exterr.ErrCodeFind, err.Error())
+	}
+	gasprice := price.(string)
 	gasPrice, err := util.Hex2Number(gasprice)
 	if err != nil {
 		return nil, exterr.NewError(exterr.ErrCodeParameterInvalid, err.Error())
 	}
 	res.GasPrice = uint32(gasPrice)
-	pendingtx := model.GetRpcResult(endpoint, "eth_pendingTransactions", []string{})
+	pendingtx, err := model.GetRpcResult(endpoint, "eth_pendingTransactions", []string{})
+	if err != nil {
+		return nil, exterr.NewError(exterr.ErrCodeFind, err.Error())
+	}
 
 	pendingtxs, ok := pendingtx.([]string)
 	if ok {
