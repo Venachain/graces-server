@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"io/ioutil"
 	"net/http"
+	"time"
 
 	"graces/exterr"
 	"graces/util"
@@ -178,28 +179,29 @@ func (tx *TX) ToContract() *Contract {
 	return contract
 }
 
-func GetRpcResult(endpoint string, method string, params []string) interface{} {
+func GetRpcResult(endpoint string, method string, params []string) (interface{}, error) {
 	client := &http.Client{}
+	client.Timeout = 2 * time.Second
 	request := NewJsonRpcStruct(method, params)
 	jsonstr, _ := json.Marshal(request)
 
 	req, err := http.NewRequest("POST", endpoint, bytes.NewBuffer(jsonstr))
 	if err != nil {
 		logrus.Errorln("request error")
-		return nil
+		return nil, err
 	}
 	req.Header.Set("Content-Type", "application/json")
 	response, err := client.Do(req)
 	if err != nil {
 		logrus.Warnf("node is disable %s", endpoint)
-		return nil
+		return nil, err
 	}
 	defer response.Body.Close()
 
 	result, _ := ioutil.ReadAll(response.Body)
 	res := new(Response)
 	json.Unmarshal(result, res)
-	return res.Result
+	return res.Result, nil
 }
 
 func NewJsonRpcStruct(method string, params []string) *JsonRpcStruct {

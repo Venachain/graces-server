@@ -373,14 +373,18 @@ func getfunctype(chainid string, to string, funcName string) []string {
 func getFuncAbi(id string, to string) []byte {
 	chain, err := DefaultChainService.ChainByID(id)
 	if err != nil {
-		logrus.Errorln("get chain by chainid is error")
+		logrus.Errorf("failed to ChainByID: %s", err.Error())
 		return nil
 	}
 	endpoint := fmt.Sprintf("http://%v:%v", chain.IP, chain.RPCPort)
 	var param []string
 	param = append(param, to)
 	param = append(param, "latest")
-	code := model.GetRpcResult(endpoint, "eth_getCode", param)
+	code, err := model.GetRpcResult(endpoint, "eth_getCode", param)
+	if err != nil {
+		logrus.Errorf("failed to GetRpcResult: %s", err.Error())
+		return nil
+	}
 	if code == "0x" {
 		return nil
 	}

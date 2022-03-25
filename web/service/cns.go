@@ -180,8 +180,11 @@ func (s *cnsService) isNameExist(chainID, name, version string) (bool, error) {
 		"version":  version,
 	}
 	_, err = s.dao.CNS(filter)
-	if err != nil && strings.Contains(err.Error(), "mongo: no documents in result") {
-		return false, nil
+	if err != nil {
+		if strings.Contains(err.Error(), "mongo: no documents in result") {
+			return false, nil
+		}
+		return false, err
 	}
 	return err == nil, err
 }
