@@ -3,6 +3,7 @@ package controller
 import (
 	"encoding/json"
 	"fmt"
+	"strings"
 
 	"graces/exterr"
 	"graces/model"
@@ -278,14 +279,50 @@ func (c *ChainController) GetSystemConfig(ctx *gin.Context) {
 		return
 	}
 	data_blockGasLimit, err := c.service.GetSysConfigString(id, "getBlockGasLimit")
+	if err != nil {
+		response.ErrorHandler(ctx, exterr.ErrorGetSysconfig)
+		logrus.Errorf("getSysConfig error: %s\n", err.Error())
+		return
+	}
 	data_TxGasLimit, err := c.service.GetSysConfigString(id, "getTxGasLimit")
+	if err != nil {
+		response.ErrorHandler(ctx, exterr.ErrorGetSysconfig)
+		logrus.Errorf("getSysConfig error: %s\n", err.Error())
+		return
+	}
 	model.TxGasLimitConst = data_TxGasLimit
 
 	data_GasContractName, err := c.service.GetSysConfigString(id, "getGasContractName")
+	if err != nil {
+		response.ErrorHandler(ctx, exterr.ErrorGetSysconfig)
+		logrus.Errorf("getSysConfig error: %s\n", err.Error())
+		return
+	}
+	data_GasContractName = strings.Replace(data_GasContractName, "\u0000", "", -1)
 	data_IsProduceEmptyBlock, err := c.service.GetSysConfigString(id, "getIsProduceEmptyBlock")
+	if err != nil {
+		response.ErrorHandler(ctx, exterr.ErrorGetSysconfig)
+		logrus.Errorf("getSysConfig error: %s\n", err.Error())
+		return
+	}
 	data_CheckContractDeployPermission, err := c.service.GetSysConfigString(id, "getCheckContractDeployPermission")
+	if err != nil {
+		response.ErrorHandler(ctx, exterr.ErrorGetSysconfig)
+		logrus.Errorf("getSysConfig error: %s\n", err.Error())
+		return
+	}
 	data_IsApproveDeployedContract, err := c.service.GetSysConfigString(id, "getIsApproveDeployedContract")
+	if err != nil {
+		response.ErrorHandler(ctx, exterr.ErrorGetSysconfig)
+		logrus.Errorf("getSysConfig error: %s\n", err.Error())
+		return
+	}
 	data_IsTxUseGas, err := c.service.GetSysConfigString(id, "getIsTxUseGas")
+	if err != nil {
+		response.ErrorHandler(ctx, exterr.ErrorGetSysconfig)
+		logrus.Errorf("getSysConfig error: %s\n", err.Error())
+		return
+	}
 	data := model.SystemConfigVO{
 		ChainID:                   id,
 		BlockGasLimit:             data_blockGasLimit,
@@ -294,13 +331,9 @@ func (c *ChainController) GetSystemConfig(ctx *gin.Context) {
 		IsApproveDeployedContract: data_IsApproveDeployedContract,
 		IsCheckDeployPermission:   data_CheckContractDeployPermission,
 		IsProduceEmptyBlock:       data_IsProduceEmptyBlock,
-		GasContractName:           data_GasContractName,
+		GasContractName:           strings.TrimSpace(data_GasContractName),
 	}
-	if err != nil {
-		response.ErrorHandler(ctx, exterr.ErrorGetSysconfig)
-		logrus.Errorln("getSysConfig error")
-		return
-	}
+
 	result.Data = data
 	response.Success(ctx, result)
 	return
@@ -400,7 +433,7 @@ func (c *ChainController) SetSystemConfig(ctx *gin.Context) {
 	if systemConfig.GasContractName != "" {
 		funcParams := &struct {
 			GasContractName string
-		}{GasContractName: systemConfig.GasContractName}
+		}{GasContractName: strings.TrimSpace(systemConfig.GasContractName)}
 		data_GasContractName, err := c.service.SetSysConfigString(systemConfig.ChainID, "setGasContractName", funcParams)
 		if err != nil {
 			response.ErrorHandler(ctx, exterr.ErrorSetSysconfig)
