@@ -46,7 +46,7 @@ func (s *blockService) BlockByID(id string) (*model.BlockVO, error) {
 	}
 	block, err := s.dao.Block(filter)
 	if err != nil {
-		return nil, err
+		return nil, exterr.NewError(exterr.ErrCodeFind, err.Error())
 	}
 	return block.ToVO()
 }
@@ -62,7 +62,7 @@ func (s *blockService) BlockByHash(chainID string, hash string) (*model.BlockVO,
 	}
 	block, err := s.dao.Block(filter)
 	if err != nil {
-		return nil, err
+		return nil, exterr.NewError(exterr.ErrCodeFind, err.Error())
 	}
 	return block.ToVO()
 }
@@ -76,6 +76,9 @@ func (s *blockService) Blocks(condition model.BlockQueryCondition) ([]*model.Blo
 	if !reflect.ValueOf(condition.Sort).IsZero() {
 		sort := bson.D{}
 		for k, v := range condition.Sort {
+			if k == "id" {
+				k = "_id"
+			}
 			sort = append(sort, bson.E{k, v})
 		}
 		findOps.Sort = sort

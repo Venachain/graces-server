@@ -21,18 +21,20 @@ var (
 	ErrTokenNotValidYet    = NewError(ErrCodeTokenNotValidYet, "token not valid yet error")
 
 	// 10200 ~ 10299 业务相关的错误
-	ErrParameterInvalid = NewError(ErrCodeParameterInvalid, "parameter invalid error")
-	ErrInsert           = NewError(ErrCodeInsert, "insert error")
-	ErrUpdate           = NewError(ErrCodeUpdate, "update error")
-	ErrDelete           = NewError(ErrCodeDelete, "delete error")
-	ErrFind             = NewError(ErrCodeFind, "find error")
-	ErrObjectIDInvalid  = NewError(ErrCodeObjectIDInvalid, "ObjectID invalid")
-	ErrorGetStats 		= NewError(ErrGetStats, "get chain stats error")
-	ErrorSetSysconfig   = NewError(ErrorSysconfigSetting, "set sysconfig is error")
-	ErrorGetSysconfig   = NewError(ErrorSysconfigGetting, "get sysconfig is error")
-	ErrorContractFirewall = NewError(ErrorWithContractFirewall,"open or close contract firewall is error")
-	ErrrorContractByCns = NewError(ErrorContractWithCNS,"error find contract with cns name")
-	ErrorContractParam  = NewError(ErrorContractParams,"contract param is error")
+	ErrParameterInvalid   = NewError(ErrCodeParameterInvalid, "parameter invalid error")
+	ErrInsert             = NewError(ErrCodeInsert, "insert error")
+	ErrUpdate             = NewError(ErrCodeUpdate, "update error")
+	ErrDelete             = NewError(ErrCodeDelete, "delete error")
+	ErrFind               = NewError(ErrCodeFind, "find error")
+	ErrObjectIDInvalid    = NewError(ErrCodeObjectIDInvalid, "ObjectID invalid")
+	ErrorGetStats         = NewError(ErrGetStats, "get chain stats error")
+	ErrorSetSysconfig     = NewError(ErrorSysconfigSetting, "set sysconfig is error")
+	ErrorGetSysconfig     = NewError(ErrorSysconfigGetting, "get sysconfig is error")
+	ErrorContractFirewall = NewError(ErrorWithContractFirewall, "open or close contract firewall is error")
+	ErrrorContractByCns   = NewError(ErrorContractWithCNS, "error find contract with cns name")
+	ErrorContractParam    = NewError(ErrorContractParams, "contract param is error")
+	ErrChainDataSync      = NewError(ErrCodeChainDataSync, "chain data sync error")
+	ErrContractDeploy     = NewError(ErrCodeContractDeploy, "contract deploy error")
 
 	// 10300 ~ 10399 websocket 相关的错误
 	ErrWebsocketGroupInvalid     = NewError(ErrCodeWebsocketGroupInvalid, "websocket group invalid")
@@ -43,8 +45,4 @@ var (
 	ErrWebsocketClientSend       = NewError(ErrCodeWebsocketClientSend, "ClientSend function call must be a websocket dial connection")
 	ErrWebsocketSubscription     = NewError(ErrCodeWebsocketSubscription, "websocket subscription error")
 	ErrWebsocketSubMsgProcess    = NewError(ErrCodeWebsocketSubMsgProcess, "websocket subscription message process error")
-
-	// 10400 ~ 10499 链数据同步相关错误
-	ErrChainDataSync = NewError(ErrCodeChainDataSync, "block chain data sync error")
-
 )

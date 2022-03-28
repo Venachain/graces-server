@@ -63,7 +63,7 @@ func (s *contractService) OpenFireWall(fireWallParam model.FireWall) (string, er
 	res, err := caller.Call(txParams, data)
 	if err != nil {
 		logrus.Errorln("call open firewall error")
-		return "", err
+		return "", exterr.NewError(exterr.ErrCodeUpdate, err.Error())
 	}
 	result = fmt.Sprintf("%v", res[0])
 	return result, nil
@@ -93,7 +93,7 @@ func (s *contractService) CloseFireWall(fireWallParam model.FireWall) (string, e
 	res, err := caller.Call(txParams, data)
 	if err != nil {
 		logrus.Errorln("call close firewall error")
-		return "", err
+		return "", exterr.NewError(exterr.ErrCodeUpdate, err.Error())
 	}
 	result = fmt.Sprintf("%v", res[0])
 	return result, nil
@@ -123,7 +123,7 @@ func (s *contractService) FireWallStatus(request model.FireWall) (string, error)
 	res, err := caller.Call(txParams, data)
 	if err != nil {
 		logrus.Errorln("call close firewall error")
-		return "", err
+		return "", exterr.NewError(exterr.ErrCodeFind, err.Error())
 	}
 	result = fmt.Sprintf("%v", res[0])
 	return result, nil
@@ -138,6 +138,9 @@ func (s *contractService) Contracts(condition model.ContractQueryCondition) ([]*
 	if !reflect.ValueOf(condition.Sort).IsZero() {
 		sort := bson.D{}
 		for k, v := range condition.Sort {
+			if k == "id" {
+				k = "_id"
+			}
 			sort = append(sort, bson.E{Key: k, Value: v})
 		}
 		findOps.Sort = sort
@@ -249,7 +252,7 @@ func (s *contractService) ShowContract(input string) ([]map[string]interface{}, 
 	ptr := new(interface{})
 	err := rlp.Decode(bytes.NewReader(res), &ptr)
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, exterr.NewError(exterr.ErrCodeFind, err.Error())
 	}
 	deref := reflect.ValueOf(ptr).Elem().Interface()
 	wasm := deref.([]interface{})[1].([]byte)
@@ -258,7 +261,7 @@ func (s *contractService) ShowContract(input string) ([]map[string]interface{}, 
 	var content []map[string]interface{}
 	err = json.Unmarshal(obj, &content)
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, exterr.NewError(exterr.ErrCodeFind, err.Error())
 	}
 	return content, wasm, nil
 }

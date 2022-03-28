@@ -135,8 +135,9 @@
 
    ![](docs/imgs/index.png)
 
+## 问题处理
 
-9. 关于跨域问题的处理
+1. 关于跨域问题的处理
 
     注意：如果 graces-server 和 graces-web 不是部署在同一机器上，则 graces-web 与 graces-server 的链接可能会出现跨域问题，这时候需要做两步操作:
 
@@ -174,3 +175,13 @@
       cors = "graces-web 的访问地址"
       ```
    
+2. graces-server 编译报错
+    如果在编译 graces-server 时出错，可能是由于缺少依赖包导致的，执行一下以下命令再尝试：
+    ```shell
+   go mod tidy
+    ```
+3. mongodb 链接失败
+    如果在启动 graces-server 过程中出现以下错误，则需要确认一下 graces-server 连接 mongodb 的账号密码配置是否正确。
+    ```shell
+   FATA[0000] failed to connection DB： connection() error occured during connection handshake: auth error: sasl conversation error: unable to authenticate using mechanism "SCRAM-SHA-1": (AuthenticationFailed) Authentication failed.
+    ```

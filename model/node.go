@@ -25,36 +25,36 @@ type Node struct {
 
 type NodeDTO struct {
 	// 所属链ID
-	ChainID string `json:"chain_id"`
+	ChainID string `json:"chain_id" binding:"min=0,max=50"`
 	// 节点名称
-	Name string `json:"name"`
+	Name string `json:"name" binding:"min=0,max=100"`
 	// 节点公钥
-	PublicKey string `json:"public_key"`
+	PublicKey string `json:"public_key" binding:"min=0,max=70"`
 	// 节点描述
-	Desc string `json:"desc"`
+	Desc string `json:"desc" binding:"min=0,max=200"`
 	// 节点内网 IP
-	InternalIP string `json:"internal_ip"`
+	InternalIP string `json:"internal_ip" binding:"min=0,max=15"`
 	// 节点公网 IP
-	ExternalIP string `json:"external_ip"`
+	ExternalIP string `json:"external_ip" binding:"min=0,max=15"`
 	// 节点 RPC 端口号
-	RPCPort int `json:"rpc_port"`
+	RPCPort int `json:"rpc_port" binding:"min=0,max=65535"`
 	// 节点 P2P 端口号
-	P2PPort int `json:"p2p_port"`
+	P2PPort int `json:"p2p_port" binding:"min=0,max=65535"`
 }
 
 type NodeQueryCondition struct {
 	PageDTO
 	SortDTO
 	// 主键ID
-	ID string `json:"id"`
+	ID string `json:"id" binding:"min=0,max=50"`
 	// 所属链ID
-	ChainID string `json:"chain_id"`
+	ChainID string `json:"chain_id" binding:"min=0,max=50"`
 	// 节点名称
-	Name string `json:"name"`
+	Name string `json:"name" binding:"min=0,max=100"`
 	// 内网 IP 地址
-	InternalIP string `json:"internal_ip"`
+	InternalIP string `json:"internal_ip" binding:"min=0,max=15"`
 	// 公网 IP 地址
-	ExternalIP string `json:"external_ip"`
+	ExternalIP string `json:"external_ip" binding:"min=0,max=15"`
 }
 
 type NodeVO struct {

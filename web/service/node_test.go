@@ -18,6 +18,9 @@ func TestGetRpcResult(t *testing.T) {
 	endpoint := fmt.Sprintf("http://%v:%v", chain.IP, chain.P2PPort)
 	//endpoint := syncer.DefaultSyncer.GetEndPointByChainID(id)
 	method := "personal_listAccounts"
-	res := model.GetRpcResult(endpoint, method, nil)
+	res, err := model.GetRpcResult(endpoint, method, nil)
+	if err != nil {
+		t.Fatal(err)
+	}
 	assert.True(t, res != nil)
 }

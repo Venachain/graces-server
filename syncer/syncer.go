@@ -267,6 +267,13 @@ func (s *syncer) saveTXData(tx model.TX, isFullSync bool) error {
 			if err != nil {
 				return err
 			}
+			// 保存合约
+			if tx.To == "" {
+				err = s.saveContractData(tx, isFullSync)
+				if err != nil {
+					return err
+				}
+			}
 		}
 		return nil
 	}

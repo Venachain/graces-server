@@ -43,24 +43,24 @@ type BLockHead struct {
 
 type BlockByHashDTO struct {
 	// 所属链ID
-	ChainID string `json:"chain_id"`
+	ChainID string `json:"chain_id" binding:"min=0,max=50"`
 	// 区块哈希
-	Hash string `json:"hash" binding:"required"`
+	Hash string `json:"hash" binding:"required,min=1,max=70"`
 }
 
 type BlockQueryCondition struct {
 	PageDTO
 	SortDTO
 	// 主键ID
-	ID string `json:"id"`
+	ID string `json:"id" binding:"min=0,max=50"`
 	// 所属链ID
-	ChainID string `json:"chain_id"`
+	ChainID string `json:"chain_id" binding:"min=0,max=50"`
 	// 挖出该区块的矿工地址
-	Proposer string `json:"proposer"`
+	Proposer string `json:"proposer" binding:"min=0,max=70"`
 	// 区块哈希
-	Hash string `json:"hash"`
+	Hash string `json:"hash" binding:"min=0,max=70"`
 	// 区块高度
-	Height uint64 `json:"height"`
+	Height uint64 `json:"height" binding:"min=0"`
 	// 起始时间
 	TimeStart int64 `json:"time_start"`
 	// 终止时间

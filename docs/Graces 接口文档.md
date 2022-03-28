@@ -1716,15 +1716,15 @@ curl -X POST "http://127.0.0.1:9999/api/contracts" -H "accept: application/json"
 
 #### model.ChainDTO
 
-| Name         | Type    | Description                     | Required |
-| ------------ | ------- | ------------------------------- | -------- |
-| chain_config | object  | 链第一个节点的配置信息          | No       |
-| desc         | string  | 链的描述信息                    | No       |
-| ip           | string  | 链第一个节点的 IP 地址          | Yes      |
-| name         | string  | 链名称                          | Yes      |
-| rpc_port     | integer | 链第一个节点的 rpc 端口号       | Yes      |
-| p2p_port     | integer | 链第一个节点的 p2p 端口号       | Yes      |
-| ws_port      | integer | 链第一个节点的 websocket 端口号 | Yes      |
+| Name         | Type    | Description                                   | Required |
+| ------------ | ------- |-----------------------------------------------| -------- |
+| chain_config | object  | 链第一个节点的配置信息。添加链信息时如对链不熟悉，不建议手动填写该字段，应该使用自动生成的 | No       |
+| desc         | string  | 链的描述信息                                        | No       |
+| ip           | string  | 链第一个节点的 IP 地址                                 | Yes      |
+| name         | string  | 链名称                                           | Yes      |
+| rpc_port     | integer | 链第一个节点的 rpc 端口号                               | Yes      |
+| p2p_port     | integer | 链第一个节点的 p2p 端口号                               | Yes      |
+| ws_port      | integer | 链第一个节点的 websocket 端口号                         | Yes      |
 
 #### model.ChainDataSyncInfoVO
 
