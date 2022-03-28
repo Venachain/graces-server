@@ -1,7 +1,6 @@
 package service
 
 import (
-	"errors"
 	"fmt"
 	"net/url"
 	"reflect"
@@ -202,8 +201,8 @@ func (s *chainService) GetSysConfigString(id string, funcName string) (string, e
 	}
 	result = fmt.Sprintf("%v", res[0])
 	if result == "" {
-		logrus.Errorln("GetSysConfig result get nothing")
-		return "", errors.New("GetSysConfig result get nothing")
+		logrus.Warnf("GetSysConfig: [%s] result get nothing\n", funcName)
+		return "", nil
 	}
 	return result, nil
 }
