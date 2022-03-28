@@ -195,7 +195,7 @@ func (s *cnsService) fireCNSSync(chainID string) {
 		logrus.Infof("this chain[%s] CNS data is syncing, don't repeat sync for it", chainID)
 		return
 	}
-	err := syncer.DefaultChainDataSyncManager.SyncCNS(chainID, false)
+	err := syncer.DefaultChainDataSyncManager.SyncCNS(chainID, true)
 	if err != nil {
 		syncInfo.CNSDataSyncInfo.ErrMsg = err.Error()
 		syncInfo.CNSDataSyncInfo.Status = syncer.StatusError
