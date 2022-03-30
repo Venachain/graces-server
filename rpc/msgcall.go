@@ -98,18 +98,18 @@ func (caller *MsgCaller) DeployContract(txParams *TxParams, contractParams *Cont
 
 	from := common.HexToAddress(txParams.From)
 	tx := packet.NewTxParams(from, nil, "", "", "", "")
+	keyfile := utils.Keyfile{}
+	//keyfile, err := caller.parseKeyfile(txParams.From)
+	//if err == nil {
+	//	keyfile.Passphrase = "0" //todo just for test, should be real passphrase
+	//
+	//	err := keyfile.ParsePrivateKey()
+	//	if err != nil {
+	//		return nil, err
+	//	}
+	//}
 
-	keyfile, err := caller.parseKeyfile(txParams.From)
-	if err == nil {
-		keyfile.Passphrase = "0" //todo just for test, should be real passphrase
-
-		err := keyfile.ParsePrivateKey()
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	return caller.MessageCallV2(dataGenerator, tx, keyfile, true)
+	return caller.MessageCallV2(dataGenerator, tx, &keyfile, true)
 }
 
 // 解析合约函数参数
