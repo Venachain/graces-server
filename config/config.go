@@ -57,7 +57,7 @@ func (dbc *dbConf) Uri() string {
 		dbc.Password,
 		dbc.IP,
 		dbc.Port,
-		"admin",
+		dbc.DBName,
 	)
 }
 

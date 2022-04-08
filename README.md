@@ -63,7 +63,33 @@
 
    
 
-5. 配置 Graces 前端
+5. 配置 MongoDB
+
+   MongoDB 启动成功后，需要为 graces 创建数据库和用户。
+   1. 先用自己设置好的账号密码登录 MongoDB。
+   2. 使用下面命令创建 graces 数据库，并进入 graces 数据库。
+   
+   ```shell
+    use graces;
+   ```
+   
+   3. 使用下面命令在 graces 数据库下创建 test 用户并赋予读写和管理角色。
+    
+   ```shell
+    db.createUser(
+       {
+        user: "test",
+        pwd: "test",
+        roles: [ "readWrite", "dbAdmin" ]
+      }
+    );
+   ```   
+    完成上述步骤，我们就可以在 graces-server 中使用 test 用户去操作 MongoDB 的 graces 数据库了。
+   
+    注：test 只是一个示例用户，您可以换成自己想要创建的用户和密码。
+
+
+6. 配置 Graces 前端
 
    进到 graces-web 目录下，修改 `.env.development` 文件中 base api 下的 `localhost:9999` 为 `graces-server` 所在机器的 IP 端口号或域名端口号，如果不修改则默认使用 `localhost:9999` 。
 
@@ -73,7 +99,7 @@
    VUE_APP_BASE_WS = 'ws://localhost:9999/api'
    ```
 
-6. 配置 Graces 后端
+7. 配置 Graces 后端
 
    1. 进到 graces-server 目录下。
 
@@ -97,19 +123,19 @@
       cors = "http://localhost:8080"
       ```
 
-   4. 在 `config.toml` 文件中配置 graces-server 所需的 MongoDB 信息，如有需要则修改为自己的 MongoDB 配置。
+   4. 在 config.toml 文件中配置 graces-server 所需的 MongoDB 信息，其中 username 和 password 应该填写为上面我们已经在 MongoDB 中配置好的 graces 数据库的用户和密码。
 
       ```toml
       [db]
       ip = "127.0.0.1"
       port = "27017"
-      username = "username"
-      password = "password"
+      username = "test"
+      password = "test"
       dbname = "graces"
       timeout = 10
       ```
 
-7. 启动 Graces
+8. 启动 Graces
 
    1. 启动 Graces 后端
 
@@ -129,7 +155,7 @@
       npm run dev
       ```
 
-8. 访问 Graces
+9. 访问 Graces
 
    开打浏览器，输入 `http://localhost:8080` 便可以进到 Graces 主页面。
 
