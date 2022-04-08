@@ -19,8 +19,8 @@ path = "./log/"
 [db]
 ip = "127.0.0.1"
 port = "27017"
-username = "root"
-password = "root"
+username = "test"
+password = "test"
 dbname = "graces"
 timeout = 10
 
