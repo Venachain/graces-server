@@ -66,7 +66,9 @@
 5. 配置 MongoDB
 
    MongoDB 启动成功后，需要为 graces 创建数据库和用户。
+
    1. 先用自己设置好的账号密码登录 MongoDB。
+   
    2. 使用下面命令创建 graces 数据库，并进入 graces 数据库。
    
    ```shell
@@ -185,12 +187,15 @@
        ```
 
       `.env.development` 文件里面的`localhost:9999` 也要改为 `graces-server` 所在机器的 IP 端口号。
-        ```
+        
+      ```
        # base api
        VUE_APP_BASE_API = 'http://graces-server的ip:端口/api'
        VUE_APP_BASE_WS = 'ws://graces-server的ip:端口/api'
        ```
+      
    2. 在 `graces-server` 里面找到 `config.toml` 配置文件，修改 ip 的值为 `graces-server` 所在机器的公网 ip，修改 cors 的值为 `graces-web` 的访问地址，如下：
+      
       ```toml
       [http]
       ip = "graces-server 的公网ip"
@@ -202,12 +207,17 @@
       ```
    
 2. graces-server 编译报错
+    
     如果在编译 graces-server 时出错，可能是由于缺少依赖包导致的，执行一下以下命令再尝试：
-    ```shell
+    
+   ```shell
    go mod tidy
     ```
+   
 3. mongodb 链接失败
+    
     如果在启动 graces-server 过程中出现以下错误，则需要确认一下 graces-server 连接 mongodb 的账号密码配置是否正确。
-    ```shell
+    
+   ```shell
    FATA[0000] failed to connection DB： connection() error occured during connection handshake: auth error: sasl conversation error: unable to authenticate using mechanism "SCRAM-SHA-1": (AuthenticationFailed) Authentication failed.
     ```
