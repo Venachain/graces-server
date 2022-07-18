@@ -138,10 +138,12 @@ func (s *nodeService) Nodes(condition model.NodeQueryCondition) ([]*model.NodeVO
 		endpoint := fmt.Sprintf("http://%v:%v", node.ExternalIP, node.RPCPort)
 		blockNumber, err := rpc.GetBlockNumber(endpoint)
 		if err != nil {
-			return nil, exterr.NewError(exterr.ErrCodeFind, err.Error())
+			vo.Blocknumber = uint32(0)
+			vo.IsAlive = false
+		} else {
+			vo.Blocknumber = uint32(blockNumber)
+			vo.IsAlive = true
 		}
-		vo.Blocknumber = uint32(blockNumber)
-		vo.IsAlive = true
 		vos = append(vos, vo)
 	}
 	return vos, nil
