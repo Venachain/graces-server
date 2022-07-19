@@ -13,12 +13,9 @@ require (
 	github.com/go-playground/universal-translator v0.17.0
 	github.com/go-playground/validator/v10 v10.6.1 // indirect
 	github.com/gorilla/websocket v1.4.2
-	github.com/json-iterator/go v1.1.11 // indirect
 	github.com/leodido/go-urn v1.2.1 // indirect
 	github.com/mailru/easyjson v0.7.7 // indirect
 	github.com/mattn/go-isatty v0.0.13 // indirect
-	github.com/modern-go/concurrent v0.0.0-20180306012644-bacd9c7ef1dd // indirect
-	github.com/modern-go/reflect2 v1.0.1 // indirect
 	github.com/rs/cors v1.8.0 // indirect
 	github.com/satori/go.uuid v1.2.0
 	github.com/sirupsen/logrus v1.8.1
@@ -36,6 +33,6 @@ require (
 )
 
 replace (
-	github.com/Venachain/Venachain => /Users/yangyi/opt/Venachain-1.0.0
+	github.com/Venachain/Venachain => /Users/yangyi/go/venachain
 	github.com/go-interpreter/wagon v0.6.0 => github.com/perlin-network/wagon v0.3.1-0.20180825141017-f8cb99b55a39
 )

@@ -420,8 +420,10 @@ func (manager *chainDataSyncManager) syncBlockBySyncInfo(chainID string, blockSy
 	for ; blockSyncInfo.CurrentHeight <= blockSyncInfo.LatestHeight; blockSyncInfo.CurrentHeight++ {
 		err := DefaultSyncer.syncBlockByNumber(chainID, int64(blockSyncInfo.CurrentHeight), isFullSync)
 		if err != nil {
-			blockSyncInfo.ErrMsg = err.Error()
-			return err
+			//blockSyncInfo.ErrMsg = err.Error()
+			//return err
+			logrus.Warningf("failed to sync block [%v], err: %v", err)
+			continue
 		}
 		// 计算已经消耗的时间
 		timeConsume := time.Now().Unix() - blockSyncInfo.StartTime

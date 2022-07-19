@@ -41,7 +41,9 @@ func (s *syncer) BlockFullSync(chainID string) error {
 	for i := 0; i <= int(latestBlock.NumberU64()); i++ {
 		err := s.syncBlockByNumber(chainID, int64(i), true)
 		if err != nil {
-			return err
+			//return err
+			logrus.Warningf("failed to sync block [%v], err: %v", err)
+			continue
 		}
 	}
 	return nil
