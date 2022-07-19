@@ -36,17 +36,17 @@
 
    - 下载 Graces 后端源码：
 
-      下载地址：https://git-c.i.wxblockchain.com/vena/src/graces/graces-server/-/archive/v1.0.0/graces-server-v1.0.0.zip
+      下载地址：https://github.com/Venachain/graces-server/archive/refs/tags/v1.0.1.zip
 
       重命名：
 
       ```sh
-      mv graces-server-v1.0.0.zip ./graces-server.zip
+      mv graces-server-v1.0.1.zip ./graces-server.zip
       ```
 
    - 下载 Graces 前端源码：
 
-      下载地址：https://git-c.i.wxblockchain.com/vena/src/graces/graces-web/-/archive/v1.0.0/graces-web-v1.0.0.zip
+      下载地址：https://github.com/Venachain/graces-web/archive/refs/tags/v1.0.0.zip
 
       重命名：
 
